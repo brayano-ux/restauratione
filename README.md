@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -3119,5 +3119,4 @@
 
     console.log("🎨 ShopExpress Beauté INNOVA - Version Pro chargée avec succès!");
   </script>
-</body>
-</html>
+
