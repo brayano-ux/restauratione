@@ -1,34 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Saveurs du Cameroun - Restaurant Authentique</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #6366f1;
-            --primary-light: #818cf8;
-            --primary-dark: #4f46e5;
-            --secondary-color: #10b981;
-            --secondary-light: #34d399;
-            --accent-color: #f59e0b;
-            --background-color: #f8fafc;
-            --surface-color: #ffffff;
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --text-light: #9ca3af;
-            --border-color: #e5e7eb;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --border-radius: 12px;
-            --border-radius-lg: 16px;
-            --border-radius-xl: 24px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --container-max-width: 1200px;
-
+            --primary-color: #2c5530;
+            --secondary-color: #d4af37;
+            --accent-color: #8b4513;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --background-light: #f8f9fa;
+            --background-dark: #1a1a1a;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --info-color: #17a2b8;
+            --border-color: #dee2e6;
+            --shadow-light: 0 2px 15px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 4px 25px rgba(0, 0, 0, 0.15);
+            --shadow-heavy: 0 8px 40px rgba(0, 0, 0, 0.2);
+            --transition-fast: 0.3s ease;
+            --transition-medium: 0.5s ease;
+            --transition-slow: 0.8s ease;
+            --border-radius-small: 8px;
+            --border-radius-medium: 12px;
+            --border-radius-large: 20px;
+            --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, #1e3a24 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--secondary-color) 0%, #b8941f 100%);
+            --gradient-overlay: linear-gradient(45deg, rgba(44, 85, 48, 0.9) 0%, rgba(139, 69, 19, 0.8) 100%);
         }
 
         * {
@@ -37,411 +40,273 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: var(--text-primary);
-            background: var(--background-color);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            color: var(--text-dark);
             overflow-x: hidden;
         }
 
-        /* Container responsive */
-        .container {
-            max-width: var(--container-max-width, 1200px);
-            margin: 0 auto;
-            padding: 0 1rem;
-            width: 100%;
-        }
-
-        /* En-tête principal */
-        .entete {
-            background: var(--surface-color);
-            border-bottom: 1px solid var(--border-color);
-            box-shadow: var(--shadow-sm);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: var(--transition);
-            width: 100%;
-        }
-
-        /* Contenu de l'en-tête */
-        .entete-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 0;
-            gap: 1rem;
-            flex-wrap: nowrap;
-        }
-
-        /* Logo et menu burger */
-        .entete-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            flex-shrink: 0;
-        }
-
-        .entete-logo strong {
-            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.025em;
-            white-space: nowrap;
-        }
-
-        /* Bouton menu burger (caché par défaut) */
-        .btn-menu {
-            display: none;
-            background: var(--surface-color);
-            border: 2px solid var(--border-color);
-            color: var(--text-primary);
-            width: 44px;
-            height: 44px;
-            border-radius: var(--border-radius);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn-menu:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        /* Barre de recherche */
-        .entete-search {
-            flex: 1;
-            max-width: 500px;
-            position: relative;
-            min-width: 0;
-        }
-
-        .entete-search input {
-            width: 100%;
-            height: 48px;
-            padding: 0 1rem 0 3rem;
-            border: 2px solid var(--border-color);
-            border-radius: var(--border-radius-xl, 24px);
-            background: var(--surface-color);
-            font-size: 1rem;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .entete-search input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-            transform: translateY(-1px);
-        }
-
-        .entete-search i {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            z-index: 1;
-        }
-
-        /* Liste de suggestions */
-        .suggestion-liste {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-lg);
-            max-height: 300px;
-            overflow-y: auto;
-            z-index: 1001;
-        }
-
-        /* Actions de l'en-tête */
-        .entete-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-shrink: 0;
-            flex-wrap: nowrap;
-        }
-
-        /* Boutons génériques */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.375rem;
-            padding: 0.625rem 1rem;
-            border: none;
-            border-radius: var(--border-radius, 8px);
-            font-size: 0.875rem;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: var(--transition);
-            white-space: nowrap;
-            position: relative;
-            overflow: hidden;
-            min-height: 44px;
-            box-sizing: border-box;
-        }
-
-        /* Variantes de boutons */
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: white;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-secondary {
-            background: var(--surface-color);
-            color: var(--text-primary);
-            border: 2px solid var(--border-color);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-success:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Responsive Design */
-
-        /* Tablettes grandes (1024px et moins) */
-        @media (max-width: 1024px) {
-            .container {
-                padding: 0 0.75rem;
-            }
-
-            .entete-content {
-                gap: 0.75rem;
-            }
-
-            .entete-search {
-                max-width: 400px;
-            }
-
-            .entete-actions {
-                gap: 0.375rem;
-            }
-
-            .btn {
-                padding: 0.5rem 0.875rem;
-                font-size: 0.8rem;
-            }
-
-            /* Cacher certains textes des boutons */
-            .btn span:not(.emoji) {
-                display: none;
-            }
-        }
-
-        /* Tablettes (768px et moins) */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 0.5rem;
-            }
-
-            .entete-content {
-                padding: 0.75rem 0;
-                gap: 0.5rem;
-                flex-wrap: wrap;
-            }
-
-            .entete-logo {
-                order: 1;
-                flex: 0 0 auto;
-            }
-
-            .entete-search {
-                order: 3;
-                flex: 1 1 100%;
-                max-width: 100%;
-                margin-top: 0.5rem;
-            }
-
-            .entete-actions {
-                order: 2;
-                gap: 0.25rem;
-                flex-wrap: wrap;
-            }
-
-            .btn {
-                padding: 0.5rem 0.75rem;
-                font-size: 0.75rem;
-                min-width: auto;
-            }
-
-            /* Afficher le menu burger */
-            .btn-menu {
-                display: flex;
-            }
-
-            /* Cacher certains boutons sur tablette */
-            .entete-actions .btn:nth-child(n+5) {
-                display: none;
-            }
-        }
-
-        /* Mobiles (480px et moins) */
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 0.25rem;
-            }
-
-            .entete-content {
-                padding: 0.5rem 0;
-                gap: 0.25rem;
-            }
-
-            .entete-logo {
-                gap: 0.5rem;
-            }
-
-            .entete-logo strong {
-                font-size: 1.25rem;
-            }
-
-            .entete-search input {
-                height: 44px;
-                font-size: 0.9rem;
-                padding: 0 0.75rem 0 2.5rem;
-            }
-
-            .entete-search i {
-                left: 0.75rem;
-                font-size: 1rem;
-            }
-
-            .entete-actions {
-                gap: 0.125rem;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
-            }
-
-            .entete-actions::-webkit-scrollbar {
-                display: none;
-            }
-
-            .btn {
-                padding: 0.375rem 0.5rem;
-                font-size: 0.7rem;
-                gap: 0.25rem;
-                flex-shrink: 0;
-            }
-
-            .btn-menu {
-                width: 40px;
-                height: 40px;
-                font-size: 1.1rem;
-            }
-
-            /* Ne garder que les boutons essentiels */
-            .entete-actions .btn:not(.btn-menu):nth-child(n+4) {
-                display: none;
-            }
-        }
-
-        /* Très petits écrans (360px et moins) */
-        @media (max-width: 360px) {
-            .entete-logo strong {
-                font-size: 1.1rem;
-            }
-
-            .entete-search input {
-                height: 40px;
-                font-size: 0.85rem;
-            }
-
-            .btn {
-                padding: 0.25rem 0.375rem;
-                font-size: 0.65rem;
-                min-height: 36px;
-            }
-
-            .btn-menu {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-            }
-
-            /* Ne garder que 2-3 boutons essentiels */
-            .entete-actions .btn:not(.btn-menu):nth-child(n+3) {
-                display: none;
-            }
-        }
-
-        /* Menu mobile (quand activé) */
-        .mobile-menu {
-            display: none;
+        /* Loading Screen */
+        .loading-screen {
             position: fixed;
-            top: 100%;
+            top: 0;
             left: 0;
-            right: 0;
-            background: var(--surface-color);
-            border-top: 1px solid var(--border-color);
-            box-shadow: var(--shadow-lg);
-            z-index: 999;
-            max-height: calc(100vh - 80px);
-            overflow-y: auto;
-        }
-
-        .mobile-menu.active {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        .mobile-menu-content {
-            padding: 1rem;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity var(--transition-slow);
         }
 
-        .mobile-menu-content .btn {
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .loading-text {
+            color: var(--text-light);
+            font-size: 1.2em;
+            font-weight: 600;
+            letter-spacing: 2px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
             width: 100%;
-            justify-content: flex-start;
-            padding: 0.875rem 1rem;
-            font-size: 0.9rem;
+            background: rgba(44, 85, 48, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all var(--transition-fast);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        @keyframes slideDown {
+        .navbar.scrolled {
+            background: rgba(44, 85, 48, 0.98);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: transform var(--transition-fast);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(5deg);
+            }
+
+            50% {
+                transform: rotate(0deg);
+            }
+
+            75% {
+                transform: rotate(-5deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color var(--transition-fast);
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width var(--transition-fast);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--secondary-color);
+        }
+
+        .reservation-btn {
+            background: var(--gradient-secondary);
+            color: var(--text-dark) !important;
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--border-radius-large);
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            box-shadow: var(--shadow-light);
+        }
+
+        .reservation-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(var(--gradient-overlay)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23d4af37" width="1200" height="800"/><rect fill="%232c5530" x="0" y="0" width="400" height="800"/><rect fill="%238b4513" x="800" y="0" width="400" height="800"/><circle fill="%23ffffff" cx="200" cy="200" r="50" opacity="0.1"/><circle fill="%23ffffff" cx="1000" cy="600" r="80" opacity="0.1"/><polygon fill="%23ffffff" points="600,100 650,200 550,200" opacity="0.1"/></svg>');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" patternUnits="userSpaceOnUse" width="100" height="100"><circle fill="%23ffffff" cx="50" cy="50" r="1" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: grain 8s steps(8) infinite;
+        }
+
+        @keyframes grain {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            10% {
+                transform: translate(-5%, -10%);
+            }
+
+            30% {
+                transform: translate(3%, -15%);
+            }
+
+            50% {
+                transform: translate(12%, 9%);
+            }
+
+            70% {
+                transform: translate(9%, 4%);
+            }
+
+            90% {
+                transform: translate(-1%, 7%);
+            }
+        }
+
+        .hero-content {
+            z-index: 2;
+            color: var(--text-light);
+            max-width: 800px;
+            padding: 2rem;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(-10px);
+                transform: translateY(50px);
             }
 
             to {
@@ -450,3081 +315,2976 @@
             }
         }
 
-        /* Optimisations tactiles */
-        @media (hover: none) and (pointer: coarse) {
-            .btn:hover {
-                transform: none;
-            }
-
-            .btn:active {
-                transform: scale(0.95);
-            }
-
-            .entete-search input:focus {
-                transform: none;
-            }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
         }
 
-        /* Mode paysage mobile */
-        @media (max-height: 500px) and (orientation: landscape) {
-            .entete-content {
-                padding: 0.5rem 0;
-            }
-
-            .entete-search {
-                margin-top: 0;
-            }
-
-            .mobile-menu {
-                max-height: calc(100vh - 60px);
-            }
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 1px;
         }
 
-        /* Support pour les écrans haute densité */
-        @media (-webkit-min-device-pixel-ratio: 2),
-        (min-resolution: 192dpi) {
-            .entete {
-                border-bottom-width: 0.5px;
-            }
-
-            .btn-secondary {
-                border-width: 1px;
-            }
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .btn-success {
-            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
-            color: white;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-success:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, var(--accent-color), #fbbf24);
-            color: white;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-warning:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-menu {
-            width: 48px;
-            height: 48px;
-            padding: 0;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: white;
-            font-size: 1.25rem;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-menu:hover {
-            transform: scale(1.1);
-            box-shadow: var(--shadow-lg);
-        }
-
-        @media (max-width: 768px) {
-            .btn {
-                padding: 0.625rem 1.25rem;
-                font-size: 0.8rem;
-            }
-
-            .btn-menu {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-        }
-
-        .tous {
-            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
-            color: white;
-            padding: 15px 20px;
-            font-size: 1.3rem;
-            font-weight: 600;
+        .hero-buttons {
             display: flex;
-            justify-content: space-between;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
             align-items: center;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            margin-bottom: 15px;
-        }
-
-        .fournitures {
-            padding: 30px;
-            width: 90%;
-            max-width: 100%;
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(20px);
-            border-radius: var(--border-radius);
-            margin: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        li {
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.9);
-            margin-bottom: 8px;
-            border-radius: var(--border-radius);
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: var(--border-radius-large);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
             cursor: pointer;
-            transition: var(--transition);
-            border-left: 4px solid transparent;
+            transition: all var(--transition-fast);
             position: relative;
             overflow: hidden;
         }
 
-        li::before {
+        .btn::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 98, 0, 0.1), transparent);
-            transition: var(--transition);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
         }
 
-        li:hover {
-            background: rgba(255, 255, 255, 1);
-            transform: translateX(10px);
-            border-left-color: var(--primary-color);
-            box-shadow: var(--shadow);
-        }
-
-        li:hover::before {
+        .btn:hover::before {
             left: 100%;
         }
 
-        .sous-menu {
-            display: none;
-            margin-left: 20px;
-            padding-top: 15px;
+        .btn-primary {
+            background: var(--gradient-secondary);
+            color: var(--text-dark);
+            box-shadow: var(--shadow-medium);
         }
 
-        li.active .sous-menu {
-            display: block;
-            animation: slideDown 0.3s ease;
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-light);
         }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
         }
 
-        .separe {
-            color: var(--secondary-color);
-            font-size: 1.4rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .btn-secondary:hover {
+            background: var(--text-light);
+            color: var(--text-dark);
         }
 
-        .avise {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            padding: 40px;
-            margin: 40px auto;
-            border-radius: 20px;
-            max-width: 600px;
-            box-shadow: var(--shadow-lg);
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        /* Floating Elements */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
 
-        .star {
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
             font-size: 3rem;
-            color: #e0e0e0;
-            cursor: pointer;
-            transition: var(--transition);
-            margin: 0 5px;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+            font-size: 2.5rem;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+            font-size: 2rem;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        /* About Section */
+        .about {
+            padding: 8rem 0;
+            background: var(--background-light);
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
             display: inline-block;
         }
 
-        .star:hover,
-        .star.active {
-            color: #ffc107;
-            transform: scale(1.2);
-            text-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-secondary);
+            border-radius: 2px;
         }
 
-        #avi {
-            width: 100%;
-            max-width: 500px;
-            height: 120px;
-            border-radius: var(--border-radius);
-            border: 2px solid #e2e8f0;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: var(--transition);
-            resize: none;
-        }
-
-        #avi:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(255, 98, 0, 0.1);
-        }
-
-        .soumettre {
-            background: linear-gradient(135deg, #28a745, #20c997);
-            color: white;
-            padding: 15px 30px;
-            border-radius: var(--border-radius);
-            border: none;
+        .section-subtitle {
             font-size: 1.2rem;
+            color: var(--text-dark);
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius-medium);
+            box-shadow: var(--shadow-light);
+            transition: transform var(--transition-fast);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-dark);
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: var(--border-radius-large);
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Menu Section */
+        .menu {
+            padding: 8rem 0;
+            background: white;
+        }
+
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-btn {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            background: transparent;
+            color: var(--primary-color);
+            border-radius: var(--border-radius-large);
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-            margin-top: 20px;
+            transition: all var(--transition-fast);
         }
 
-        .soumettre:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        .category-btn.active,
+        .category-btn:hover {
+            background: var(--primary-color);
+            color: var(--text-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
         }
 
-        .form-container {
-            background: var(--surface-color);
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-lg);
-            padding: 2rem;
-            margin: 2rem auto;
-            max-width: 600px;
-            border: 1px solid var(--border-color);
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
         }
 
-        .form-title {
-            font-size: 1.75rem;
+        .menu-item {
+            background: white;
+            border-radius: var(--border-radius-medium);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all var(--transition-fast);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .menu-item.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .menu-item-image {
+            height: 200px;
+            background: var(--gradient-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item-image::before {
+            content: '🍽️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            opacity: 0.3;
+        }
+
+        .price-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gradient-secondary);
+            color: var(--text-dark);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-large);
+            font-weight: bold;
+            box-shadow: var(--shadow-light);
+        }
+
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+
+        .menu-item-title {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
             font-weight: 700;
-            color: var(--text-primary);
-            text-align: center;
+        }
+
+        .menu-item-description {
+            color: var(--text-dark);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .menu-item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .spice-level {
+            display: flex;
+            gap: 0.2rem;
+        }
+
+        .spice-icon {
+            color: var(--danger-color);
+            font-size: 0.9rem;
+        }
+
+        .add-to-cart {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--border-radius-small);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+
+        .add-to-cart:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-light);
+        }
+
+        /* Reservation Section */
+        .reservation {
+            padding: 8rem 0;
+            background: var(--gradient-primary);
+            color: var(--text-light);
+        }
+
+        .reservation-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .reservation-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .reservation-info p {
+            font-size: 1.1rem;
             margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item i {
+            color: var(--secondary-color);
+            width: 20px;
+        }
+
+        .reservation-form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: var(--border-radius-large);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .form-group {
             margin-bottom: 1.5rem;
         }
 
-        .form-label {
+        .form-group label {
             display: block;
-            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
             font-weight: 600;
-            color: var(--text-primary);
+            color: var(--text-light);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--border-radius-small);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--gradient-secondary);
+            color: var(--text-dark);
+            border: none;
+            padding: 1.2rem;
+            border-radius: var(--border-radius-small);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 8rem 0;
+            background: var(--background-light);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--border-radius-medium);
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: var(--gradient-secondary);
+            cursor: pointer;
+            transition: transform var(--transition-fast);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item::before {
+            content: '📸';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(44, 85, 48, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay i {
+            color: var(--text-light);
+            font-size: 2rem;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            padding: 8rem 0;
+            background: white;
+        }
+
+        .reviews-slider {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto 0;
+            overflow: hidden;
+            border-radius: var(--border-radius-large);
+        }
+
+        .review-card {
+            background: white;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: var(--shadow-medium);
+            border-radius: var(--border-radius-large);
+            position: relative;
+        }
+
+        .review-card::before {
+            content: '"';
+            position: absolute;
+            top: 1rem;
+            left: 2rem;
+            font-size: 4rem;
+            color: var(--secondary-color);
+            opacity: 0.3;
+            font-family: serif;
+        }
+
+        .review-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+            font-style: italic;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .review-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gradient-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .review-info h4 {
+            color: var(--primary-color);
             margin-bottom: 0.5rem;
         }
 
-        .form-input,
-        .form-select {
-            width: 100%;
-            height: 48px;
-            padding: 0 1rem;
-            border: 2px solid var(--border-color);
-            border-radius: var(--border-radius);
-            background: var(--surface-color);
-            font-size: 1rem;
-            font-family: inherit;
-            transition: var(--transition);
-            color: var(--text-primary);
+        .review-rating {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
         }
 
-        .form-input:focus,
-        .form-select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
-
-        .form-textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 1rem;
-            border: 2px solid var(--border-color);
-            border-radius: var(--border-radius);
-            background: var(--surface-color);
-            font-size: 1rem;
-            font-family: inherit;
-            transition: var(--transition);
-            resize: vertical;
-            color: var(--text-primary);
-        }
-
-        .form-textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
-
-        .form-actions {
+        .review-nav {
             display: flex;
+            justify-content: center;
             gap: 1rem;
             margin-top: 2rem;
         }
 
-        .form-actions .btn {
-            flex: 1;
-        }
-
-        @media (max-width: 768px) {
-            .form-container {
-                margin: 1rem;
-                padding: 1.5rem;
-            }
-
-            .form-actions {
-                flex-direction: column;
-            }
-        }
-
-        #confirmer,
-        #photoB {
-            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
-            color: white;
-            padding: 15px 30px;
-            border-radius: var(--border-radius);
-            border: none;
-            font-size: 1.2rem;
-            font-weight: 600;
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(44, 85, 48, 0.3);
             cursor: pointer;
-            transition: var(--transition);
-            text-align: center;
-            box-shadow: var(--shadow);
+            transition: background var(--transition-fast);
         }
 
-        #confirmer:hover,
-        #photoB:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
-        }
-
-        #photoB {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            width: 100%;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-
-        /* Grid responsive pour les annonces */
-        .annonces-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            padding: 2rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .annonce-card {
-            background: var(--surface-color);
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            transition: var(--transition);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            height: fit-content;
-            max-width: 100%;
-        }
-
-        .annonce-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .annonce-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
-            flex-shrink: 0;
-        }
-
-        .annonce-content {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .annonce-title {
-            font-size: clamp(1.1rem, 2.5vw, 1.25rem);
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.75rem;
-            line-height: 1.3;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-
-        /* Prix responsive */
-        .annonce-price {
-            font-size: clamp(1.25rem, 3vw, 1.5rem);
-            font-weight: 800;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        /* Détails en grid responsive */
-        .annonce-details {
-            display: grid;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .annonce-detail {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            line-height: 1.4;
-        }
-
-        .annonce-detail strong {
-            color: var(--text-primary);
-            font-weight: 600;
-            min-width: 60px;
-            flex-shrink: 0;
-        }
-
-        /* Description responsive */
-        .annonce-description {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            flex-grow: 1;
-        }
-
-        /* Actions responsive */
-        .annonce-actions {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: auto;
-        }
-
-        .annonce-actions .btn {
-            flex: 1;
-            padding: 0.75rem 1rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            min-height: 44px;
-            /* Taille minimum tactile */
-        }
-
-        /* Responsive Breakpoints */
-
-        /* Tablettes (768px et moins) */
-        @media (max-width: 768px) {
-            .annonces-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 1.25rem;
-                padding: 1.5rem 0.75rem;
-            }
-
-            .annonce-content {
-                padding: 1.25rem;
-            }
-
-            .annonce-image {
-                height: 180px;
-            }
-        }
-
-        /* Mobiles (480px et moins) */
-        @media (max-width: 480px) {
-            .annonces-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                padding: 1rem 0.5rem;
-            }
-
-            .annonce-card {
-                margin: 0 auto;
-                width: 100%;
-                max-width: 400px;
-            }
-
-            .annonce-content {
-                padding: 1rem;
-            }
-
-            .annonce-image {
-                height: 160px;
-            }
-
-            .annonce-title {
-                font-size: 1.1rem;
-                margin-bottom: 0.5rem;
-            }
-
-            .annonce-price {
-                font-size: 1.25rem;
-                margin-bottom: 0.75rem;
-            }
-
-            .annonce-details {
-                margin-bottom: 1rem;
-            }
-
-            .annonce-detail {
-                font-size: 0.8rem;
-            }
-
-            .annonce-detail strong {
-                min-width: 50px;
-                font-size: 0.8rem;
-            }
-
-            .annonce-description {
-                font-size: 0.8rem;
-                margin-bottom: 1rem;
-            }
-
-            .annonce-actions {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .annonce-actions .btn {
-                width: 100%;
-                padding: 0.875rem 1rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Très petits écrans (360px et moins) */
-        @media (max-width: 360px) {
-            .annonces-grid {
-                padding: 0.75rem 0.25rem;
-            }
-
-            .annonce-card {
-                max-width: 100%;
-            }
-
-            .annonce-content {
-                padding: 0.875rem;
-            }
-
-            .annonce-image {
-                height: 140px;
-            }
-
-            .annonce-title {
-                font-size: 1rem;
-            }
-
-            .annonce-price {
-                font-size: 1.15rem;
-            }
-
-            .annonce-detail,
-            .annonce-description {
-                font-size: 0.75rem;
-            }
-
-            .annonce-detail strong {
-                min-width: 45px;
-                font-size: 0.75rem;
-            }
-        }
-
-        /* Améliorations pour l'accessibilité tactile */
-        @media (hover: none) and (pointer: coarse) {
-            .annonce-card:hover {
-                transform: none;
-            }
-
-            .annonce-card:active {
-                transform: scale(0.98);
-            }
-
-            .annonce-actions .btn {
-                min-height: 48px;
-                /* Taille recommandée pour le tactile */
-            }
-        }
-
-        /* Mode sombre responsive */
-        @media (prefers-color-scheme: dark) {
-            .annonce-image {
-                background: linear-gradient(135deg, #374151, #1f2937);
-            }
-        }
-
-        /* Optimisation pour les écrans haute densité */
-        @media (-webkit-min-device-pixel-ratio: 2),
-        (min-resolution: 192dpi) {
-            .annonce-card {
-                border-width: 0.5px;
-            }
-        }
-
-        .competences {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: white;
-            padding: 20px;
-            border-radius: var(--border-radius);
-            font-size: 1.3rem;
-            font-weight: 600;
-            text-align: center;
-            margin: 30px auto;
-            max-width: 600px;
-            box-shadow: var(--shadow);
-        }
-
-        #connexion {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            padding: 40px;
-            margin: 50px auto;
-            border-radius: 20px;
-            max-width: 500px;
-            box-shadow: var(--shadow-lg);
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        #connexion input {
-            margin-bottom: 20px;
-            height: 50px;
-            border-radius: var(--border-radius);
-            border: 2px solid #e2e8f0;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 0 15px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: var(--transition);
-            width: 100%;
-        }
-
-        #connexion input:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(255, 98, 0, 0.1);
-        }
-
-        #connexion button {
-            width: 100%;
-            padding: 15px;
-            border-radius: var(--border-radius);
-            background: linear-gradient(135deg, #28a745, #20c997);
-            color: white;
-            border: none;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-bottom: 15px;
-            box-shadow: var(--shadow);
-        }
-
-        #connexion button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
-        }
-
-        footer {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-            margin-top: auto;
-            position: relative;
-            overflow: hidden;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-            animation: float 20s infinite linear;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0px) rotate(0deg);
-            }
-
-            100% {
-                transform: translateY(-20px) rotate(360deg);
-            }
-        }
-
-        footer p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .lien {
-            position: relative;
-            z-index: 1;
-        }
-
-        .lien a {
-            color: #fff;
-            font-size: 1.5rem;
-            margin: 0 1rem;
-            text-decoration: none;
-            transition: var(--transition);
-            display: inline-block;
-        }
-
-        .lien a:hover {
-            color: var(--primary-color);
-            transform: translateY(-3px) scale(1.1);
-        }
-
-        .listes {
-            color: white;
-            background: linear-gradient(135deg, #333, #555);
-            width: 96%;
-            height: 50px;
-            padding: 10px 15px;
-            border-radius: var(--border-radius);
-            text-align: center;
-            font-weight: 600;
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow);
-        }
-
-        .suggestion-liste {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: var(--border-radius);
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            z-index: 1000;
-            width: 80%;
-            max-height: 300px;
-            overflow-y: auto;
-            box-shadow: var(--shadow-lg);
-            margin-top: 5px;
-        }
-
-        .suggestion-liste li {
-            padding: 15px 20px;
-            cursor: pointer;
-            transition: var(--transition);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .suggestion-liste li:hover {
+        .nav-dot.active {
             background: var(--primary-color);
-            color: white;
-            transform: none;
         }
 
-        .chat-container {
-            position: relative;
-            top: 60%;
-            left: 100%;
-            transform: translate(-50%, -50%);
-            width: 60%;
-            max-width: 800px;
-            height: 80vh;
-            background: var(--surface-color);
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-xl);
+        /* Footer */
+        .footer {
+            background: var(--background-dark);
+            color: var(--text-light);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-links {
             display: flex;
-            flex-direction: column;
-            z-index: 1000;
-            border: 1px solid var(--border-color);
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
-        .chat-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: white;
-            padding: 1.5rem;
-            border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+        .social-link {
             display: flex;
             align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: var(--text-light);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all var(--transition-fast);
+        }
+
+        .social-link:hover {
+            background: var(--secondary-color);
+            color: var(--text-dark);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100%;
+            background: white;
+            box-shadow: var(--shadow-heavy);
+            z-index: 1001;
+            transition: right var(--transition-medium);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 2rem;
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
-        .chat-title {
-            font-size: 1.25rem;
-            font-weight: 700;
+        .cart-title {
+            font-size: 1.5rem;
+            font-weight: bold;
         }
 
-        .chat-close {
-            background: rgba(255, 255, 255, 0.2);
+        .cart-close {
+            background: none;
             border: none;
-            color: white;
-            width: 32px;
-            height: 32px;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background var(--transition-fast);
+        }
+
+        .cart-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background var(--transition-fast);
+        }
+
+        .cart-item:hover {
+            background: var(--background-light);
+        }
+
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-secondary);
+            border-radius: var(--border-radius-small);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-price {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: var(--primary-color);
+            color: var(--text-light);
             border-radius: 50%;
             cursor: pointer;
-            font-size: 1.1rem;
-            transition: var(--transition);
+            font-weight: bold;
+            transition: all var(--transition-fast);
         }
 
-        .chat-close:hover {
-            background: rgba(255, 255, 255, 0.3);
+        .quantity-btn:hover {
+            background: var(--secondary-color);
+            color: var(--text-dark);
             transform: scale(1.1);
         }
 
-        .chat-messages {
-            flex: 1;
-            padding: 1.5rem;
-            overflow-y: auto;
-            background: #f8fafc;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        .quantity {
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
         }
 
-        .message {
-            max-width: 70%;
-            padding: 0.75rem 1rem;
-            border-radius: var(--border-radius-lg);
-            font-size: 0.875rem;
-            line-height: 1.4;
-            word-wrap: break-word;
-        }
-
-        .message-sent {
-            align-self: flex-end;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: white;
-        }
-
-        .message-received {
-            align-self: flex-start;
-            background: var(--surface-color);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-
-        .message-author {
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            opacity: 0.8;
-        }
-
-        .chat-input-container {
-            padding: 1.5rem;
+        .cart-footer {
+            padding: 2rem;
             border-top: 1px solid var(--border-color);
-            background: var(--surface-color);
-            border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+            background: var(--background-light);
         }
 
-        .chat-input-group {
+        .cart-total {
             display: flex;
-            gap: 0.75rem;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
             margin-bottom: 1rem;
         }
-/* Animation d'apparition des cartes */
-@keyframes slideInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
-.avis-card {
-    animation: slideInUp 0.6s ease forwards;
-    opacity: 0;
-    margin-bottom: 20px;
-    position: relative;
-    overflow: hidden;
-}
-
-/* En-tête de l'avis */
-.avis-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(230, 230, 250, 0.5);
-}
-
-.avis-rating-section {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.stars-container {
-    font-size: 1.4em;
-    line-height: 1;
-}
-
-.stars-full {
-    color: #ffd700;
-    text-shadow: 0 1px 2px rgba(255, 215, 0, 0.3);
-}
-
-.stars-empty {
-    color: #ddd;
-}
-
-.rating-text {
-    font-weight: 700;
-    color: #4a5568;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-size: 1.1em;
-}
-
-.avis-date {
-    color: #718096;
-    font-size: 0.9em;
-    font-weight: 400;
-    font-style: italic;
-}
-
-.avis-author {
-    color: #4a5568;
-    font-weight: 500;
-    font-size: 0.95em;
-}
-
-/* Contenu de l'avis */
-.avis-content {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 16px;
-}
-
-.comment-icon {
-    font-size: 1.2em;
-    opacity: 0.7;
-    margin-top: 2px;
-    flex-shrink: 0;
-}
-
-.avis-comment {
-    margin: 0;
-    line-height: 1.6;
-    color: #2d3748;
-    font-size: 1em;
-    position: relative;
-}
-
-.avis-title {
-    margin: 0 0 12px 0;
-    color: #2b6cb0;
-    font-size: 1.1em;
-    font-weight: 600;
-}
-
-/* Pied de l'avis */
-.avis-footer {
-    margin-top: 16px;
-    padding-top: 12px;
-    border-top: 1px solid rgba(230, 230, 250, 0.3);
-}
-
-.avis-actions {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
-}
-
-.btn-helpful, .btn-share {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 14px;
-    border: 1px solid #e2e8f0;
-    background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
-    border-radius: 20px;
-    font-size: 0.85em;
-    font-weight: 500;
-    color: #4a5568;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.btn-helpful:hover, .btn-share:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-color: #cbd5e0;
-    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-}
-
-.btn-helpful.active {
-    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-    color: white;
-    border-color: #38a169;
-    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
-}
-
-.icon {
-    font-size: 1.1em;
-}
-
-/* Responsive pour les actions */
-@media screen and (max-width: 480px) {
-    .avis-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-    
-    .avis-actions {
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-    
-    .btn-helpful, .btn-share {
-        font-size: 0.8em;
-        padding: 6px 12px;
-    }
-    
-    .avis-content {
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .comment-icon {
-        align-self: flex-start;
-    }
-}
-
-/* Effet de survol sur la carte entière */
-.avis-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(230, 230, 250, 0.4);
-}
-
-/* Indicateur de chargement */
-.loading-indicator {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    color: #718096;
-    font-style: italic;
-}
-
-.loading-indicator::before {
-    content: "⏳";
-    margin-right: 8px;
-    animation: rotate 2s linear infinite;
-}
-
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-        .chat-input {
-            flex: 1;
-            height: 48px;
-            padding: 0 1rem;
-            border: 2px solid var(--border-color);
-            border-radius: var(--border-radius-xl);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .chat-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-        }
-
-        .chat-actions {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        .chat-actions .btn {
-            flex: 1;
-        }
-
-        @media (max-width: 768px) {
-            .chat-container {
-                width: 95%;
-                height: 90vh;
-            }
-
-            .chat-header {
-                padding: 1rem;
-            }
-
-            .chat-messages {
-                padding: 1rem;
-            }
-
-            .chat-input-container {
-                padding: 1rem;
-            }
-
-            .message {
-                max-width: 85%;
-            }
-
-            .chat-actions {
-                flex-direction: column;
-            }
-        }
-
-        #envoyer,
-        #conclure,
-        #fermerChat {
+        .checkout-btn {
             width: 100%;
-            height: 50px;
-            font-size: 1rem;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border-radius: var(--border-radius);
+            background: var(--gradient-secondary);
+            color: var(--text-dark);
             border: none;
-            padding: 12px 20px;
-            margin-bottom: 15px;
-            cursor: pointer;
-        }
-
-        #envoyer {
-            background: linear-gradient(135deg, #28a745, #20c997);
-            color: white;
-        }
-
-        #envoyer:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
-        }
-
-        #conclure {
-            background: linear-gradient(135deg, #ffc107, #ffca2c);
-            color: #333;
-        }
-
-        #conclure:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
-        }
-
-        #fermerChat {
-            background: linear-gradient(135deg, #dc3545, #e74c3c);
-            color: white;
-        }
-
-        #fermerChat:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
-        }
-
-        #messageInput {
-            margin-bottom: 25px;
-            height: 45px;
-            width: 90%;
+            padding: 1rem;
+            border-radius: var(--border-radius-small);
             font-size: 1.1rem;
-            border-radius: 25px;
-            border: 2px solid #e2e8f0;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 10px 20px;
-            font-family: inherit;
-            transition: var(--transition);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all var(--transition-fast);
         }
 
-        #messageInput:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(255, 98, 0, 0.1);
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
         }
 
-        @media (max-width: 768px) {
-            .entete {
-                flex-direction: column;
-                gap: 20px;
-                padding: 20px;
-            }
-
-            .entete input {
-                width: 100%;
-                max-width: none;
-            }
-
-            .avise,
-            #formulaire,
-            #connexion {
-                width: 95%;
-                margin: 20px auto;
-                padding: 30px 20px;
-            }
-
-            #chat {
-                position: fixed;
-                top: 20px;
-                left: 20px;
-                right: 20px;
-                max-width: none;
-                width: calc(100% - 40px);
-            }
-
-            .entete strong {
-                font-size: 1.8rem;
-            }
-
-            .trois {
-                font-size: 1.5rem;
-                width: 45px;
-                height: 45px;
-            }
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-fast);
         }
 
-        .entete {
-            animation: slideDown 0.6s ease;
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
         }
 
-        @keyframes slideDown {
+        .modal-content {
+            background: white;
+            padding: 3rem;
+            border-radius: var(--border-radius-large);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.8);
+            transition: transform var(--transition-fast);
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .modal-text {
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .modal-btn {
+            background: var(--gradient-primary);
+            color: var(--text-light);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius-small);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
+        }
+
+        /* Scroll to Top */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-secondary);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all var(--transition-fast);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Animations */
+        @keyframes slideInLeft {
             from {
                 opacity: 0;
-                transform: translateY(-50px);
+                transform: translateX(-50px);
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateX(0);
             }
         }
 
-        .loading {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .loading::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: loading 1.5s infinite;
-        }
-
-        @keyframes loading {
-            0% {
-                left: -100%;
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
             }
 
-            100% {
-                left: 100%;
+            to {
+                opacity: 1;
+                transform: translateX(0);
             }
         }
 
-        #conteneuravis {
-            height: 60%;
-            width: 50%;
-            border-radius: 20px;
-            border: 2px solid lavender;
-            padding: 20px;
-            margin: 20px auto;
-            color: black;
-            font-weight: 600;
-            background-color: white;
-            background: white;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
-        .conteneuravis {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            color: var(--text-color);
-            box-shadow: var(--shadow);
+        .animate-on-scroll {
+            opacity: 0;
+            transition: all var(--transition-medium);
         }
 
-        .content-section {
-            padding: 2rem 0;
+        .animate-on-scroll.animated {
+            opacity: 1;
         }
 
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            text-align: center;
-            margin-bottom: 2rem;
+        .slide-left {
+            transform: translateX(-50px);
         }
 
-        .suggestion-liste {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-lg);
-            z-index: 1000;
-            max-height: 300px;
-            overflow-y: auto;
+        .slide-left.animated {
+            transform: translateX(0);
         }
 
-        .suggestion-liste li {
-            padding: 0.75rem 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            border-bottom: 1px solid var(--border-color);
+        .slide-right {
+            transform: translateX(50px);
         }
 
-        .suggestion-liste li:hover {
-            background: var(--primary-color);
-            color: white;
+        .slide-right.animated {
+            transform: translateX(0);
         }
 
-        .suggestion-liste li:last-child {
-            border-bottom: none;
+        .slide-up {
+            transform: translateY(50px);
         }
 
-        .star {
-            font-size: 2rem;
-            color: #e5e7eb;
-            cursor: pointer;
-            transition: var(--transition);
-            margin: 0 0.25rem;
+        .slide-up.animated {
+            transform: translateY(0);
         }
 
-        .star:hover,
-        .star.active {
-            color: #fbbf24;
-            transform: scale(1.1);
-        }
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-container {
+                padding: 1rem;
+            }
 
-        footer {
-            background: linear-gradient(135deg, var(--text-primary), #374151);
-            color: white;
-            padding: 3rem 0;
-            margin-top: auto;
-        }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
 
-        .lien {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
 
-        .lien a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+            .reservation-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
 
-        .lien a:hover {
-            color: var(--primary-light);
-            transform: translateY(-2px);
+            .cart-sidebar {
+                width: 350px;
+            }
         }
 
         @media (max-width: 768px) {
-            .lien {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-color);
                 flex-direction: column;
+                padding: 2rem;
                 gap: 1rem;
-                align-items: center;
-            }
-        }
-
-        .advanced {
-            display: flex;
-            margin: 30px;
-            position: relative;
-        }
-
-        .croix {
-            background: transparent;
-            background-color: transparent;
-            height: 40px;
-            width: 40px;
-            border-radius: 25px;
-            justify-content: center;
-            font-size: 40px;
-            align-items: center;
-            position: relative;
-            left: 17%;
-            top: 0;
-            border: none;
-        }
-
-        .croix:hover {
-            background-color: lavender;
-        }
-
-        #btnSeConnecter {
-            font-size: 10px;
-        }
-
-        @media (max-width: 600px) {
-            .container,
-            .form-container,
-            .avise,
-            .fournitures {
-                width: 100vw !important;
-                max-width: 100vw !important;
-                margin: 0 !important;
-                padding: 8px !important;
-                border-radius: 0 !important;
-                box-shadow: none !important;
+                transform: translateY(-100%);
+                transition: transform var(--transition-fast);
+                box-shadow: var(--shadow-medium);
             }
 
-            .entete-content {
+            .nav-links.open {
+                transform: translateY(0);
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
                 flex-direction: column;
-                gap: 0.5rem;
-                align-items: stretch;
-                padding: 0.5rem 0 !important;
-            }
-
-            /* Haut : boutons actions */
-            .entete-actions {
-                display: flex !important;
-                flex-direction: row !important;
-                flex-wrap: nowrap !important;
-                overflow-x: auto !important;
-                gap: 0.7rem !important;
-                padding-bottom: 0.7rem !important;
-                margin-bottom: 0.7rem !important;
-                width: 100vw !important;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
-            }
-            .entete-actions::-webkit-scrollbar {
-                display: none;
-            }
-            .entete-actions .btn {
-                flex-shrink: 0 !important;
-                min-width: 140px !important;
-                font-size: 1.1em !important;
-                padding: 0.9em 1.2em !important;
-                margin-right: 0.7rem !important;
-                border-radius: 18px !important;
-            }
-
-            /* Bas : menu boutons */
-            .menu {
-                flex-direction: row !important;
-                gap: 1.2rem !important;
-                padding: 1.2rem 0.5rem !important;
-                position: fixed !important;
-                bottom: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                width: 100vw !important;
-                z-index: 9999 !important;
-                box-shadow: 0 -4px 12px rgba(0,0,0,0.08) !important;
-            }
-            .menu .btn {
-                flex: 1 1 0 !important;
-                min-width: 90px !important;
-                font-size: 1.15em !important;
-                padding: 1em 0.5em !important;
-                margin: 0 0.3em !important;
-                border-radius: 18px !important;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.07) !important;
-            }
-            .menu button {
-                font-size: 1.15em !important;
-                padding: 1em 0.5em !important;
-                border-radius: 18px !important;
-            }
-
-            .annonces-grid {
-                grid-template-columns: 1fr !important;
-                gap: 1rem !important;
-                padding: 0.5rem !important;
-                margin: 0 !important;
-            }
-            .annonce-card {
-                margin: 0 auto !important;
-                border-radius: 10px !important;
-                box-shadow: var(--shadow-sm) !important;
-                max-width: 100vw !important;
-            }
-            .annonce-image {
-                height: 140px !important;
-                object-fit: cover !important;
-                border-radius: 10px 10px 0 0 !important;
-                width: 100% !important;
-                max-width: 100vw !important;
-            }
-            .chat-container {
-                width: 100vw !important;
-                left: 0 !important;
-                transform: none !important;
-                border-radius: 0 !important;
-                max-width: 100vw !important;
-                height: 100vh !important;
-                top: 0 !important;
-            }
-            .chat-messages {
-                padding: 0.5rem !important;
-                font-size: 0.95rem !important;
-            }
-            .chat-header,
-            .chat-input-container {
-                padding: 0.5rem !important;
-            }
-            .form-actions {
-                flex-direction: column !important;
-                gap: 0.5rem !important;
-            }
-            .entete-search input {
-                font-size: 1rem !important;
-                height: 40px !important;
-                padding-left: 2.5rem !important;
-            }
-            .suggestion-liste {
-                width: 100vw !important;
-                left: 0 !important;
-                border-radius: 0 0 10px 10px !important;
-            }
-            #conteneuravis {
-                width: 100vw !important;
-                margin: 0 !important;
-                border-radius: 0 !important;
-                padding: 10px !important;
-            }
-            body,
-            html {
-                overflow-x: hidden !important;
-            }
-        }
-
-        #temps {
-            border: none;
-            position: relative;
-            left: 50px;
-            font-size: 30px;
-        }
-
-        #chat {
-            position: relative;
-            top: 150px;
-            left: 100px;
-        }
-
-        #mess {
-            display: block;
-        }
-
-        @media (max-width: 600px) {
-            .chat-container {
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                width: 100vw !important;
-                height: 100vh !important;
-                max-width: 100vw !important;
-                max-height: 100vh !important;
-                border-radius: 0 !important;
-                padding: 0 !important;
-                z-index: 9999 !important;
-                box-shadow: none !important;
-                transform: none !important;
-            }
-
-            .chat-header {
-                padding: 0.75rem 0.5rem !important;
-                font-size: 1rem !important;
-            }
-
-            .chat-messages {
-                padding: 0.5rem 0.25rem !important;
-                font-size: 1rem !important;
-            }
-
-            .message {
-                max-width: 98% !important;
-                font-size: 1rem !important;
-                padding: 0.6rem 0.7rem !important;
-            }
-
-            .chat-input-container {
-                padding: 0.5rem 0.25rem !important;
-            }
-
-            .chat-input-group {
-                flex-direction: column !important;
-                gap: 0.5rem !important;
-            }
-
-            .chat-input {
-                width: 100% !important;
-                min-width: 0 !important;
-                font-size: 1rem !important;
-                height: 42px !important;
-            }
-
-            .chat-actions {
-                flex-direction: column !important;
-                gap: 0.5rem !important;
-            }
-
-            .chat-actions .btn,
-            .chat-input-group .btn {
-                width: 100% !important;
-                min-width: 0 !important;
-                font-size: 1rem !important;
-                padding: 0.8rem 0.5rem !important;
-                margin: 0 !important;
-                box-sizing: border-box !important;
+                align-items: center;
             }
 
             .btn {
-                width: 100% !important;
-                min-width: 0 !important;
-                font-size: 1rem !important;
-                padding: 0.8rem 0.5rem !important;
-                margin-bottom: 0.5rem !important;
-                box-sizing: border-box !important;
+                width: 100%;
+                max-width: 250px;
             }
 
-            /* Boutons principaux scrollables horizontalement sauf le bouton jour/nuit */
-            .entete-actions {
-                display: flex !important;
-                flex-direction: row !important;
-                overflow-x: auto !important;
-                gap: 0.5rem !important;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
-                padding-bottom: 0.5rem;
-                margin-bottom: 0.5rem;
-                width: 100vw !important;
+            .menu-grid {
+                grid-template-columns: 1fr;
             }
 
-            .entete-actions::-webkit-scrollbar {
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .floating-elements {
                 display: none;
             }
+        }
 
-            .entete-actions .btn {
-                width: auto !important;
-                min-width: 120px !important;
-                flex-shrink: 0 !important;
-                margin-bottom: 0 !important;
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0.5rem 0.5rem;
+                flex-direction: column;
+                align-items: stretch;
             }
-
-            /* Le bouton jour/nuit reste à part dans .entete-logo */
-            .entete-logo {
-                display: flex !important;
-                flex-direction: row !important;
-                align-items: center !important;
-                gap: 0.5rem !important;
+            .logo {
+                font-size: 1.3rem;
+                padding: 0.5rem 0;
             }
-
-            #temps {
-                margin-left: auto !important;
-                flex-shrink: 0 !important;
+            .nav-links {
+                flex-direction: column;
+                gap: 0.7rem;
+                padding: 1rem 0.5rem;
+                width: 100%;
+                align-items: stretch;
+            }
+            .nav-links a, .reservation-btn, .cart-toggle {
+                font-size: 1.1em;
+                padding: 0.8em 0.5em;
+                border-radius: 16px;
+                width: 100%;
+                text-align: left;
+            }
+            .mobile-menu-btn {
+                font-size: 2em;
+                padding: 0.5em;
+            }
+            .hero {
+                padding: 1.2rem 0.5rem;
+                min-height: 70vh;
+            }
+            .hero-content {
+                padding: 1rem 0.5rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                gap: 0.7rem;
+                align-items: stretch;
+            }
+            .btn {
+                width: 100%;
+                max-width: none;
+                font-size: 1.1em;
+                padding: 0.9em 0.5em;
+                border-radius: 16px;
+            }
+            .container {
+                padding: 0 0.5rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .about-image img {
+                height: 220px;
+            }
+            .about-stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .menu-categories {
+                flex-direction: row;
+                gap: 0.5rem;
+                overflow-x: auto;
+                padding-bottom: 0.5rem;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            .menu-categories::-webkit-scrollbar {
+                display: none;
+            }
+            .category-btn {
+                min-width: 120px;
+                font-size: 1em;
+                padding: 0.7em 0.5em;
+                border-radius: 16px;
+            }
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .menu-item-image {
+                height: 120px;
+            }
+            .menu-item-content {
+                padding: 1rem;
+            }
+            .reservation-form {
+                padding: 1rem;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            .review-card {
+                padding: 1rem;
+            }
+            .reviews-slider {
+                max-width: 100%;
+                margin: 1rem auto 0;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .footer {
+                padding: 2rem 0 1rem;
+            }
+            .footer-section h3 {
+                font-size: 1.1rem;
+            }
+            .footer-bottom {
+                padding-top: 1rem;
+            }
+            .cart-sidebar {
+                width: 100vw;
+                right: -100vw;
+                min-width: 0;
+            }
+            .cart-sidebar.open {
+                right: 0;
+            }
+            .cart-header, .cart-footer {
+                padding: 1rem;
+            }
+            .cart-item {
+                padding: 0.7rem;
+            }
+            .cart-item-image {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+            .checkout-btn, .submit-btn {
+                font-size: 1em;
+                padding: 0.8em;
+                border-radius: 16px;
+            }
+            .modal-content {
+                padding: 1rem;
+                max-width: 95vw;
+            }
+            .scroll-top {
+                width: 40px;
+                height: 40px;
+                bottom: 1rem;
+                right: 1rem;
+                font-size: 1em;
             }
         }
 
-        .menu {
+        /* Dark mode toggle */
+        .theme-toggle {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(230, 230, 250, 0.555);
-            border-top: 1px solid transparent;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-around;
-            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
-            z-index: 999;
-        }
-
-        #avis,
-        #mess,
-        #accueilBtn {
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-secondary);
             border: none;
-            background-color: transparent;
-            background: transparent;
-            font-size: 17px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all var(--transition-fast);
+            z-index: 1000;
+            box-shadow: var(--shadow-light);
         }
 
-        #vendre,
-        #connexionn,
-        #question {
-            margin-bottom: 30px;
-            margin: 30px;
+        .theme-toggle:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: var(--shadow-medium);
         }
-        #chat{
-            position: relative;
-            left: 50%;
-            top: 200px;
+
+        /* Dark theme */
+        body.dark-theme {
+            --background-light: #2a2a2a;
+            --text-dark: #ffffff;
+            --border-color: #444444;
+        }
+
+        body.dark-theme .menu,
+        body.dark-theme .reviews {
+            background: #1a1a1a;
+        }
+
+        body.dark-theme .menu-item,
+        body.dark-theme .review-card,
+        body.dark-theme .stat-card {
+            background: #2a2a2a;
+            border: 1px solid #444444;
+        }
+
+        body.dark-theme .form-control {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #444444;
+            color: var(--text-light);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Print styles */
+        @media print {
+
+            .navbar,
+            .cart-sidebar,
+            .scroll-top,
+            .theme-toggle,
+            .floating-elements {
+                display: none !important;
+            }
+
+            body {
+                font-size: 12pt;
+                line-height: 1.4;
+            }
+
+            .hero {
+                height: auto;
+                padding: 2rem 0;
+            }
+
+            .section {
+                padding: 2rem 0;
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus styles */
+        *:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+
+        .btn:focus,
+        .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+        }
+        #table{
+            background-color: #28a7467c;
+        }
+         #table:hover{
+            background-color: rgba(0, 0, 255, 0.336);
         }
     </style>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
 </head>
 
-<body id="bod" data-aos="fade-down-right">
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+        <div class="loading-text">Saveurs du Cameroun</div>
+    </div>
 
-    <div id="ladiv">
-        <div class="entete" id="entete">
-            <div class="container">
-                <div class="entete-content">
-                    <div class="entete-logo">
-                        <button class="btn btn-menu" id="trois">☰</button>
-                        <strong>MBOA Librairie</strong>
-                        <button class="btn btn-secondary" id="temps">🌞</button>
-                    </div>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        🌙
+    </button>
 
-                    <div class="entete-search">
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-utensils"></i>
+                Saveurs du Cameroun
+            </a>
 
-                        <i class="fas fa-search"></i>
-                        <input type="search" id="searchBar" placeholder="Rechercher un produit..." autocomplete="off" />
-                        <ul id="suggestions" class="suggestion-liste" style="display:none;"></ul>
-                    </div>
-
-                    <div class="entete-actions">
-                        <button class="btn btn-primary" id="vendre">💼 Vendre</button>
-                        <button class="btn btn-success" id="connexionn">🔐 Connexion</button>
-
-                        <a href="https://wa.me/237657300644" class="btn btn-secondary" id="question">❓ Question</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="fournitures" id="fourniture" style="display: none;">
-            <p class="listes">❤️ Mes listes</p>
-            <br>
-            <p class="tous">📋 Tous les rayons</p>
-            <ul>
-                <li onclick="afficherFournituresCategorie('livres')" id="livre">
-                    <p class="separe">📚 Livres</p>
-                    <ul class="sous-menu">
-                        <li>🎓 Terminale</li>
-                        <li>📖 Première</li>
-                        <li>📝 Seconde</li>
-                        <li>✏️ Troisième</li>
-                        <li>📄 Quatrième</li>
-                        <li>📑 Cinquième</li>
-                        <li>📋 Sixième</li>
-                        <li>📊 CM2</li>
-                        <li>📈 CM1</li>
-                        <li>📉 CE2</li>
-                        <li>📌 CE1</li>
-                        <li>📍 CP</li>
-                        <li>🔤 SIL</li>
-                    </ul>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link active">Accueil</a></li>
+                <li><a href="#about" class="nav-link">À Propos</a></li>
+                <li><a href="#menu" class="nav-link">Menu</a></li>
+                <li><a href="#gallery" class="nav-link">Galerie</a></li>
+                <li><a href="#reviews" class="nav-link">Avis</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li>
+                    <button class="cart-toggle" id="cartToggle" aria-label="Open shopping cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
                 </li>
-                <li onclick="afficherFournituresCategorie('produits')" id="produit">
-                    <p class="separe">🛍️ Produits</p>
-                    <ul class="sous-menu">
-                        <li>📔 Cahiers</li>
-                        <li>📐 Boîte académique</li>
-                        <li>🎒 Sacs</li>
-                        <li>🧮 Calculatrice</li>
-                    </ul>
-                </li>
+                <li><a href="#reservation" class="reservation-btn">Réserver</a></li>
             </ul>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="floating-elements">
+            <div class="floating-element">🍛</div>
+            <div class="floating-element">🥘</div>
+            <div class="floating-element">🌶️</div>
         </div>
 
-        <div id="connexion" style="display: none;">
-            <div class="advanced">
-                <h3 style="margin-bottom: 30px; color: var(--primary-color); font-size: 2rem;">🔐 Connexion</h3>
-            </div>
-            <input type="text" class="nom" id="nom" placeholder="👤 Entrez votre nom" />
-            <input type="number" class="nom" id="numero" placeholder="📱 Votre numéro" />
-            <input type="email" class="nom" id="email" placeholder="📧 Entrez votre adresse email" />
-            <input type="password" class="nom" id="motdepasse" placeholder="🔒 Mot de passe" />
-            <button id="btnCreerCompte">✨ Créer un Compte</button>
-            <button id="btnSeConnecter" class="fas fa-sign-in-alt"> Se connecter</button>
-        </div>
-
-        <div class="chat-container" id="chat" style="display: none;">
-            <div class="chat-header">
-                <span class="chat-title" id="chatTitre">💬 Chat de la vente</span>
-                <button class="chat-close"
-                    onclick="document.getElementById('chat').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">✖</button>
-            </div>
-
-            <div class="chat-messages" id="messages"></div>
-
-            <div class="chat-input-container">
-                <div class="chat-input-group">
-                    <input class="chat-input" id="messageInput" placeholder="💭 Écris un message..." />
-                    <button class="btn btn-primary" onclick="envoyerMessage()">📤 Envoyer</button>
-                </div>
-
-                <div class="chat-actions">
-                    <button class="btn btn-warning" onclick="conclureJob()">✅ Conclure</button>
-                    <button class="btn btn-secondary"
-                        onclick="document.getElementById('chat').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">❌
-                        Fermer</button>
-                </div>
+        <div class="hero-content">
+            <h1 style="color:blue">Saveurs Authentiques du Cameroun</h1>
+            <p class="hero-subtitle">Une expérience culinaire unique au cœur de l'Afrique</p>
+            <p class="hero-description">
+                Découvrez les saveurs authentiques du Cameroun dans un cadre chaleureux et convivial.
+                Nos chefs passionnés vous proposent des plats traditionnels préparés avec amour et des ingrédients
+                frais.
+            </p>
+            <div class="hero-buttons">
+                <a href="#menu" class="btn btn-primary">
+                    <i class="fas fa-utensils"></i>
+                    Découvrir le Menu
+                </a>
+                <a href="#reservation" id="table" class="btn btn-secondary">
+                    <i class="fas fa-calendar-alt"></i>
+                    Réserver une Table
+                </a>
             </div>
         </div>
-        <div id="conteneuravis" style="display: none;"></div>
+    </section>
 
-        <div class="avise" id="avise" style="display: none;">
-            <div class="advanced">
-                <h4 style="margin-bottom: 30px; color: var(--primary-color); font-size: 1.8rem;">⭐ Donnez votre avis
-                </h4>
-                <button class="croix"
-                    onclick="document.getElementById('avise').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">×</button>
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title animate-on-scroll slide-up">À Propos de Nous</h2>
+                <p class="section-subtitle animate-on-scroll slide-up">
+                    Une passion pour la cuisine camerounaise transmise de génération en génération
+                </p>
             </div>
-        <form id="formule">
-                <div id="stars" style="margin-bottom: 25px;">
-                    <span class="star" onclick="rate(1)">★</span>
-                    <span class="star" onclick="rate(2)">★</span>
-                    <span class="star" onclick="rate(3)">★</span>
-                    <span class="star" onclick="rate(4)">★</span>
-                    <span class="star" onclick="rate(5)">★</span>
-                </div>
-                <textarea id="avi" placeholder="💭 Votre commentaire..."></textarea>
-                <button class="soumettre" id="soumettre" type="submit">🚀 Soumettre</button>
-            </form>
-        </div>
 
+            <div class="about-content">
+                <div class="about-text animate-on-scroll slide-left">
+                    <p>
+                        <strong>Saveurs du Cameroun</strong> est né d'une passion profonde pour la richesse culinaire du
+                        Cameroun.
+                        Fondé par une famille d'immigrants camerounais, notre restaurant vous invite à découvrir
+                        les saveurs authentiques de l'Afrique centrale.
+                    </p>
+                    <p>
+                        Nos chefs expérimentés perpétuent les traditions culinaires ancestrales tout en apportant
+                        une touche moderne à nos plats. Chaque recette raconte une histoire, chaque épice a sa
+                        signification, et chaque repas est une célébration de notre héritage culturel.
+                    </p>
+                    <p>
+                        De l'emblématique <strong>Ndolé</strong> au savoureux <strong>Poulet DG</strong>, en passant par
+                        le traditionnel <strong>Eru</strong>, nous vous promettons un voyage gustatif inoubliable
+                        dans un environnement chaleureux et accueillant.
+                    </p>
 
-
-        <div class="form-container" id="formulaire" data-aos="fade-up" style="display: none;">
-            <div class="advanced">
-                <h3 class="form-title">📦 Vendre une fourniture</h3><button class="croix"
-                    onclick="document.getElementById('formulaire').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">×</button>
-            </div>
-            <form id="form">
-                <div class="form-group">
-                    <label class="form-label" for="item">🏷️ Que vendez-vous ?</label>
-                    <select class="form-select" id="item">
-                        <option value="Livres">📚 Livres</option>
-                        <option value="Bords">📝 Bords</option>
-                        <option value="Cahiers">📔 Cahiers</option>
-                        <option value="Calculatrice">🧮 Calculatrice</option>
-                        <option value="Sacs">🎒 Sacs</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="categorie">📂 Catégorie :</label>
-                    <select class="form-select" id="categorie" required>
-                        <option value="livres">📚 Livres</option>
-                        <option value="produits">🛍️ Produits</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="price">💰 Prix (en FCFA) :</label>
-                    <input class="form-input" type="number" id="price" min="0" required placeholder="Ex: 5000" />
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="classe">🎓 Classe :</label>
-                    <select class="form-select" id="classe" required>
-                        <option value="terminale">🎓 Terminale</option>
-                        <option value="premiere">📖 Première</option>
-                        <option value="seconde">📝 Seconde</option>
-                        <option value="troisieme">✏️ Troisième</option>
-                        <option value="quatrieme">📄 Quatrième</option>
-                        <option value="cinquieme">📑 Cinquième</option>
-                        <option value="sixieme">📋 Sixième</option>
-                        <option value="cm2">📊 CM2</option>
-                        <option value="cm1">📈 CM1</option>
-                        <option value="ce2">📉 CE2</option>
-                        <option value="ce1">📌 CE1</option>
-                        <option value="cp">📍 CP</option>
-                        <option value="sil">🔤 SIL</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="location">📍 Lieu (quartier) :</label>
-                    <select class="form-select" id="location">
-                        <option value="Douala">🏙️ Douala</option>
-                        <option value="Yaounde">🏛️ Yaoundé</option>
-                        <option value="Bafoussam">🏔️ Bafoussam</option>
-                        <option value="Limbe">🌊 Limbe</option>
-                        <option value="Kribi">🏖️ Kribi</option>
-                        <option value="Garoua">🌆 Garoua</option>
-                        <option value="Melong">🏘️ Melong</option>
-                        <option value="Nkongsamba">🏞️ Nkongsamba</option>
-                        <option value="Autre">🌍 Autre</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="description">📝 Description :</label>
-                    <input class="form-input" type="text" id="description" required
-                        placeholder="Décrivez votre article..." />
-                </div>
-
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" id="photoB">📸 Ajouter une photo</button>
-                    <button class="btn btn-primary" id="confirmer" type="submit">🚀 Publier</button>
-                </div>
-
-                <input type="file" accept="image/*" id="camer" style="display: none;" />
-
-                <div id="maphoto">
-                    <img src="" alt="Aperçu" id="photoPreview"
-                        style="display: none; max-width: 100%; border-radius: 12px; box-shadow: var(--shadow); margin-top: 15px;" />
-                </div>
-            </form>
-        </div>
-
-        <div class="profile" id="conteneurProfils" style="display: none;"></div>
-    </div>
-    <div class="menu">
-        <button class="btn btn-secondary" id="accueilBtn">
-            <i class="fas fa-home"></i> Accueil
-        </button>
-        <button class="btn btn-secondary" id="avis">🌟 Avis</button>
-        <button onclick="lireConversations()" class="btn btn-secondary" id="mess" aria-label="Voir mes conversations">
-            <i class="fas fa-comments"></i> Messages
-        </button>
-        <button class="btn btn-success" id="payer" style="display:none;">Payer 200 FCFA</button>
-    </div>
-    <script src="https://api-checkout.cinetpay.com/v2/checkout.js"></script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, onSnapshot, query, where, orderBy, setDoc, getDoc, updateDoc, increment, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-        // Configuration Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyCwYVursGqdwA47BgpjxFx-UuPOooorqcU",
-            authDomain: "mboa-librerie.firebaseapp.com",
-            projectId: "mboa-librerie",
-            storageBucket: "mboa-librerie.appspot.com",
-            messagingSenderId: "323486943031",
-            appId: "1:323486943031:web:a536c81bfc61517eddfcb2",
-            measurementId: "G-X514RE9V3G"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const db = getFirestore(app);
-        window.db = db;
-        const storage = getStorage(app);
-        const auth = getAuth(app);
-        window.auth = auth;
-
-        // 🔎 Sélecteurs
-        const form = document.getElementById("form");
-        const camer = document.getElementById("camer");
-        const photoB = document.getElementById("photoB");
-        const photoPreview = document.getElementById("photoPreview");
-        const conteneurProfils = document.getElementById("conteneurProfils");
-        const formulaire = document.getElementById("formulaire");
-        const confirmerBtn = document.getElementById("confirmer");
-
-
-        // --- Variables globales pour annonces ---
-        let allAnnonces = [];
-        let imageFile = null;
-        let utilisateurNom = localStorage.getItem('utilisateurNom') || null;
-        if (!utilisateurNom) {
-            utilisateurNom = prompt("Entrez votre nom pour le chat :") || "Utilisateur";
-            localStorage.setItem('utilisateurNom', utilisateurNom);
-        }
-        let annonceActuelle = null;
-
-        // Variables globales pour le chat privé par annonce
-        let idAnnonceEnCours = null;
-        let idConversation = null;
-
-        // --- Connexion automatique si déjà authentifié ---
-        window.addEventListener('DOMContentLoaded', () => {
-            if (auth.currentUser) {
-                document.getElementById("conteneurProfils").style.display = "block";
-                document.getElementById("fourniture").style.display = "none";
-                document.getElementById("conteneuravis").style.display = "none";
-                document.getElementById("avise").style.display = "none";
-                document.getElementById("chat").style.display = "none";
-                document.getElementById("connexion").style.display = "none";
-                document.getElementById("formulaire").style.display = "none";
-            }
-        });
-
-        const btnCreerCompte = document.getElementById("btnCreerCompte");
-        const btnSeConnecter = document.getElementById("btnSeConnecter");
-        const btnDeconnexion = document.createElement("button");
-        btnDeconnexion.textContent = "Déconnexion";
-        btnDeconnexion.className = "fourniture";
-        btnDeconnexion.style.display = "none";
-        document.getElementById("entete").appendChild(btnDeconnexion);
-        const userDisplay = document.createElement("span");
-        userDisplay.style.marginLeft = "15px";
-        document.getElementById("entete").appendChild(userDisplay);
-
-        function majEtatConnexion(user) {
-            if (user) {
-                btnDeconnexion.style.display = "inline-block";
-            } else {
-                btnDeconnexion.style.display = "none";
-            }
-        }
-
-        // Fonction qui vérifie si tous les éléments sont prêts
-        function waitForElements() {
-            return new Promise((resolve) => {
-                const checkElements = () => {
-                    const container = document.getElementById("conteneurProfils");
-                    const auth = window.auth;
-                    const db = window.db;
-                    if (container && auth && db) {
-                        resolve();
-                    } else {
-                        setTimeout(checkElements, 100);
-                    }
-                };
-                checkElements();
-            });
-        }
-
-        // Fonction globale lireConversations
-        async function lireConversations() {
-            document.getElementById("conteneuravis").style.display="none";
-             document.getElementById("conteneurProfils").style.display = "none";
-    document.getElementById("fourniture").style.display = "none";
-    document.getElementById("conteneuravis").style.display="none";
-    document.getElementById("avise").style.display = "none";
-    document.getElementById("chat").style.display = "none";
-    document.getElementById("connexion").style.display = "none";
-    document.getElementById("formulaire").style.display = "none";
-            await waitForElements();
-            // --- Sélecteurs et masquage des sections ---
-            const container = document.getElementById("conteneurProfils");
-            if (!container) return alert("Erreur: Interface non disponible");
-            ["fourniture", "avise", "chat", "connexion", "formulaire"].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.style.display = "none";
-            });
-            container.style.display = "block";
-            container.innerHTML = `<h3 class='section-title'>💬 Mes Conversations</h3>`;
-
-            // --- Authentification ---
-            const currentUser = window.auth && window.auth.currentUser;
-            if (!currentUser) {
-                container.innerHTML += `<div style='text-align:center;color:red;margin-top:2rem;'>❌ Connecte-toi d'abord</div>`;
-                return;
-            }
-            const email = currentUser.email;
-            let total = 0;
-
-            // --- Parcours des annonces pour trouver les conversations ---
-            let annoncesSnap;
-            try {
-                annoncesSnap = await getDocs(collection(window.db, "annonces"));
-            } catch (error) {
-                container.innerHTML += `<div style='text-align:center;color:red;margin-top:2rem;'>❌ Erreur lors de la connexion à la base de données</div>`;
-                return;
-            }
-
-            // --- Vendeur (auteur) ---
-            for (const docu of annoncesSnap.docs) {
-                const annonce = { id: docu.id, ...docu.data() };
-                if (annonce.auteur === email) {
-                    const convsSnap = await getDocs(collection(window.db, "annonces", annonce.id, "conversations"));
-                    if (convsSnap.empty) continue;
-                    for (const convDoc of convsSnap.docs) {
-                        const convId = convDoc.id;
-                        // Récupère le dernier message
-                        const messagesRef = collection(window.db, "annonces", annonce.id, "conversations", convId, "messages");
-                        const lastMsgSnap = await getDocs(query(messagesRef, orderBy("timestamp", "desc"), limit(1)));
-                        let lastMsg = null;
-                        lastMsgSnap.forEach(doc => lastMsg = doc.data());
-                        let preview = "";
-                        if (lastMsg) {
-                            const date = new Date(lastMsg.timestamp).toLocaleString();
-                            preview = `<div style='color:#888;font-size:0.9em;margin-bottom:0.5em;'><b>${lastMsg.auteur === email ? 'Moi' : lastMsg.auteur}:</b> ${lastMsg.text} <span style='float:right;'>${date}</span></div>`;
-                        }
-                        const emails = convId.split("_");
-                        const emailAcheteur = emails.find(e => e !== annonce.auteur);
-                        const card = document.createElement("div");
-                        card.className = "annonce-card";
-                        card.innerHTML = `
-                            <h4><i class="fas fa-tasks"></i> ${annonce.nomProduit || "Produit sans nom"}</h4>
-                            <p><i class="fas fa-coins"></i> Prix: ${annonce.prix || "?"} FCFA</p>
-                            <p><i class="fas fa-info-circle"></i> ${annonce.description || "Pas de description"}</p>
-                            <p><strong><i class="fas fa-user"></i> Acheteur:</strong> ${emailAcheteur}</p>
-                            ${preview}
-                            <button class="btn btn-primary" onclick="window.ouvrirChat('${annonce.id}', '${emailAcheteur}', '${annonce.auteur}')">
-                                <i class="fas fa-comments"></i> Ouvrir chat
-                            </button>
-                        `;
-                        container.appendChild(card);
-                        total++;
-                    }
-                }
-            }
-
-            // --- Acheteur (participant à une conversation) ---
-            for (const docu of annoncesSnap.docs) {
-                const annonce = { id: docu.id, ...docu.data() };
-                if (annonce.auteur !== email) {
-                    const convsSnap = await getDocs(collection(window.db, "annonces", annonce.id, "conversations"));
-                    for (const convDoc of convsSnap.docs) {
-                        if (convDoc.id.includes(email)) {
-                            // Récupère le dernier message
-                            const messagesRef = collection(window.db, "annonces", annonce.id, "conversations", convDoc.id, "messages");
-                            const lastMsgSnap = await getDocs(query(messagesRef, orderBy("timestamp", "desc"), limit(1)));
-                            let lastMsg = null;
-                            lastMsgSnap.forEach(doc => lastMsg = doc.data());
-                            let preview = "";
-                            if (lastMsg) {
-                                const date = new Date(lastMsg.timestamp).toLocaleString();
-                                preview = `<div style='color:#888;font-size:0.9em;margin-bottom:0.5em;'><b>${lastMsg.auteur === email ? 'Moi' : lastMsg.auteur}:</b> ${lastMsg.text} <span style='float:right;'>${date}</span></div>`;
-                            }
-                            const card = document.createElement("div");
-                            card.className = "annonce-card";
-                            card.innerHTML = `
-                                <h4><i class="fas fa-tasks"></i> ${annonce.nomProduit || "Produit sans nom"}</h4>
-                                <p><i class="fas fa-coins"></i> Prix: ${annonce.prix || "?"} FCFA</p>
-                                <p><i class="fas fa-info-circle"></i> ${annonce.description || "Pas de description"}</p>
-                                <p><strong><i class="fas fa-user"></i> Vendeur:</strong> ${annonce.auteur}</p>
-                                ${preview}
-                                <button class="btn btn-primary" onclick="window.ouvrirChat('${annonce.id}', '${email}', '${annonce.auteur}')">
-                                    <i class="fas fa-comments"></i> Ouvrir chat
-                                </button>
-                            `;
-                            container.appendChild(card);
-                            total++;
-                        }
-                    }
-                }
-            }
-
-            if (total === 0) {
-                container.innerHTML += `<div class="annonce-card text-center"><i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-light); margin-bottom: 1rem; text-align:center;"></i><p>Tu n'as aucune conversation.</p></div>`;
-            }
-        }
-document.getElementById("accueilBtn").addEventListener("click", function() {
-    document.getElementById("conteneurProfils").style.display = "block";
-    document.getElementById("fourniture").style.display = "none";
-    document.getElementById("conteneuravis").style.display="none";
-    document.getElementById("avise").style.display = "none";
-    document.getElementById("chat").style.display = "none";
-    document.getElementById("connexion").style.display = "none";
-    document.getElementById("formulaire").style.display = "none";
-});
-        // Rendre la fonction accessible globalement
-        window.lireConversations = lireConversations;
-        // Création de compte 
-        btnCreerCompte.addEventListener("click", async () => {
-             document.getElementById("conteneuravis").style.display="none";
-            document.getElementById("conteneurProfils").style.display = "none";
-            document.getElementById("fourniture").style.display = "none";
-            document.getElementById("avise").style.display = "none";
-            document.getElementById("chat").style.display = "none";
-            document.getElementById("connexion").style.display = "block";
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("motdepasse").value;
-            try {
-                await createUserWithEmailAndPassword(auth, email, password);
-                alert("Compte créé et connecté !");
-                document.getElementById("conteneurProfils").style.display = "block";
-                document.getElementById("connexion").style.display = "none";
-            } catch (e) {
-                alert("Erreur création de compte : " + e.message);
-            }
-        });
-
-        // --- Connexion ---
-        btnSeConnecter.addEventListener("click", async () => {
-             document.getElementById("conteneuravis").style.display="none";
-            document.getElementById("conteneurProfils").style.display = "none";
-            document.getElementById("fourniture").style.display = "none";
-            document.getElementById("avise").style.display = "none";
-            document.getElementById("chat").style.display = "none";
-
-            document.getElementById("connexion").style.display = "block";
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("motdepasse").value;
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                alert("Connecté !");
-                document.getElementById("conteneurProfils").style.display = "block";
-                document.getElementById("connexion").style.display = "none";
-            } catch (e) {
-                alert("Erreur connexion : " + e.message);
-            }
-        });
-
-        // --- Déconnexion ---
-        btnDeconnexion.addEventListener("click", async () => {
-            await signOut(auth);
-            alert("Déconnecté !");
-            document.getElementById("conteneurProfils").style.display = "block";
-        });
-
-        // --- Empêche publication/chat si non connecté ---
-        function utilisateurConnecte() {
-            return auth.currentUser;
-        }
-
-        // --- Recherche dynamique ---
-        const searchBar = document.getElementById("searchBar");
-        const suggestions = document.getElementById("suggestions");
-
-        // --- Recherche dynamique optimisée (filtrage côté client) ---
-        searchBar.addEventListener("input", function () {
-             document.getElementById("conteneuravis").style.display="none";
-            document.getElementById("conteneurProfils").style.display = "block";
-            document.getElementById("fourniture").style.display = "none";
-            document.getElementById("avise").style.display = "none";
-            document.getElementById("chat").style.display = "none";
-            document.getElementById("connexion").style.display = "none";
-            const searchTerm = searchBar.value.trim().toLowerCase();
-            suggestions.innerHTML = "";
-            if (!searchTerm) {
-                suggestions.style.display = "none";
-                afficherAnnonces(allAnnonces);
-                return;
-            }
-            let found = false;
-            const filtered = allAnnonces.filter((annonce) =>
-                (annonce.nomProduit && annonce.nomProduit.toLowerCase().includes(searchTerm)) ||
-                (annonce.description && annonce.description.toLowerCase().includes(searchTerm))
-            );
-            filtered.forEach((annonce) => {
-                const li = document.createElement("li");
-                li.textContent = annonce.nomProduit + " - " + annonce.description;
-                li.onclick = () => {
-                    afficherAnnonces([annonce]);
-                    suggestions.style.display = "none";
-                    searchBar.value = li.textContent;
-                };
-                suggestions.appendChild(li);
-                found = true;
-            });
-            suggestions.style.display = found ? "block" : "none";
-            if (!found) {
-                const li = document.createElement("li");
-                li.textContent = "Aucun résultat trouvé";
-                suggestions.appendChild(li);
-            }
-            afficherAnnonces(filtered);
-        });
-        // Autres boutons et interactions
-        const btnConnexion = document.getElementById("connexionn");
-        const btnVendre = document.getElementById("vendre");
-        const btnAvis = document.getElementById("avis");
-        const btnJourNuit = document.getElementById("temps");
-        const conn = document.getElementById("connexion");
-        const fournitureMenu = document.getElementById("fourniture");
-        const avisZone = document.getElementById("avise");
-        const body = document.getElementById("bod");
-
-        btnConnexion.addEventListener("click", () => {
-            conn.style.display = "block";
-            fournitureMenu.style.display = "none";
-            btnVendre.style.display = "none";
-            avisZone.style.display = "none";
-            document.getElementById("question").style.display = "none";
-        });
-
-        btnVendre.addEventListener("click", () => {
-            formulaire.style.display = "block";
-            document.getElementById("conteneurProfils").style.display = "none";
-            document.getElementById("fourniture").style.display = "none";
-            document.getElementById("avise").style.display = "none";
-            document.getElementById("chat").style.display = "none";
-            document.getElementById("connexion").style.display = "none";
-             document.getElementById("conteneuravis").style.display="none";
-        });
-
-        btnAvis.addEventListener("click", async () => {
-            // Affiche le formulaire d'avis
-            avisZone.style.display = "block";
-            formulaire.style.display = "none";
-            document.getElementById("conteneurProfils").style.display = "none";
-            document.getElementById("fourniture").style.display = "none";
-            document.getElementById("avise").style.display = "block";
-            document.getElementById("chat").style.display = "none";
-            document.getElementById("connexion").style.display = "none";
-
-            // Charger et afficher les avis existants
-            try {
-                const avisSnap = await getDocs(collection(db, "avis"));
-                const avisList = avisSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                afficheravis(avisList);
-            } catch (e) {
-                document.getElementById("conteneuravis").innerHTML = "<p>Erreur de chargement des avis.</p>";
-                document.getElementById("conteneuravis").style.display = "block";
-            }
-        });
-
-        btnJourNuit.addEventListener("click", () => {
-            if (body.style.backgroundColor === "black") {
-                body.style.backgroundColor = "white";
-                document.getElementById("ladiv").style.color = "black";
-                btnJourNuit.innerText = "🌞";
-            } else {
-                body.style.backgroundColor = "black";
-                document.getElementById("ladiv").style.color = "white";
-                btnJourNuit.innerText = "🌑";
-            }
-        });
-
-        document.getElementById("livre").addEventListener("click", () => {
-            document.getElementById("produit").style.display = "block";
-        });
-
-        document.getElementById("produit").addEventListener("click", () => {
-            document.getElementById("livre").style.display = "block";
-        });
-
-        document.getElementById("trois").addEventListener("click", () => {
-            fournitureMenu.style.display = "block";
-            formulaire.style.display = "none";
-            document.getElementById("conteneurProfils").style.display = "none";
-            document.getElementById("fourniture").style.display = "block";
-            document.getElementById("avise").style.display = "none";
-            document.getElementById("chat").style.display = "none";
-            document.getElementById("connexion").style.display = "none";
-             document.getElementById("conteneuravis").style.display="none";
-        });
-
-        // Système d'étoiles pour les avis
-        window.rate = function (n) {
-            const stars = document.querySelectorAll('.star');
-            stars.forEach((star, index) => {
-                star.classList.toggle('active', index < n);
-            });
-        };
-        //avis
-        async function afficheravis(avisList) {
-            const container = document.getElementById("conteneuravis");
-            container.innerHTML = "";
-
-            if (!avisList || avisList.length === 0) {
-                container.innerHTML = "<p>Aucun avis trouvé.</p>";
-                container.style.display = "block";
-                return;
-            }
-
-           avisList.forEach((avis, index) => {
-    const bloc = document.createElement("div");
-    bloc.className = "conteneuravis avis-card";
-    bloc.style.animationDelay = `${index * 0.1}s`;
-    const fullStars = '★'.repeat(avis.rating);
-    const emptyStars = '☆'.repeat(5 - avis.rating);
-    const stars = `<span class="stars-full">${fullStars}</span><span class="stars-empty">${emptyStars}</span>`;
-    const dateStr = avis.date ? new Date(avis.date).toLocaleDateString('fr-FR', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    }) : '';
-    
-    bloc.innerHTML = `
-        <div class="avis-header">
-            <div class="avis-rating-section">
-                <div class="stars-container">${stars}</div>
-                <span class="rating-text">${avis.rating}/5</span>
-            </div>
-            ${dateStr ? `<div class="avis-date">${dateStr}</div>` : ''}
-            ${avis.author ? `<div class="avis-author">Par ${avis.author}</div>` : ''}
-        </div>
-        
-        <div class="avis-content">
-            <div class="comment-icon">💬</div>
-            <p class="avis-comment">${avis.comment}</p>
-        </div>
-        
-        ${avis.title ? `<h4 class="avis-title">${avis.title}</h4>` : ''}
-        
-        <div class="avis-footer">
-            <div class="avis-actions">
-                <button class="btn-helpful" id="pouce" onclick="toggleHelpful(${index})">
-                    <span class="icon">👍</span> Utile
-            </div>
-        </div>
-    `;
-    
-    container.appendChild(bloc);
-});
-
-// Animation du conteneur principal
-container.style.display = "block";
-  document.getElementById("conteneurProfils").style.display = "none";
-            document.getElementById("chat").style.display = "none";
-            conn.style.display = "none";
-            fournitureMenu.style.display = "none";
-            document.getElementById("question").style.display = "none";
-container.style.opacity = "0";
-container.style.transform = "translateY(20px)";
-
-// Animation d'apparition
-setTimeout(() => {
-    container.style.transition = "all 0.6s ease";
-    container.style.opacity = "1";
-    container.style.transform = "translateY(0)";
-}, 100);
-
-// Fonctions utilitaires
-function toggleHelpful(index) {
-    const btn = document.querySelector(`.conteneuravis:nth-child(${index + 1}) .btn-helpful`);
-    btn.classList.toggle('active');
-    btn.innerHTML = btn.classList.contains('active') 
-        ? '<span class="icon">👍</span> Utile ✓' 
-        : '<span class="icon">👍</span> Utile';
-}
-
-function shareAvis(index) {
-    const avis = avisList[index];
-    const shareText = `Avis: ${avis.rating}/5 étoiles - "${avis.comment}"`;
-    
-    if (navigator.share) {
-        navigator.share({
-            title: 'Avis client',
-            text: shareText
-        });
-    } else {
-        navigator.clipboard.writeText(shareText).then(() => {
-            alert('Avis copié dans le presse-papiers !');
-        });
-    }
-}
-
-            container.style.display = "block";
-        }
-
-        document.getElementById("formule").addEventListener("submit", async function(e) {
-            e.preventDefault();
-                        const stars = document.querySelectorAll('#stars .star.active').length;
-            const comment = document.getElementById("avi").value.trim();
-            if (!stars || !comment) {
-                alert("Merci de donner une note et un commentaire.");
-                return;
-            }
-            try {
-                await addDoc(collection(db, "avis"), {
-                    rating: stars,
-                    comment: comment,
-                    timestamp: Date.now()
-                });
-                document.getElementById("avi").value = "";
-                document.querySelectorAll('#stars .star').forEach(star => star.classList.remove('active'));
-                const avisSnap = await getDocs(collection(db, "avis"));
-                const avisList = avisSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                afficheravis(avisList);
-                alert("Merci pour votre avis !");
-            } catch (err) {
-                alert("Erreur lors de l'envoi de l'avis.");
-            }
-        });
-
-        // --- Fonction pour afficher les annonces ---
-        function escapeHTML(str) {
-            if (!str) return "";
-            return str.replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-        async function afficherAnnonces(annonces) {
-            const container = conteneurProfils;
-            container.innerHTML = "";
-
-            if (!annonces || annonces.length === 0) {
-                container.innerHTML = `
-                    <div class="container">
-                        <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
-                            <h3>Aucune annonce trouvée</h3>
-                            <p>Soyez le premier à publier une annonce !</p>
+                    <div class="about-stats">
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="15">0</div>
+                            <div class="stat-label">Années d'Expérience</div>
                         </div>
-                    </div>`;
-                container.style.display = "block";
-                return;
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="50">0</div>
+                            <div class="stat-label">Plats Traditionnels</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="10000">0</div>
+                            <div class="stat-label">Clients Satisfaits</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" data-count="5">0</div>
+                            <div class="stat-label">Étoiles Moyennes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-image animate-on-scroll slide-right">
+                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'><rect fill='%23d4af37' width='600' height='400'/><rect fill='%232c5530' x='0' y='300' width='600' height='100'/><circle fill='%238b4513' cx='300' cy='200' r='80'/><text x='300' y='210' text-anchor='middle' fill='%23ffffff' font-size='20' font-family='Arial'>Chef</text><rect fill='%23ffffff' x='200' y='100' width='200' height='20' rx='10'/><rect fill='%23ffffff' x='220' y='130' width='160' height='15' rx='7'/></svg>"
+                        alt="Notre Chef" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title animate-on-scroll slide-up">Notre Menu</h2>
+                <p class="section-subtitle animate-on-scroll slide-up">
+                    Découvrez nos spécialités camerounaises préparées avec passion
+                </p>
+            </div>
+
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">Tous</button>
+                <button class="category-btn" data-category="plats-principaux">Plats Principaux</button>
+                <button class="category-btn" data-category="soupes">Soupes</button>
+                <button class="category-btn" data-category="grillades">Grillades</button>
+                <button class="category-btn" data-category="accompagnements">Accompagnements</button>
+                <button class="category-btn" data-category="desserts">Desserts</button>
+                <button class="category-btn" data-category="boissons">Boissons</button>
+            </div>
+
+            <div class="menu-grid" id="menuGrid">
+                <!-- Menu items will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section class="reservation" id="reservation">
+        <div class="container">
+            <div class="reservation-container">
+                <div class="reservation-info animate-on-scroll slide-left">
+                    <h2>Réservez Votre Table</h2>
+                    <p>
+                        Rejoignez-nous pour une expérience culinaire authentique dans une ambiance
+                        conviviale. Réservez votre table dès maintenant et laissez-vous transporter
+                        par les saveurs du Cameroun.
+                    </p>
+
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Rue de la Gastronomie, Douala, Cameroun</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+237 6XX XX XX XX</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>contact@saveurscameroun.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Lun-Dim: 11h00 - 23h00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="reservation-form animate-on-scroll slide-right" id="reservationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">Prénom *</label>
+                            <input type="text" id="firstName" name="firstName" class="form-control" required
+                                placeholder="Votre prénom">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Nom *</label>
+                            <input type="text" id="lastName" name="lastName" class="form-control" required
+                                placeholder="Votre nom">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" class="form-control" required
+                                placeholder="votre@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Téléphone *</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" required
+                                placeholder="+237 6XX XX XX XX">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Date *</label>
+                            <input type="date" id="date" name="date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Heure *</label>
+                            <input type="time" id="time" name="time" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="guests">Nombre de Personnes *</label>
+                            <select id="guests" name="guests" class="form-control" required>
+                                <option value="">Choisir...</option>
+                                <option value="1">1 personne</option>
+                                <option value="2">2 personnes</option>
+                                <option value="3">3 personnes</option>
+                                <option value="4">4 personnes</option>
+                                <option value="5">5 personnes</option>
+                                <option value="6">6 personnes</option>
+                                <option value="7">7 personnes</option>
+                                <option value="8">8 personnes</option>
+                                <option value="more">Plus de 8</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="occasion">Occasion</label>
+                            <select id="occasion" name="occasion" class="form-control">
+                                <option value="">Sélectionner...</option>
+                                <option value="birthday">Anniversaire</option>
+                                <option value="anniversary">Anniversaire de mariage</option>
+                                <option value="business">Repas d'affaires</option>
+                                <option value="date">Rendez-vous romantique</option>
+                                <option value="family">Repas en famille</option>
+                                <option value="celebration">Célébration</option>
+                                <option value="other">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message / Demandes Spéciales</label>
+                        <textarea id="message" name="message" class="form-control" rows="4"
+                            placeholder="Allergies, préférences alimentaires, demandes spéciales..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-calendar-check"></i>
+                        Confirmer la Réservation
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title animate-on-scroll slide-up">Galerie</h2>
+                <p class="section-subtitle animate-on-scroll slide-up">
+                    Découvrez l'ambiance de notre restaurant et nos délicieux plats
+                </p>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Gallery items will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title animate-on-scroll slide-up">Avis de nos Clients</h2>
+                <p class="section-subtitle animate-on-scroll slide-up">
+                    Ce que disent nos clients sur leur expérience chez nous
+                </p>
+            </div>
+
+            <div class="reviews-slider" id="reviewsSlider">
+                <!-- Reviews will be populated by JavaScript -->
+            </div>
+
+            <div class="review-nav" id="reviewNav">
+                <!-- Navigation dots will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Saveurs du Cameroun</h3>
+                    <p>
+                        Restaurant authentique spécialisé dans la cuisine traditionnelle camerounaise.
+                        Venez découvrir les saveurs uniques de l'Afrique centrale dans un cadre chaleureux et convivial.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="#home">Accueil</a></li>
+                        <li><a href="#about">À Propos</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#gallery">Galerie</a></li>
+                        <li><a href="#reviews">Avis</a></li>
+                        <li><a href="#reservation">Réservation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Rue de la Gastronomie, Douala</li>
+                        <li><i class="fas fa-phone"></i> +237 6XX XX XX XX</li>
+                        <li><i class="fas fa-envelope"></i> contact@saveurscameroun.com</li>
+                        <li><i class="fas fa-clock"></i> Lun-Dim: 11h00 - 23h00</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Spécialités</h3>
+                    <ul>
+                        <li>Ndolé traditionnel</li>
+                        <li>Poulet DG</li>
+                        <li>Eru aux crevettes</li>
+                        <li>Poisson braisé</li>
+                        <li>Koki de niébé</li>
+                        <li>Beignets de plantain</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Saveurs du Cameroun. Tous droits réservés. | Conçu avec ❤️ pour la culture camerounaise
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3 class="cart-title">Mon Panier</h3>
+            <button class="cart-close" id="cartClose" aria-label="Close cart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be populated by JavaScript -->
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">0 FCFA</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">
+                <i class="fas fa-credit-card"></i>
+                Passer Commande
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-icon" id="modalIcon">✅</div>
+            <h3 class="modal-title" id="modalTitle">Succès!</h3>
+            <p class="modal-text" id="modalText">Votre action a été effectuée avec succès.</p>
+            <button class="modal-btn" id="modalBtn">OK</button>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // ===== DATA =====
+        const menuData = [
+            {
+                id: 1,
+                name: "Ndolé Traditionnel",
+                category: "plats-principaux",
+                price: 3500,
+                description: "Plat emblématique du Cameroun à base de feuilles de ndolé, arachides et viande/poisson",
+                spiceLevel: 2,
+                image: ""
+            },
+            {
+                id: 2,
+                name: "Poulet DG",
+                category: "plats-principaux",
+                price: 4000,
+                description: "Poulet sauté aux légumes (plantains, carottes, haricots verts) dans une sauce savoureuse",
+                spiceLevel: 1,
+                image: "🍗"
+            },
+            {
+                id: 3,
+                name: "Eru aux Crevettes",
+                category: "soupes",
+                price: 4500,
+                description: "Soupe traditionnelle à base de feuilles d'eru, crevettes séchées et viande fumée",
+                spiceLevel: 3,
+                image: "🍲"
+            },
+            {
+                id: 4,
+                name: "Poisson Braisé",
+                category: "grillades",
+                price: 3000,
+                description: "Poisson frais grillé aux épices camerounaises, accompagné d'attiéké ou de plantain",
+                spiceLevel: 2,
+                image: "🐟"
+            },
+            {
+                id: 5,
+                name: "Koki de Niébé",
+                category: "accompagnements",
+                price: 1500,
+                description: "Gâteau de haricots vapeur, spécialité de l'Ouest Cameroun",
+                spiceLevel: 1,
+                image: "🫘"
+            },
+            {
+                id: 6,
+                name: "Beignets de Plantain",
+                category: "accompagnements",
+                price: 1000,
+                description: "Beignets croustillants de plantain mûr, parfaits en accompagnement",
+                spiceLevel: 0,
+                image: "🍌"
+            },
+            {
+                id: 7,
+                name: "Soupe de Pistache",
+                category: "soupes",
+                price: 3800,
+                description: "Soupe riche aux arachides avec du bœuf et des légumes traditionnels",
+                spiceLevel: 2,
+                image: "🥜"
+            },
+            {
+                id: 8,
+                name: "Brochettes de Bœuf",
+                category: "grillades",
+                price: 3500,
+                description: "Brochettes de bœuf marinées aux épices locales, grillées au feu de bois",
+                spiceLevel: 2,
+                image: "🍢"
+            },
+            {
+                id: 9,
+                name: "Fufu de Plantain",
+                category: "accompagnements",
+                price: 1200,
+                description: "Accompagnement traditionnel à base de plantain pilé",
+                spiceLevel: 0,
+                image: "🥖"
+            },
+            {
+                id: 10,
+                name: "Sauce Gombo",
+                category: "soupes",
+                price: 3200,
+                description: "Sauce visqueuse au gombo avec du poisson fumé et de la viande",
+                spiceLevel: 2,
+                image: "🌶️"
+            },
+            {
+                id: 11,
+                name: "Porc au Gingembre",
+                category: "plats-principaux",
+                price: 4200,
+                description: "Porc mijoté dans une sauce au gingembre et aux légumes frais",
+                spiceLevel: 1,
+                image: "🐷"
+            },
+            {
+                id: 12,
+                name: "Mbanga Soup",
+                category: "soupes",
+                price: 3600,
+                description: "Soupe de palme traditionnelle avec du poisson et de la viande",
+                spiceLevel: 2,
+                image: "🥥"
+            },
+            {
+                id: 13,
+                name: "Kwacoco Anglais",
+                category: "accompagnements",
+                price: 1800,
+                description: "Taro vapeur accompagné de sauce tomate épicée",
+                spiceLevel: 1,
+                image: "🍠"
+            },
+            {
+                id: 14,
+                name: "Suya de Chèvre",
+                category: "grillades",
+                price: 4000,
+                description: "Viande de chèvre grillée aux épices suya, spécialité du Nord",
+                spiceLevel: 3,
+                image: "🐐"
+            },
+            {
+                id: 15,
+                name: "Bobolo",
+                category: "accompagnements",
+                price: 800,
+                description: "Manioc fermenté enveloppé dans des feuilles, cuit à la vapeur",
+                spiceLevel: 0,
+                image: "🌿"
+            },
+            {
+                id: 16,
+                name: "Beignet Haricot",
+                category: "desserts",
+                price: 500,
+                description: "Beignets sucrés aux haricots, collation traditionnelle",
+                spiceLevel: 0,
+                image: "🍩"
+            },
+            {
+                id: 17,
+                name: "Piments Verts Farcis",
+                category: "plats-principaux",
+                price: 2800,
+                description: "Piments verts farcis au poisson et aux épices",
+                spiceLevel: 3,
+                image: "🫑"
+            },
+            {
+                id: 18,
+                name: "Kondré de Chèvre",
+                category: "plats-principaux",
+                price: 4500,
+                description: "Ragoût de chèvre aux légumes et épices du Nord Cameroun",
+                spiceLevel: 2,
+                image: "🍛"
+            },
+            {
+                id: 19,
+                name: "Bière Mutzig",
+                category: "boissons",
+                price: 800,
+                description: "Bière locale camerounaise, fraîche et désaltérante",
+                spiceLevel: 0,
+                image: "🍺"
+            },
+            {
+                id: 20,
+                name: "Jus de Bissap",
+                category: "boissons",
+                price: 1000,
+                description: "Boisson rafraîchissante à base de fleurs d'hibiscus",
+                spiceLevel: 0,
+                image: "🧃"
+            },
+            {
+                id: 21,
+                name: "Vin de Palme",
+                category: "boissons",
+                price: 1500,
+                description: "Boisson traditionnelle fermentée à base de sève de palmier",
+                spiceLevel: 0,
+                image: "🍷"
+            },
+            {
+                id: 22,
+                name: "Puff-Puff",
+                category: "desserts",
+                price: 300,
+                description: "Beignets sucrés moelleux, parfaits pour le dessert",
+                spiceLevel: 0,
+                image: "⚪"
+            },
+            {
+                id: 23,
+                name: "Plantain Rôti",
+                category: "desserts",
+                price: 800,
+                description: "Plantain mûr grillé, caramélisé naturellement",
+                spiceLevel: 0,
+                image: "🍌"
+            },
+            {
+                id: 24,
+                name: "Mangue Fraîche",
+                category: "desserts",
+                price: 600,
+                description: "Mangue locale fraîche et juteuse de saison",
+                spiceLevel: 0,
+                image: "🥭"
+            }
+        ];
+
+        const reviewsData = [
+            {
+                id: 1,
+                author: "Marie Dubois",
+                rating: 5,
+                text: "Une expérience culinaire exceptionnelle ! Le ndolé était absolument délicieux et l'ambiance très chaleureuse. Je recommande vivement ce restaurant à tous ceux qui veulent découvrir la vraie cuisine camerounaise.",
+                avatar: "MD"
+            },
+            {
+                id: 2,
+                author: "Jean-Paul Mvondo",
+                rating: 5,
+                text: "Enfin un restaurant qui respecte les traditions culinaires camerounaises ! Le poulet DG était parfaitement préparé et le service impeccable. Un vrai régal pour les papilles.",
+                avatar: "JM"
+            },
+            {
+                id: 3,
+                author: "Sarah Johnson",
+                rating: 4,
+                text: "Découverte fantastique de la cuisine camerounaise. Les saveurs sont authentiques et les portions généreuses. L'eru aux crevettes était un délice. Seul bémol : l'attente un peu longue.",
+                avatar: "SJ"
+            },
+            {
+                id: 4,
+                author: "Pierre Nkomo",
+                rating: 5,
+                text: "Comme à la maison ! Les plats me rappellent ceux de ma grand-mère. L'équipe est accueillante et les prix très raisonnables. Une adresse à retenir absolument.",
+                avatar: "PN"
+            },
+            {
+                id: 5,
+                author: "Fatima Al-Hassan",
+                rating: 5,
+                text: "Service exceptionnel et cuisine authentique. Le poisson braisé était cuit à la perfection et les accompagnements parfaitement assaisonnés. Une expérience culinaire inoubliable !",
+                avatar: "FA"
+            }
+        ];
+
+        const galleryData = [
+            { id: 1, category: "restaurant", alt: "Intérieur du restaurant" },
+            { id: 2, category: "food", alt: "Ndolé traditionnel" },
+            { id: 3, category: "food", alt: "Poulet DG" },
+            { id: 4, category: "restaurant", alt: "Salle à manger" },
+            { id: 5, category: "food", alt: "Eru aux crevettes" },
+            { id: 6, category: "food", alt: "Poisson braisé" },
+            { id: 7, category: "restaurant", alt: "Cuisine ouverte" },
+            { id: 8, category: "food", alt: "Desserts traditionnels" },
+            { id: 9, category: "events", alt: "Événement spécial" },
+            { id: 10, category: "food", alt: "Brochettes de bœuf" },
+            { id: 11, category: "restaurant", alt: "Terrasse extérieure" },
+            { id: 12, category: "food", alt: "Boissons traditionnelles" }
+        ];
+
+        // ===== STATE MANAGEMENT =====
+        let cart = [];
+        let currentReviewIndex = 0;
+        let isMenuLoaded = false;
+        let animationObserver;
+
+        // ===== UTILITY FUNCTIONS =====
+        function formatPrice(price) {
+            return new Intl.NumberFormat('fr-FR').format(price) + ' FCFA';
+        }
+
+        function generateSpiceIcons(level) {
+            let icons = '';
+            for (let i = 0; i < 3; i++) {
+                icons += `<i class="spice-icon ${i < level ? 'fas' : 'far'} fa-pepper-hot"></i>`;
+            }
+            return icons;
+        }
+
+        function showModal(icon, title, text) {
+            const modal = document.getElementById('modal');
+            const modalIcon = document.getElementById('modalIcon');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalText = document.getElementById('modalText');
+
+            modalIcon.textContent = icon;
+            modalTitle.textContent = title;
+            modalText.textContent = text;
+
+            modal.classList.add('show');
+        }
+
+        function hideModal() {
+            document.getElementById('modal').classList.remove('show');
+        }
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+
+            // Update cart count
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            cartCount.style.display = totalItems > 0 ? 'inline' : 'none';
+
+            // Update cart items
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: #666;">
+                        <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                        <p>Votre panier est vide</p>
+                        <p style="font-size: 0.9em; opacity: 0.7;">Ajoutez des plats délicieux depuis notre menu</p>
+                    </div>
+                `;
+                cartTotal.textContent = '0 FCFA';
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-image">${item.image}</div>
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${formatPrice(item.price)}</div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                                <span class="quantity">${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                cartTotal.textContent = formatPrice(total);
+            }
+        }
+
+        function addToCart(menuItem) {
+            const existingItem = cart.find(item => item.id === menuItem.id);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...menuItem, quantity: 1 });
             }
 
-            const annoncesHTML = annonces.map(async (annonce) => {
-                // Bloque le bouton si plus de 2 achats
-                let achatBloque = false;
-                if (utilisateurConnecte()) {
-                    const stats = await getUserStats(auth.currentUser.email);
-                    if (stats.achats >= 2) {
-                        achatBloque = true;
-                        alert("Vous avez atteint la limite de vos achats cliquez sur payer pour continuer(200 fcfa) ");
-                        document.getElementById("payer").style.display = "block";
+            updateCartUI();
+            showModal('🛒', 'Ajouté au panier!', `${menuItem.name} a été ajouté à votre panier.`);
+        }
 
+        function updateQuantity(itemId, change) {
+            const item = cart.find(item => item.id === itemId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(item => item.id !== itemId);
+                }
+                updateCartUI();
+            }
+        }
+
+        // ===== MENU FUNCTIONS =====
+        function renderMenuItems(items = menuData) {
+            const menuGrid = document.getElementById('menuGrid');
+
+            menuGrid.innerHTML = items.map(item => `
+                <div class="menu-item animate-on-scroll slide-up" data-category="${item.category}">
+                    <div class="menu-item-image">
+                        <div class="price-tag">${formatPrice(item.price)}</div>
+                    </div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">${item.name}</h3>
+                        <p class="menu-item-description">${item.description}</p>
+                        <div class="menu-item-footer">
+                            <div class="spice-level" title="Niveau de piment">
+                                ${generateSpiceIcons(item.spiceLevel)}
+                            </div>
+                            <button class="add-to-cart" onclick="addToCart(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+                                <i class="fas fa-plus"></i>
+                                Ajouter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Trigger animation for new items
+            setTimeout(() => {
+                document.querySelectorAll('.menu-item').forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('show');
+                    }, index * 100);
+                });
+            }, 100);
+        }
+
+        function filterMenu(category) {
+            const filteredItems = category === 'all' ? menuData : menuData.filter(item => item.category === category);
+            renderMenuItems(filteredItems);
+
+            // Update active category button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-category="${category}"]`).classList.add('active');
+        }
+
+        // ===== GALLERY FUNCTIONS =====
+        function renderGallery() {
+            const galleryGrid = document.getElementById('galleryGrid');
+
+            galleryGrid.innerHTML = galleryData.map(item => `
+                <div class="gallery-item animate-on-scroll slide-up" onclick="openGalleryModal(${item.id})">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openGalleryModal(itemId) {
+            const item = galleryData.find(g => g.id === itemId);
+            showModal('📸', 'Galerie', `Affichage de: ${item.alt}`);
+        }
+
+        // ===== REVIEWS FUNCTIONS =====
+        function renderReviews() {
+            const reviewsSlider = document.getElementById('reviewsSlider');
+            const reviewNav = document.getElementById('reviewNav');
+
+            // Render current review
+            const currentReview = reviewsData[currentReviewIndex];
+            reviewsSlider.innerHTML = `
+                <div class="review-card">
+                    <p class="review-text">${currentReview.text}</p>
+                    <div class="review-author">
+                        <div class="review-avatar">${currentReview.avatar}</div>
+                        <div class="review-info">
+                            <h4>${currentReview.author}</h4>
+                            <div class="review-rating">
+                                ${'★'.repeat(currentReview.rating)}${'☆'.repeat(5 - currentReview.rating)}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Render navigation dots
+            reviewNav.innerHTML = reviewsData.map((_, index) => `
+                <div class="nav-dot ${index === currentReviewIndex ? 'active' : ''}" onclick="goToReview(${index})"></div>
+            `).join('');
+        }
+
+        function goToReview(index) {
+            currentReviewIndex = index;
+            renderReviews();
+        }
+
+        function nextReview() {
+            currentReviewIndex = (currentReviewIndex + 1) % reviewsData.length;
+            renderReviews();
+        }
+
+        // ===== ANIMATION FUNCTIONS =====
+        function initScrollAnimations() {
+            animationObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
                     }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                animationObserver.observe(el);
+            });
+        }
+
+        function animateCounters() {
+            document.querySelectorAll('.stat-number').forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-count'));
+                const increment = target / 100;
+                let current = 0;
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = target.toLocaleString();
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current).toLocaleString();
+                    }
+                }, 20);
+            });
+        }
+
+        // ===== FORM HANDLING =====
+        function initReservationForm() {
+            const form = document.getElementById('reservationForm');
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').min = today;
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Simulate form submission
+                const submitBtn = document.querySelector('.submit-btn');
+                const originalText = submitBtn.innerHTML;
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+
+                setTimeout(() => {
+                    showModal('✅', 'Réservation Confirmée!',
+                        'Votre demande de réservation a été envoyée avec succès. Nous vous contacterons bientôt pour confirmer.');
+                    form.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+
+        // ===== NAVIGATION =====
+        function initNavigation() {
+            const navbar = document.getElementById('navbar');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+            const scrollTop = document.getElementById('scrollTop');
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    navbar.classList.add('scrolled');
+                    scrollTop.classList.add('show');
+                } else {
+                    navbar.classList.remove('scrolled');
+                    scrollTop.classList.remove('show');
+                }
+            });
+
+            // Mobile menu toggle
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('open');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('.nav-link, .hero-buttons a, .scroll-top').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId.startsWith('#')) {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+
+                            // Close mobile menu if open
+                            navLinks.classList.remove('open');
+                            mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                            mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                        }
+                    }
+                });
+            });
+
+            // Update active navigation link on scroll
+            const sections = document.querySelectorAll('section[id]');
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 150;
+                    if (window.pageYOffset >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // ===== CART FUNCTIONS =====
+        function initCart() {
+            const cartToggle = document.getElementById('cartToggle');
+            const cartSidebar = document.getElementById('cartSidebar');
+            const cartClose = document.getElementById('cartClose');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+
+            cartToggle.addEventListener('click', () => {
+                cartSidebar.classList.add('open');
+            });
+
+            cartClose.addEventListener('click', () => {
+                cartSidebar.classList.remove('open');
+            });
+
+            checkoutBtn.addEventListener('click', () => {
+                if (cart.length === 0) {
+                    showModal('⚠️', 'Panier Vide', 'Ajoutez des plats à votre panier avant de passer commande.');
+                    return;
                 }
 
-                return `
-                    <div class="annonce-card">
-                        ${annonce.imageUrl ? `<img src="${escapeHTML(annonce.imageUrl)}" alt="${escapeHTML(annonce.nomProduit)}" class="annonce-image" />` : ''}
-                        <div class="annonce-content">
-                            <h3 class="annonce-title">${escapeHTML(annonce.nomProduit) || ""}</h3>
-                            <div class="annonce-price">${escapeHTML(annonce.prix ? annonce.prix + ' FCFA' : '')}</div>
-                            
-                            <div class="annonce-details">
-                                <div class="annonce-detail">
-                                    <strong>Classe:</strong> ${escapeHTML(annonce.classe) || ''}
-                                </div>
-                                <div class="annonce-detail">
-                                    <strong>Lieu:</strong> ${escapeHTML(annonce.lieu) || ''}
-                                </div>
-                                <div class="annonce-detail">
-                                    <strong>Vendeur:</strong> ${escapeHTML(annonce.auteur) || ''}
-                                </div>
-                            </div>
-                            
-                            <p class="annonce-description">${escapeHTML(annonce.description)}</p>
-                            
-                            <div class="annonce-actions">
-                                <button class="btn btn-primary" onclick="postuler('${annonce.id}', '${annonce.auteur}')" ${achatBloque ? 'disabled' : ''}>
-                                    💬 Contacter
-                                </button>
-                                <button class="btn btn-success" id="payer" style="display:none;" onclick="startPayment(${annonce.prix}, async (success) => { if (success) { await incrementUserStat(auth.currentUser.email, 'achats'); alert('Paiement réussi !'); afficherAnnonces(allAnnonces); } })" ${achatBloque ? 'disabled' : ''}>
-                                    💳 Payer
-                                </button>
-                            </div>
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                showModal('🎉', 'Commande Confirmée!',
+                    `Votre commande d'un montant de ${formatPrice(total)} a été confirmée. Merci pour votre confiance!`);
+                cart = [];
+                updateCartUI();
+                cartSidebar.classList.remove('open');
+            });
+
+            // Close cart when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!cartSidebar.contains(e.target) && !cartToggle.contains(e.target)) {
+                    cartSidebar.classList.remove('open');
+                }
+            });
+        }
+
+        // ===== THEME TOGGLE =====
+        function initThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-theme');
+                themeToggle.textContent = '☀️';
+            }
+
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-theme');
+                const isDark = body.classList.contains('dark-theme');
+                themeToggle.textContent = isDark ? '☀️' : '🌙';
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            });
+        }
+
+        // ===== INITIALIZATION =====
+        function init() {
+            // Remove loading screen
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 2000);
+
+            // Initialize all components
+            initNavigation();
+            initCart();
+            initThemeToggle();
+            initReservationForm();
+            renderMenuItems();
+            renderGallery();
+            renderReviews();
+            initScrollAnimations();
+
+            // Set up menu category filters
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const category = btn.getAttribute('data-category');
+                    filterMenu(category);
+                });
+            });
+
+            // Auto-rotate reviews
+            setInterval(nextReview, 5000);
+
+            // Initialize modal close
+            document.getElementById('modalBtn').addEventListener('click', hideModal);
+            document.getElementById('modal').addEventListener('click', (e) => {
+                if (e.target.id === 'modal') hideModal();
+            });
+
+            // Animate counters when about section is visible
+            const aboutSection = document.getElementById('about');
+            const aboutObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        aboutObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            aboutObserver.observe(aboutSection);
+
+            // Add cart icon style
+            const cartToggle = document.getElementById('cartToggle');
+            cartToggle.style.cssText = `
+                position: relative;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.2rem;
+                cursor: pointer;
+                padding: 0.5rem;
+                border-radius: 50%;
+                transition: all 0.3s ease;
+            `;
+
+            const cartCount = document.getElementById('cartCount');
+            cartCount.style.cssText = `
+                position: absolute;
+                top: -5px;
+                right: -5px;
+                background: #dc3545;
+                color: white;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                font-size: 0.8rem;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+            `;
+
+            updateCartUI();
+
+            // Add hover effects
+            document.addEventListener('mouseover', (e) => {
+                if (e.target.matches('.btn, .menu-item, .gallery-item, .review-card')) {
+                    e.target.style.transform = 'translateY(-2px)';
+                }
+            });
+
+            document.addEventListener('mouseout', (e) => {
+                if (e.target.matches('.btn, .menu-item, .gallery-item, .review-card')) {
+                    e.target.style.transform = 'translateY(0)';
+                }
+            });
+
+            // Add keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    hideModal();
+                    document.getElementById('cartSidebar').classList.remove('open');
+                    document.getElementById('navLinks').classList.remove('open');
+                }
+            });
+
+            // Add loading states for images
+            document.querySelectorAll('.menu-item-image, .gallery-item').forEach(item => {
+                item.style.background = 'linear-gradient(45deg, #d4af37, #2c5530)';
+                item.style.backgroundSize = '200% 200%';
+                item.style.animation = 'gradientShift 3s ease infinite';
+            });
+
+            // Add gradient animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes gradientShift {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+                
+                .cart-count {
+                    animation: pulse 2s infinite;
+                }
+                
+                @keyframes pulse {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(1.1); }
+                    100% { transform: scale(1); }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Add search functionality (bonus feature)
+            const searchInput = document.createElement('input');
+            searchInput.type = 'text';
+            searchInput.placeholder = 'Rechercher un plat...';
+            searchInput.className = 'search-input';
+            searchInput.style.cssText = `
+                width: 100%;
+                max-width: 400px;
+                padding: 1rem;
+                margin: 2rem auto;
+                display: block;
+                border: 2px solid #d4af37;
+                border-radius: 25px;
+                font-size: 1rem;
+                text-align: center;
+                transition: all 0.3s ease;
+            `;
+
+            const menuContainer = document.querySelector('.menu .container');
+            const menuHeader = menuContainer.querySelector('.section-header');
+            menuHeader.appendChild(searchInput);
+
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredItems = menuData.filter(item =>
+                    item.name.toLowerCase().includes(searchTerm) ||
+                    item.description.toLowerCase().includes(searchTerm)
+                );
+                renderMenuItems(filteredItems);
+            });
+
+            // Add nutrition info modal (bonus feature)
+            window.showNutritionInfo = function (itemId) {
+                const item = menuData.find(m => m.id === itemId);
+                if (item) {
+                    const nutritionInfo = {
+                        calories: Math.floor(Math.random() * 400) + 200,
+                        protein: Math.floor(Math.random() * 30) + 10,
+                        carbs: Math.floor(Math.random() * 50) + 20,
+                        fat: Math.floor(Math.random() * 20) + 5
+                    };
+
+                    showModal('📊', 'Informations Nutritionnelles',
+                        `${item.name}\n\nCalories: ${nutritionInfo.calories} kcal\nProtéines: ${nutritionInfo.protein}g\nGlucides: ${nutritionInfo.carbs}g\nLipides: ${nutritionInfo.fat}g`);
+                }
+            };
+
+            // Add social sharing
+            window.shareMenu = function () {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Saveurs du Cameroun - Menu',
+                        text: 'Découvrez notre délicieux menu de cuisine camerounaise authentique!',
+                        url: window.location.href
+                    });
+                } else {
+                    navigator.clipboard.writeText(window.location.href).then(() => {
+                        showModal('📋', 'Lien Copié!', 'Le lien du menu a été copié dans votre presse-papiers.');
+                    });
+                }
+            };
+
+            // Add contact form validation
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function () {
+                    if (this.hasAttribute('required') && !this.value.trim()) {
+                        this.style.borderColor = '#dc3545';
+                        this.style.boxShadow = '0 0 0 3px rgba(220, 53, 69, 0.3)';
+                    } else {
+                        this.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                        this.style.boxShadow = 'none';
+                    }
+                });
+
+                input.addEventListener('input', function () {
+                    if (this.style.borderColor === 'rgb(220, 53, 69)') {
+                        this.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                        this.style.boxShadow = 'none';
+                    }
+                });
+            });
+
+            // Add real-time availability checker
+            function checkAvailability() {
+                const now = new Date();
+                const hours = now.getHours();
+                const isOpen = hours >= 11 && hours < 23;
+
+                const statusIndicator = document.createElement('div');
+                statusIndicator.className = 'status-indicator';
+                statusIndicator.innerHTML = `
+                    <div style="
+                        position: fixed;
+                        top: 100px;
+                        right: 20px;
+                        background: ${isOpen ? '#28a745' : '#dc3545'};
+                        color: white;
+                        padding: 1rem;
+                        border-radius: 10px;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                        z-index: 1000;
+                        font-weight: bold;
+                        animation: slideInRight 0.5s ease;
+                    ">
+                        <i class="fas fa-clock"></i>
+                        ${isOpen ? 'Ouvert maintenant!' : 'Fermé actuellement'}
+                        <div style="font-size: 0.8em; margin-top: 0.5rem;">
+                            ${isOpen ? 'Jusqu\'à 23h00' : 'Ouverture à 11h00'}
                         </div>
                     </div>
                 `;
-            });
 
-            const annoncesContent = await Promise.all(annoncesHTML);
+                document.body.appendChild(statusIndicator);
 
-            container.innerHTML = `
-                <div class="container">
-                    <div class="annonces-grid">
-                        ${annoncesContent.join('')}
-                    </div>
-                </div>`;
-            container.style.display = "block";
-        }
-        //FONCTION POUR LE PAYEMENT
-        async function startPayment(amount, callback) {
-            CinetPay.setConfig({
-                apikey: '61737472068756e2b167aa8.58285306',
-                site_id: '105901967',
-                notify_url: '',
-                mode: 'PRODUCTION'
-            });
-            let transaction_id = 'TXN_' + Math.floor(Math.random() * 1000000000);
-            CinetPay.getCheckout({
-                transaction_id: transaction_id,
-                amount: 200,
-                currency: 'XAF',
-                channels: 'ALL',
-                description: 'Paiement fournitures scolaires'
-            });
-            CinetPay.waitResponse(async function (data) {
-                if (data.status === "REFUSED") {
-                    alert("Paiement échoué ❌");
-                    if (callback) callback(false);
-                } else if (data.status === "ACCEPTED") {
-                    alert("Paiement réussi ✅");
-                    if (callback) callback(true);
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                    statusIndicator.style.animation = 'slideOutRight 0.5s ease';
+                    setTimeout(() => statusIndicator.remove(), 500);
+                }, 5000);
+            }
+
+            checkAvailability();
+
+            // Add slideInRight animation
+            const animationStyle = document.createElement('style');
+            animationStyle.textContent += `
+                @keyframes slideInRight {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+                
+                @keyframes slideOutRight {
+                    from {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(animationStyle);
+
+            // Add performance monitoring
+            window.addEventListener('load', () => {
+                const loadTime = performance.now();
+                console.log(`🚀 Site chargé en ${Math.round(loadTime)}ms`);
+
+                if (loadTime > 3000) {
+                    console.warn('⚠️ Temps de chargement élevé détecté');
                 }
             });
-            CinetPay.onError(function (data) {
-                console.error(data);
-                alert("Erreur lors du paiement ⚠");
-                if (callback) callback(false);
+
+            // Add error handling for failed operations
+            window.addEventListener('error', (e) => {
+                console.error('❌ Erreur détectée:', e.error);
+                showModal('⚠️', 'Erreur', 'Une erreur s\'est produite. Veuillez rafraîchir la page.');
             });
-        }
-        // --- Fonction pour charger toutes les annonces au démarrage ---
-        async function chargerToutesLesAnnonces() {
-            try {
-                const querySnapshot = await getDocs(collection(db, "annonces"));
-                const annonces = [];
-                querySnapshot.forEach((doc) => {
-                    annonces.push({ id: doc.id, ...doc.data() }); // Ajoute l'id Firestore à chaque annonce
+
+            // Add offline detection
+            window.addEventListener('online', () => {
+                showModal('✅', 'Connexion Rétablie', 'Vous êtes de nouveau en ligne!');
+            });
+
+            window.addEventListener('offline', () => {
+                showModal('⚠️', 'Hors Ligne', 'Vous êtes actuellement hors ligne. Certaines fonctionnalités peuvent être limitées.');
+            });
+
+            // Add progressive enhancement
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js').catch(e => {
+                    console.log('Service Worker non disponible');
                 });
-                allAnnonces = annonces;
-                afficherAnnonces(allAnnonces);
-            } catch (error) {
-                conteneurProfils.innerHTML = "<p>Erreur de chargement des annonces.</p>";
-                conteneurProfils.style.display = "block";
             }
+
+            // Add final touch - welcome message
+            setTimeout(() => {
+                if (sessionStorage.getItem('welcomed') !== 'true') {
+                    showModal('🎉', 'Bienvenue!', 'Bienvenue chez Saveurs du Cameroun! Découvrez notre cuisine authentique et nos spécialités traditionnelles.');
+                    sessionStorage.setItem('welcomed', 'true');
+                }
+            }, 3000);
+
+            console.log('🍽️ Restaurant website fully loaded and ready!');
         }
 
-        // --- Fonction pour filtrer les annonces par catégorie ---
-        window.afficherFournituresCategorie = async function (categorie) {
-            conteneurProfils.innerHTML = "<p>Chargement...</p>";
-            conteneurProfils.style.display = "block";
-            fournitureMenu.style.display = "none";
-            avisZone.style.display = "block";
-            formulaire.style.display = "none";
-            document.getElementById("fourniture").style.display = "none";
-            document.getElementById("avise").style.display = "block";
-            document.getElementById("chat").style.display = "none";
-             document.getElementById("conteneuravis").style.display="none";
-            document.getElementById("connexion").style.display = "none";
-            try {
-                const filtered = allAnnonces.filter((data) => data.categorie === categorie);
-                afficherAnnonces(filtered);
-            } catch (error) {
-                conteneurProfils.innerHTML = "<p>Erreur de chargement.</p>";
+        // ===== ADDITIONAL UTILITY FUNCTIONS =====
+
+        // Format currency for different regions
+        function formatCurrency(amount, currency = 'FCFA') {
+            if (currency === 'FCFA') {
+                return new Intl.NumberFormat('fr-FR').format(amount) + ' FCFA';
             }
+            return new Intl.NumberFormat('fr-FR', {
+                style: 'currency',
+                currency: currency
+            }).format(amount);
+        }
+
+        // Advanced search with filters
+        function advancedSearch(term, filters = {}) {
+            return menuData.filter(item => {
+                const matchesSearch = !term ||
+                    item.name.toLowerCase().includes(term.toLowerCase()) ||
+                    item.description.toLowerCase().includes(term.toLowerCase());
+
+                const matchesCategory = !filters.category ||
+                    filters.category === 'all' ||
+                    item.category === filters.category;
+
+                const matchesSpiceLevel = filters.spiceLevel === undefined ||
+                    item.spiceLevel <= filters.spiceLevel;
+
+                const matchesPriceRange = (!filters.minPrice || item.price >= filters.minPrice) &&
+                    (!filters.maxPrice || item.price <= filters.maxPrice);
+
+                return matchesSearch && matchesCategory && matchesSpiceLevel && matchesPriceRange;
+            });
+        }
+
+        // Generate receipt
+        function generateReceipt() {
+            if (cart.length === 0) return null;
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.18; // 18% VAT
+            const total = subtotal + tax;
+
+            return {
+                items: cart,
+                subtotal: subtotal,
+                tax: tax,
+                total: total,
+                date: new Date().toLocaleString('fr-FR'),
+                orderNumber: 'CMD' + Date.now().toString().slice(-6)
+            };
+        }
+
+        // Export cart to different formats
+        function exportCart(format = 'json') {
+            const receipt = generateReceipt();
+            if (!receipt) return;
+
+            let content;
+            let filename;
+            let mimeType;
+
+            switch (format) {
+                case 'json':
+                    content = JSON.stringify(receipt, null, 2);
+                    filename = `commande_${receipt.orderNumber}.json`;
+                    mimeType = 'application/json';
+                    break;
+
+                case 'csv':
+                    const csvHeaders = 'Plat,Quantité,Prix Unitaire,Total\n';
+                    const csvContent = cart.map(item =>
+                        `"${item.name}",${item.quantity},${item.price},${item.price * item.quantity}`
+                    ).join('\n');
+                    content = csvHeaders + csvContent + `\n\nSous-total,,,${receipt.subtotal}\nTVA,,,${receipt.tax}\nTotal,,,${receipt.total}`;
+                    filename = `commande_${receipt.orderNumber}.csv`;
+                    mimeType = 'text/csv';
+                    break;
+
+                case 'txt':
+                    content = `SAVEURS DU CAMEROUN\nCommande #${receipt.orderNumber}\nDate: ${receipt.date}\n\n`;
+                    content += cart.map(item =>
+                        `${item.name} x${item.quantity} - ${formatPrice(item.price * item.quantity)}`
+                    ).join('\n');
+                    content += `\n\nSous-total: ${formatPrice(receipt.subtotal)}\nTVA (18%): ${formatPrice(receipt.tax)}\nTOTAL: ${formatPrice(receipt.total)}`;
+                    filename = `commande_${receipt.orderNumber}.txt`;
+                    mimeType = 'text/plain';
+                    break;
+            }
+
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize everything when DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+        // Expose useful functions to global scope for debugging
+        window.restaurantApp = {
+            menuData,
+            reviewsData,
+            galleryData,
+            cart,
+            formatPrice,
+            addToCart,
+            updateQuantity,
+            generateReceipt,
+            exportCart,
+            advancedSearch,
+            showModal,
+            hideModal
         };
 
-        chargerToutesLesAnnonces();
-
-        // --- Fonction d'upload Base64 (Gratuit et permanent) ---
-        async function uploadImage(file) {
-            // Validation de la taille (1MB max pour Firestore)
-            if (file.size > 1024 * 1024) {
-                throw new Error("L'image doit faire moins de 1MB");
-            }
-
-            // Conversion en Base64
-            return await fileToBase64(file);
-        }
-
-        function fileToBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-            });
-        }
-
-        window.envoyerMessage = async function () {
-            const input = document.getElementById('messageInput');
-            const message = input.value.trim();
-            if (!message) {
-                alert("Veuillez entrez un message");
-                return;
-            }
-            if (!utilisateurConnecte()) {
-                alert("Vous devez être connecté pour envoyer un message.");
-                return;
-            }
-            if (!idAnnonceEnCours || !idConversation) {
-                alert("Aucune conversation active.");
-                return;
-            }
-            try {
-                const msgRef = collection(db, "annonces", idAnnonceEnCours, "conversations", idConversation, "messages");
-                await addDoc(msgRef, {
-                    auteur: auth.currentUser.email,
-                    text: message,
-                    timestamp: Date.now()
-                });
-                input.value = '';
-            } catch (error) {
-                console.error("Erreur envoi message:", error);
-                alert("Erreur lors de l'envoi du message.");
-            }
-        }
-
-
-
-
-        // --- Compteurs d'achats/ventes utilisateur ---
-        async function getUserStats(email) {
-            const userRef = doc(db, "users", email);
-            const snap = await getDoc(userRef);
-            if (snap.exists()) {
-                return snap.data();
-            } else {
-                return { ventes: 0, achats: 0 };
-            }
-        }
-        async function incrementUserStat(email, champ) {
-            const userRef = doc(db, "users", email);
-            await setDoc(userRef, { ventes: 0, achats: 0 }, { merge: true });
-            await updateDoc(userRef, { [champ]: increment(1) });
-        }
-
-        // --- Bloque le bouton publier si plus de 2 ventes ---
-        async function checkBlockPublier() {
-            if (!utilisateurConnecte())
-                alert("Vous deverez etre connecter");
-            return;
-            const stats = await getUserStats(auth.currentUser.email);
-            if (stats.ventes >= 2) {
-                confirmerBtn.disabled = true;
-                confirmerBtn.title = "Vous avez atteint la limite de 2 ventes.";
-                alert("Vous avez atteint la limite de 2 ventes.payer 200fcfa pour continuer")
-                document.getElementById("payer").style.display = "block";
-            } else {
-                confirmerBtn.disabled = false;
-                confirmerBtn.title = "";
-            }
-        }
-        onAuthStateChanged(auth, checkBlockPublier);
-// Gestion du paiement pour débloquer ventes/achats
-const payerBtn = document.getElementById("payer");
-if (payerBtn) {
-    payerBtn.addEventListener("click", function() {
-        startPayment(200, async function(success) {
-            if (success) {
-                alert("Paiement validé ! Vous pouvez continuer vos ventes ou achats.");
-                if (utilisateurConnecte()) {
-                    const email = auth.currentUser.email;
-                    const userRef = doc(db, "users", email);
-                    await setDoc(userRef, { ventes: 0, achats: 0 }, { merge: true });
-                    checkBlockPublier();
-                    chargerToutesLesAnnonces();
-                }
-                payerBtn.style.display = "none";
-            }
-        });
-    });
-}
-// Gestion du paiement pour débloquer ventes/achats
-document.getElementById("payer").addEventListener("click", function() {
-    startPayment(200, function(success) {
-        if (success) {
-            alert("Paiement validé ! Vous pouvez continuer vos ventes ou achats.");
-            // Remet à zéro les compteurs Firestore
-            if (utilisateurConnecte()) {
-                const email = auth.currentUser.email;
-                const userRef = doc(db, "users", email);
-                setDoc(userRef, { ventes: 0, achats: 0 }, { merge: true });
-                checkBlockPublier();
-                chargerToutesLesAnnonces();
-            }
-            document.getElementById("payer").style.display = "none";
-        }
-    });
-});
-
-        // Fonction pour ouvrir le chat privé pour une annonce
-        async function ouvrirChat(idAnnonce, emailAcheteur, emailVendeur) {
-            console.log('ouvrirChat appelé avec:', idAnnonce, emailAcheteur, emailVendeur);
-
-            if (!idAnnonce || !emailAcheteur || !emailVendeur) {
-                alert("Erreur : paramètres du chat manquants !");
-                return;
-            }
-
-            idAnnonceEnCours = idAnnonce;
-            idConversation = [emailAcheteur, emailVendeur].sort().join("_");
-
-            // Affiche le chat et masque les autres sections
-            conteneurProfils.style.display = "none";
-            fournitureMenu.style.display = "none";
-             document.getElementById("conteneuravis").style.display="none";
-            avisZone.style.display = "none";
-            formulaire.style.display = "none";
-            document.getElementById("fourniture").style.display = "none";
-            document.getElementById("avise").style.display = "none";
-            document.getElementById("chat").style.display = "block";
-            document.getElementById("connexion").style.display = "none";
-            document.getElementById("conteneurProfils").style.display = "none";
-            document.getElementById("formulaire").style.display = "none";
-            document.getElementById("chat").style.display = "block";
-            document.getElementById("messages").innerHTML = "";
-
-            // Affiche le titre du chat
-            document.getElementById("chatTitre").innerText = `Chat entre ${emailAcheteur} et ${emailVendeur}`;
-
-            try {
-                // Récupère les messages de la conversation
-                const messagesRef = collection(db, "annonces", idAnnonce, "conversations", idConversation, "messages");
-                const q = query(messagesRef, orderBy("timestamp", "asc"));
-
-                onSnapshot(q, (snapshot) => {
-                    const messagesDiv = document.getElementById("messages");
-                    messagesDiv.innerHTML = "";
-                    snapshot.forEach(docu => {
-                        const msg = docu.data();
-                        const div = document.createElement("div");
-                        const isCurrentUser = msg.auteur === auth.currentUser.email;
-
-                        div.className = `message ${isCurrentUser ? 'message-sent' : 'message-received'}`;
-                        div.innerHTML = `
-                            <div class="message-author">${isCurrentUser ? 'Moi' : msg.auteur}</div>
-                            <div>${msg.text}</div>
-                        `;
-                        messagesDiv.appendChild(div);
-                    });
-                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                });
-            } catch (error) {
-                console.error("Erreur ouverture chat:", error);
-                alert("Erreur lors de l'ouverture du chat.");
-            }
-        }
-
-        // Fonction pour envoyer un message dans le chat
-
-
-
-        // conclure la transaction
-        async function conclureJob() {
-            if (!idAnnonceEnCours) {
-                alert("Aucune annonce active.");
-                return;
-            }
-
-            if (!utilisateurConnecte()) {
-                alert("Vous devez être connecté pour conclure.");
-                return;
-            }
-
-            try {
-                const annonceRef = doc(db, "annonces", idAnnonceEnCours);
-                const snap = await getDoc(annonceRef);
-                if (!snap.exists()) {
-                    alert("Annonce introuvable.");
-                    return;
-                }
-
-                const data = snap.data();
-                let c = data.conclusionUsers || [];
-                if (!c.includes(auth.currentUser.email)) c.push(auth.currentUser.email);
-                await updateDoc(annonceRef, { conclusionUsers: c });
-                if (c.length >= 2) await updateDoc(annonceRef, { conclu: true });
-
-                alert("Conclusion enregistrée");
-                document.getElementById("chat").style.display = "none";
-                document.getElementById("conteneurProfils").style.display = "block";
-            } catch (error) {
-                console.error("Erreur conclusion:", error);
-                alert("Erreur lors de la conclusion.");
-            }
-        }
-
-        //  pour postuler 
-        window.postuler = async function (idAnnonce, emailVendeur) {
-            document.getElementById("chat").style.display = "block";
-            console.log('postuler appelé avec:', idAnnonce, emailVendeur);
-
-            if (!idAnnonce) {
-                alert("Erreur : id de l'annonce manquant !");
-                return;
-            }
-            if (!emailVendeur) {
-                alert("Erreur : email du vendeur manquant !");
-                return;
-            }
-
-            const user = auth.currentUser;
-            if (!user) {
-                alert("Connecte-toi d'abord");
-                return;
-            }
-
-            const emailAcheteur = user.email;
-
-            try {
-                // Crée la conversation si elle n'existe pas
-                const convId = [emailAcheteur, emailVendeur].sort().join("_");
-                const msgRef = collection(db, "annonces", idAnnonce, "conversations", convId, "messages");
-                const messagesSnap = await getDocs(msgRef);
-
-                if (messagesSnap.empty) {
-                    await addDoc(msgRef, {
-                        auteur: emailAcheteur,
-                        text: "Bonjour, je suis intéressé par cette annonce.",
-                        timestamp: Date.now()
-                    });
-                }
-
-                ouvrirChat(idAnnonce, emailAcheteur, emailVendeur);
-            } catch (error) {
-                console.error("Erreur postuler:", error);
-                alert("Erreur lors de la création du chat.");
-            }
-        }
-
-        // Fermer le chat
-        document.getElementById("fermerChat").addEventListener("click", function () {
-            document.getElementById("conteneurProfils").style.display = "block";
-            document.getElementById("chat").style.display = "none";
-             document.getElementById("conteneuravis").style.display="none";
-            conn.style.display = "none";
-            fournitureMenu.style.display = "none";
-            btnVendre.style.display = "none";
-            avisZone.style.display = "none";
-            document.getElementById("question").style.display = "none";
-        });
-
-        (function () {
-            'use strict';
-
-            function waitForElements() {
-                return new Promise((resolve) => {
-                    const checkElements = () => {
-                        const container = document.getElementById("conteneurProfils");
-                        const auth = window.auth;
-                        const db = window.db;
-
-                        if (container && auth && db) {
-                            resolve();
-                        } else {
-                            setTimeout(checkElements, 100);
-                        }
-                    };
-                    checkElements();
-                });
-            }
-
-            async function lireConversations() {
-                  document.getElementById("conteneurProfils").style.display = "none";
-            document.getElementById("chat").style.display = "none";
-            conn.style.display = "none";
-            fournitureMenu.style.display = "none";
-             document.getElementById("conteneuravis").style.display="none";
-            btnVendre.style.display = "none";
-            avisZone.style.display = "none";
-            document.getElementById("question").style.display = "none";
-                await waitForElements();
-                const container = document.getElementById("conteneurProfils");
-                if (!container) return alert("Erreur: Interface non disponible");
-                ["fourniture", "avise", "chat", "connexion", "formulaire"].forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el) el.style.display = "none";
-                });
-                container.style.display = "block";
-                container.innerHTML = `<h3 class='section-title'>💬 Mes Conversations</h3>`;
-                const currentUser = window.auth && window.auth.currentUser;
-                if (!currentUser) {
-                    container.innerHTML += `<div style='text-align:center;color:red;margin-top:2rem;'>❌ Connecte-toi d'abord</div>`;
-                    return;
-                }
-                const email = currentUser.email;
-                let total = 0;
-
-                let annoncesSnap;
-                try {
-                    annoncesSnap = await getDocs(collection(window.db, "annonces"));
-                } catch (error) {
-                    container.innerHTML += `<div style='text-align:center;color:red;margin-top:2rem;'>❌ Erreur lors de la connexion à la base de données</div>`;
-                    return;
-                }
-
-                for (const docu of annoncesSnap.docs) {
-                    const annonce = { id: docu.id, ...docu.data() };
-                    if (annonce.auteur === email) {
-                        const convsSnap = await getDocs(collection(window.db, "annonces", annonce.id, "conversations"));
-                        if (convsSnap.empty) continue;
-                        for (const convDoc of convsSnap.docs) {
-                            const convId = convDoc.id;
-                            const messagesRef = collection(window.db, "annonces", annonce.id, "conversations", convId, "messages");
-                            const lastMsgSnap = await getDocs(query(messagesRef, orderBy("timestamp", "desc"), limit(1)));
-                            let lastMsg = null;
-                            lastMsgSnap.forEach(doc => lastMsg = doc.data());
-                            let preview = "";
-                            if (lastMsg) {
-                                const date = new Date(lastMsg.timestamp).toLocaleString();
-                                preview = `<div style='color:#888;font-size:0.9em;margin-bottom:0.5em;'><b>${lastMsg.auteur === email ? 'Moi' : lastMsg.auteur}:</b> ${lastMsg.text} <span style='float:right;'>${date}</span></div>`;
-                            }
-                            const emails = convId.split("_");
-                            const emailAcheteur = emails.find(e => e !== annonce.auteur);
-                            const card = document.createElement("div");
-                            card.className = "annonce-card";
-                            card.innerHTML = `
-                                <h4><i class="fas fa-tasks"></i> ${annonce.nomProduit || "Produit sans nom"}</h4>
-                                <p><i class="fas fa-coins"></i> Prix: ${annonce.prix || "?"} FCFA</p>
-                                <p><i class="fas fa-info-circle"></i> ${annonce.description || "Pas de description"}</p>
-                                <p><strong><i class="fas fa-user"></i> Acheteur:</strong> ${emailAcheteur}</p>
-                                ${preview}
-                                <button class="btn btn-primary" onclick="window.ouvrirChat('${annonce.id}', '${emailAcheteur}', '${annonce.auteur}')">
-                                    <i class="fas fa-comments"></i> Ouvrir chat
-                                </button>
-                            `;
-                            container.appendChild(card);
-                            total++;
-                        }
-                    }
-                }
-
-                for (const docu of annoncesSnap.docs) {
-                    const annonce = { id: docu.id, ...docu.data() };
-                    if (annonce.auteur !== email) {
-                        const convsSnap = await getDocs(collection(window.db, "annonces", annonce.id, "conversations"));
-                        for (const convDoc of convsSnap.docs) {
-                            if (convDoc.id.includes(email)) {
-                                const messagesRef = collection(window.db, "annonces", annonce.id, "conversations", convDoc.id, "messages");
-                                const lastMsgSnap = await getDocs(query(messagesRef, orderBy("timestamp", "desc"), limit(1)));
-                                let lastMsg = null;
-                                lastMsgSnap.forEach(doc => lastMsg = doc.data());
-                                let preview = "";
-                                if (lastMsg) {
-                                    const date = new Date(lastMsg.timestamp).toLocaleString();
-                                    preview = `<div style='color:#888;font-size:0.9em;margin-bottom:0.5em;'><b>${lastMsg.auteur === email ? 'Moi' : lastMsg.auteur}:</b> ${lastMsg.text} <span style='float:right;'>${date}</span></div>`;
-                                }
-                                const card = document.createElement("div");
-                                card.className = "annonce-card";
-                                card.innerHTML = `
-                                    <h4><i class="fas fa-tasks"></i> ${annonce.nomProduit || "Produit sans nom"}</h4>
-                                    <p><i class="fas fa-coins"></i> Prix: ${annonce.prix || "?"} FCFA</p>
-                                    <p><i class="fas fa-info-circle"></i> ${annonce.description || "Pas de description"}</p>
-                                    <p><strong><i class="fas fa-user"></i> Vendeur:</strong> ${annonce.auteur}</p>
-                                    ${preview}
-                                    <button class="btn btn-primary" onclick="window.ouvrirChat('${annonce.id}', '${email}', '${annonce.auteur}')">
-                                        <i class="fas fa-comments"></i> Ouvrir chat
-                                    </button>
-                                `;
-                                container.appendChild(card);
-                                total++;
-                            }
-                        }
-                    }
-                }
-
-                if (total === 0) {
-                    container.innerHTML += `<div class="annonce-card text-center"><i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-light); margin-bottom: 1rem;"></i><p>Tu n'as aucune conversation.</p></div>`;
-                }
-            }
-
-            window.lireConversations = lireConversations;
-
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => {
-                });
-            }
-        })();
     </script>
 </body>
 
