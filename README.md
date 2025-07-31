@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="fr">
 
 <head>
@@ -86,20 +86,33 @@
         /* Navigation améliorée */
         .nav-menu {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             padding: 1rem 2rem;
-            position: relative;
+            position: fixed;
             top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow);
+            left: 0;
+            width: 100vw;
+            z-index: 1000;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            border-bottom: 1px solid #eee;
+            border-radius: 0 0 20px 20px;
+            transition: box-shadow 0.3s;
         }
+        
 
         .nav-content {
             max-width: 1200px;
             margin: 0 auto;
+            display: flex;
             justify-content: space-between;
             align-items: center;
+            min-height: 60px;
         }
+        /* Décale le contenu pour ne pas être caché par le menu fixe */
+        body {
+            padding-top: 110px;
+        }
+        
 
         .nav-links {
             display: flex;
@@ -1054,6 +1067,10 @@
 
             .nav-menu {
                 padding: 0.8rem 1rem;
+                border-radius: 0 0 16px 16px;
+            }
+            body {
+                padding-top: 70px;
             }
 
             .nav-content {
@@ -2013,8 +2030,18 @@
              color: var(--primary-color);
         }
         .theme-toggle{
-            position: relative;left: 80%;
+            position: relative;left: 85%;
+            top: 60px;
         }
+        .nav-links:hover li{
+            background-color: lavender;
+
+        }
+      .nav-links:hover a{
+            background-color: white;
+
+        }
+
     </style>
 </head>
 
