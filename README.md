@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -103,7 +103,6 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
             list-style: none;
             position: relative;
             left: 0%;
@@ -136,10 +135,7 @@
             transition: var(--transition);
             position: relative;
         }
-.nav-links li:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
+.nav-links li:hover
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -993,21 +989,21 @@
         /* Footer amélioré */
         footer {
             position: relative;
-            bottom: 0;
             left: 0;
             width: 100%;
-            padding: 15px;
-
-            height: 200px;
-            background-color: #333;
-            color: white;
-            text-align: center;
-            line-height: 60px;
+            min-height: 80px;
             background: var(--dark-color);
             color: var(--white);
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 2rem 1rem;
             margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            overflow: hidden;
+            line-height: 1.6;
         }
 
         body {
@@ -1023,6 +1019,7 @@
         }
 
         .social-links {
+            margin-top: 2rem;
             display: flex;
             justify-content: center;
             gap: 1rem;
@@ -2029,7 +2026,10 @@
         <i class="fas fa-sparkles"></i>
     </div>
 
-   
+    <!-- Nouveauté: Toggle thème -->
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="theme-icon"></i>
+    </button>
 
     <!-- Nouveauté: Navigation améliorée -->
     <nav class="nav-menu">
@@ -3259,3 +3259,6 @@
 
         console.log("🎨 ShopExpress Beauté INNOVA - Version Pro chargée avec succès!");
     </script>
+</body>
+
+</html>
