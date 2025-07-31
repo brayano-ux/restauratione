@@ -956,30 +956,82 @@
       box-shadow: var(--shadow);
     }
 
-    /* Mobile Responsiveness */
+    /* Mobile Responsiveness - Améliorée */
     @media (max-width: 768px) {
       .notification-bar {
-        font-size: 0.9rem;
-        padding: 8px;
+        font-size: 0.85rem;
+        padding: 12px 10px;
+        line-height: 1.4;
+      }
+
+      .nav-menu {
+        padding: 0.8rem 1rem;
       }
 
       .nav-content {
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.8rem;
       }
 
       .nav-links {
-        gap: 1rem;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .nav-links a {
+        font-size: 0.9rem;
+        padding: 0.3rem 0;
+      }
+
+      header {
+        padding: 2.5rem 1rem;
+      }
+
+      header h1 {
+        font-size: 2rem;
+        margin-bottom: 0.8rem;
+      }
+
+      header p {
+        font-size: 1.1rem;
       }
 
       .stats-section {
         grid-template-columns: repeat(2, 1fr);
-        margin: -1rem 0.5rem 0;
+        margin: -1rem 0.8rem 0;
+        padding: 2rem 1rem;
+        gap: 1rem;
+      }
+
+      .stat-item {
+        padding: 1rem;
+      }
+
+      .stat-number {
+        font-size: 2rem;
       }
 
       .main-container {
         margin: 1rem 0.5rem;
         border-radius: 15px;
+      }
+
+      .filter-section {
+        padding: 1.5rem 1rem;
+      }
+
+      .filter-buttons {
+        gap: 0.8rem;
+        justify-content: center;
+      }
+
+      .filter-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.85rem;
+        min-width: auto;
+        flex: 1;
+        max-width: 140px;
       }
 
       .services {
@@ -988,8 +1040,56 @@
         padding: 2rem 1rem;
       }
 
+      .service {
+        margin: 0;
+      }
+
       .service img {
-        height: 200px;
+        height: 220px;
+      }
+
+      .service-content {
+        padding: 1.5rem;
+      }
+
+      .service-content h3 {
+        font-size: 1.3rem;
+        line-height: 1.3;
+      }
+
+      .rating {
+        margin: 0.8rem 0;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .rating-text {
+        width: 100%;
+        text-align: center;
+        margin-left: 0;
+        margin-top: 0.3rem;
+      }
+
+      .availability {
+        font-size: 0.85rem;
+        padding: 0.6rem;
+        margin: 0.8rem 0;
+      }
+
+      .whatsapp-btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 0.95rem;
+        justify-content: center;
+      }
+
+      .weather-widget {
+        margin: 1rem;
+        padding: 1.2rem;
+      }
+
+      .weather-temp {
+        font-size: 1.3rem;
       }
 
       .testimonials-section,
@@ -999,39 +1099,123 @@
         padding: 2rem 1rem;
       }
 
+      .testimonials-title,
+      .calendar-title {
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
+      }
+
       .testimonials-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .testimonial {
+        padding: 1.5rem;
       }
 
       .calendar-grid {
-        grid-template-columns: repeat(7, 1fr);
-        gap: 0.3rem;
+        gap: 0.4rem;
+        max-width: 100%;
       }
 
-      .filter-buttons {
-        gap: 0.5rem;
-      }
-
-      .filter-btn {
-        padding: 0.6rem 1rem;
+      .calendar-day {
         font-size: 0.9rem;
+        min-height: 40px;
       }
 
       .input-group {
         max-width: 100%;
+        gap: 1rem;
+      }
+
+      .input-group input {
+        padding: 1rem;
+        font-size: 1rem;
+      }
+
+      .verify-btn {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+      }
+
+      .client-actions {
+        flex-direction: column;
+        gap: 0.8rem;
+        margin-top: 1rem;
+      }
+
+      .client-btn {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        justify-content: center;
+        font-size: 0.9rem;
+      }
+
+      .cancellation-policy {
+        margin: 1rem 0;
+        padding: 1rem;
+        font-size: 0.85rem;
+      }
+
+      .form-container {
+        padding: 0.5rem;
+      }
+
+      .form-content {
+        padding: 2rem 1.5rem;
+        max-height: 95vh;
+        width: 100%;
+      }
+
+      .form-content h3 {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.2rem;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        padding: 1rem;
+        font-size: 1rem;
+        border-radius: 10px;
       }
 
       .form-buttons {
         flex-direction: column;
+        gap: 1rem;
+        margin-top: 1.5rem;
       }
 
       .btn {
         width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+      }
+
+      .confirm-content {
+        padding: 1.5rem;
+        margin: 0 1rem;
+      }
+
+      .confirm-content h4 {
+        font-size: 1.2rem;
+      }
+
+      .confirm-buttons {
+        flex-direction: column;
+        gap: 1rem;
       }
 
       .booking-info {
         grid-template-columns: 1fr;
-        text-align: center;
+        text-align: left;
+        gap: 1rem;
       }
 
       .dashboard {
@@ -1039,13 +1223,80 @@
         padding: 2rem 1rem;
       }
 
-      .chat-window {
-        width: 280px;
-        height: 350px;
+      .dashboard h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
       }
 
-      header {
-        padding: 3rem 1rem;
+      .dashboard-stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .booking-item {
+        padding: 1.5rem;
+        margin: 1rem 0;
+      }
+
+      .booking-details h4 {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .booking-details p {
+        font-size: 0.9rem;
+        margin: 0.4rem 0;
+        line-height: 1.4;
+      }
+
+      .cancel-btn {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.9rem;
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+
+      .chat-widget {
+        bottom: 15px;
+        right: 15px;
+      }
+
+      .chat-toggle {
+        width: 55px;
+        height: 55px;
+        font-size: 1.3rem;
+      }
+
+      .chat-window {
+        width: calc(100vw - 30px);
+        max-width: 320px;
+        height: 400px;
+        bottom: 75px;
+        right: -10px;
+      }
+
+      .chat-header {
+        padding: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .chat-messages {
+        padding: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .chat-input {
+        padding: 1rem;
+      }
+
+      .chat-input input {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+      }
+
+      .social-links {
+        gap: 0.8rem;
       }
 
       .social-links a {
@@ -1053,37 +1304,347 @@
         height: 45px;
         font-size: 1.1rem;
       }
+
+      .theme-toggle {
+        top: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+      }
+
+      /* Amélioration des toasts sur mobile */
+      .toast {
+        top: 15px;
+        right: 15px;
+        left: 15px;
+        right: 15px;
+        max-width: none;
+        width: auto;
+        margin: 0 15px;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+
+      /* Amélioration du statut result sur mobile */
+      #statusResult > div {
+        margin-bottom: 1rem !important;
+        padding: 1.2rem !important;
+        font-size: 0.9rem !important;
+        line-height: 1.5 !important;
+      }
+
+      #statusResult h4 {
+        font-size: 1.1rem !important;
+        margin-bottom: 0.8rem !important;
+      }
+
+      #statusResult p {
+        margin: 0.4rem 0 !important;
+        word-break: break-word;
+      }
     }
 
     @media (max-width: 480px) {
+      .notification-bar {
+        font-size: 0.8rem;
+        padding: 10px 8px;
+      }
+
+      header {
+        padding: 2rem 0.8rem;
+      }
+
+      header h1 {
+        font-size: 1.8rem;
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+
       .stats-section {
         grid-template-columns: 1fr;
+        margin: -0.5rem 0.5rem 0;
+        padding: 1.5rem 0.8rem;
         gap: 1rem;
+      }
+
+      .stat-number {
+        font-size: 1.8rem;
+      }
+
+      .stat-label {
+        font-size: 0.85rem;
+      }
+
+      .main-container {
+        margin: 0.8rem 0.3rem;
+      }
+
+      .filter-section {
+        padding: 1.2rem 0.8rem;
+      }
+
+      .filter-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+        min-width: 100px;
       }
 
       .services {
         padding: 1.5rem 0.8rem;
+        gap: 1.2rem;
       }
 
       .service-content {
-        padding: 1.5rem;
+        padding: 1.2rem;
+      }
+
+      .service-content h3 {
+        font-size: 1.2rem;
+      }
+
+      .service-content p {
+        font-size: 0.9rem;
+      }
+
+      .promo-badge {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+      }
+
+      .testimonials-section,
+      .calendar-section,
+      .status-section {
+        margin: 0.8rem 0.3rem;
+        padding: 1.5rem 0.8rem;
+      }
+
+      .testimonials-title,
+      .calendar-title {
+        font-size: 1.4rem;
+      }
+
+      .testimonial {
+        padding: 1.2rem;
+      }
+
+      .testimonial-text {
+        font-size: 0.9rem;
+      }
+
+      .calendar-grid {
+        gap: 0.3rem;
+      }
+
+      .calendar-day {
+        font-size: 0.8rem;
+        min-height: 35px;
+      }
+
+      .weather-widget {
+        margin: 0.8rem 0.3rem;
+        padding: 1rem;
+      }
+
+      .weather-icon {
+        font-size: 1.5rem;
+      }
+
+      .weather-temp {
+        font-size: 1.2rem;
+      }
+
+      .weather-desc {
+        font-size: 0.8rem;
       }
 
       .form-content {
-        padding: 2rem 1.5rem;
+        padding: 1.5rem 1rem;
       }
 
-      .status-section {
-        padding: 1.5rem 1rem;
+      .form-content h3 {
+        font-size: 1.4rem;
+      }
+
+      .booking-progress {
+        margin: 1rem 0;
       }
 
       .dashboard {
-        padding: 1.5rem 1rem;
+        margin: 0.8rem 0.3rem;
+        padding: 1.5rem 0.8rem;
+      }
+
+      .dashboard h2 {
+        font-size: 1.4rem;
+      }
+
+      .booking-item {
+        padding: 1.2rem;
+      }
+
+      .booking-details h4 {
+        font-size: 1rem;
+      }
+
+      .booking-details p {
+        font-size: 0.85rem;
       }
 
       .chat-window {
-        width: 260px;
-        height: 320px;
+        width: calc(100vw - 20px);
+        max-width: 300px;
+        height: 350px;
+        right: -5px;
+      }
+
+      .chat-header {
+        padding: 0.8rem;
+        font-size: 0.85rem;
+      }
+
+      .chat-messages {
+        padding: 0.8rem;
+        font-size: 0.85rem;
+      }
+
+      .chat-input {
+        padding: 0.8rem;
+      }
+
+      .chat-input input {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+      }
+
+      .chat-send {
+        width: 35px;
+        height: 35px;
+        font-size: 0.8rem;
+      }
+
+      .theme-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+
+      footer {
+        padding: 2rem 1rem;
+      }
+
+      .social-links a {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+    }
+
+    /* Nouvelles règles pour très petits écrans */
+    @media (max-width: 360px) {
+      .notification-bar {
+        font-size: 0.75rem;
+        padding: 8px 6px;
+      }
+
+      header h1 {
+        font-size: 1.6rem;
+        line-height: 1.2;
+      }
+
+      .stats-section {
+        padding: 1.2rem 0.6rem;
+      }
+
+      .filter-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.75rem;
+        min-width: 80px;
+      }
+
+      .services {
+        padding: 1.2rem 0.6rem;
+      }
+
+      .service-content {
+        padding: 1rem;
+      }
+
+      .service-content h3 {
+        font-size: 1.1rem;
+        line-height: 1.3;
+      }
+
+      .testimonials-section,
+      .calendar-section,
+      .status-section {
+        padding: 1.2rem 0.6rem;
+      }
+
+      .client-btn {
+        padding: 0.7rem 0.8rem;
+        font-size: 0.85rem;
+      }
+
+      .form-content {
+        padding: 1.2rem 0.8rem;
+      }
+
+      .dashboard {
+        padding: 1.2rem 0.6rem;
+      }
+
+      .booking-item {
+        padding: 1rem;
+      }
+    }
+
+    /* Optimisations tactiles */
+    @media (hover: none) and (pointer: coarse) {
+      .service:hover,
+      .btn:hover,
+      .filter-btn:hover,
+      .client-btn:hover {
+        transform: none;
+      }
+
+      .service:active {
+        transform: scale(0.98);
+      }
+
+      .btn:active,
+      .filter-btn:active,
+      .client-btn:active {
+        transform: scale(0.95);
+      }
+
+      /* Améliorer la zone de toucher */
+      .nav-links a {
+        padding: 0.5rem;
+        margin: 0.2rem;
+      }
+
+      .filter-btn {
+        min-height: 44px;
+      }
+
+      .client-btn {
+        min-height: 44px;
+      }
+
+      .verify-btn {
+        min-height: 48px;
+      }
+
+      .whatsapp-btn {
+        min-height: 48px;
+      }
+
+      .chat-toggle {
+        min-width: 55px;
+        min-height: 55px;
       }
     }
 
@@ -1324,120 +1885,9 @@
       font-size: 0.9rem;
       opacity: 0.9;
     }
-    <style>
-        /* Modernisation du design général */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #fff;
-            color: #222;
-            margin: 0;
-            padding: 0;
-        }
-        header, .header, .entete {
-            background: linear-gradient(135deg, #c59d5f 0%, #6d4c41 100%);
-            color: #fff;
-            padding: 1.2rem 0.5rem;
-            text-align: center;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-        }
-        h1, h2, h3, h4 {
-            font-weight: 700;
-            margin-bottom: 0.7em;
-        }
-        .btn, button, input[type="submit"] {
-            background: linear-gradient(135deg, #c59d5f 0%, #6d4c41 100%);
-            color: #fff;
-            border: none;
-            border-radius: 18px;
-            padding: 0.8em 1.2em;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-            transition: all 0.3s;
-        }
-        .btn:hover, button:hover, input[type="submit"]:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(197,157,95,0.15);
-        }
-        .container, .main, .content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-        }
-        .card, .service, .section {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-            margin-bottom: 1.5rem;
-            padding: 1.2rem;
-        }
-        img, .img {
-            max-width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        footer {
-            background: #6d4c41;
-            color: #fff;
-            text-align: center;
-            padding: 2rem 0 1rem;
-            margin-top: 2rem;
-        }
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .container, .main, .content {
-                padding: 1rem 1rem;
-            }
-            .card, .service, .section {
-                padding: 1rem;
-            }
-        }
-        @media (max-width: 600px) {
-            header, .header, .entete {
-                padding: 0.7rem 0.2rem;
-                font-size: 1.1em;
-            }
-            .container, .main, .content {
-                padding: 0.5rem 0.2rem;
-            }
-            .card, .service, .section {
-                padding: 0.7rem;
-                margin-bottom: 1rem;
-            }
-            h1, h2, h3, h4 {
-                font-size: 1.2em;
-            }
-            .btn, button, input[type="submit"] {
-                font-size: 1em;
-                padding: 0.7em 0.5em;
-                border-radius: 14px;
-            }
-            img, .img {
-                border-radius: 8px;
-            }
-            .grid, .row, .services {
-                display: flex;
-                flex-direction: column !important;
-                gap: 0.7rem !important;
-            }
-            .footer {
-                padding: 1rem 0 0.5rem;
-            }
-        }
-        /* Scrollbar et accessibilité */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #c59d5f;
-            border-radius: 4px;
-        }
-        *:focus {
-            outline: 2px solid #c59d5f;
-            outline-offset: 2px;
-        }
-    </style>
+  </style>
+</head>
+<body>
   <!-- Nouveauté: Barre de notification -->
   <div class="notification-bar">
     <i class="fas fa-gift"></i> 
@@ -2663,6 +3113,7 @@
         }
       }, 60000); // Toutes les minutes
     }
+
     // Démarrer les notifications
     simulateNotifications();
 
