@@ -2009,11 +2009,7 @@
         <i class="fas fa-sparkles"></i>
     </div>
 
-    <!-- Nouveauté: Toggle thème -->
-    <button class="theme-toggle" onclick="toggleTheme()">
-        <i class="fas fa-moon" id="theme-icon"></i>
-    </button>
-
+   
     <!-- Nouveauté: Navigation améliorée -->
     <nav class="nav-menu">
         <div class="nav-content">
