@@ -112,13 +112,34 @@
         }
 
         .nav-links a {
+            height: 50px;
+            width: 200px;
+            border-radius: 20px;
+            background-color: lavenderblush;
             text-decoration: none;
             color: var(--dark-color);
             font-weight: 500;
             transition: var(--transition);
             position: relative;
         }
-
+        .nav-links li {
+            font-size: 17px;
+            height: 50px;
+            width: 150px;
+            border-radius: 20px;
+            text-align: center;
+            padding: 10px;
+            background-color: lavenderblush;
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+.nav-links li:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -132,6 +153,7 @@
 
         .nav-links a:hover::after {
             width: 100%;
+            background-color: lavender;
         }
 
         /* Animation d'arrière-plan améliorée */
@@ -1001,7 +1023,6 @@
         }
 
         .social-links {
-            margin-top: 2rem;
             display: flex;
             justify-content: center;
             gap: 1rem;
@@ -1996,7 +2017,6 @@
         }
         .theme-toggle{
             position: relative;left: 80%;
-            position:fixed;
         }
     </style>
 </head>
@@ -2010,6 +2030,7 @@
     </div>
 
    
+
     <!-- Nouveauté: Navigation améliorée -->
     <nav class="nav-menu">
         <div class="nav-content">
