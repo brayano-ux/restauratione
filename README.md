@@ -1996,6 +1996,7 @@
         }
         .theme-toggle{
             position: relative;left: 80%;
+            position:fixed;
         }
     </style>
 </head>
