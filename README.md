@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBOA Librairie</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <title>Document</title>
     <style>
         :root {
             --primary-color: #6366f1;
@@ -31,6 +28,7 @@
             --border-radius-xl: 24px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --container-max-width: 1200px;
+
         }
 
         * {
@@ -38,6 +36,7 @@
             padding: 0;
             box-sizing: border-box;
         }
+
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -1263,11 +1262,11 @@
         }
 
         .chat-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
+            position: relative;
+            top: 60%;
+            left: 100%;
             transform: translate(-50%, -50%);
-            width: 90%;
+            width: 60%;
             max-width: 800px;
             height: 80vh;
             background: var(--surface-color);
@@ -1362,7 +1361,212 @@
             gap: 0.75rem;
             margin-bottom: 1rem;
         }
+/* Animation d'apparition des cartes */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
+.avis-card {
+    animation: slideInUp 0.6s ease forwards;
+    opacity: 0;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* En-tête de l'avis */
+.avis-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(230, 230, 250, 0.5);
+}
+
+.avis-rating-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stars-container {
+    font-size: 1.4em;
+    line-height: 1;
+}
+
+.stars-full {
+    color: #ffd700;
+    text-shadow: 0 1px 2px rgba(255, 215, 0, 0.3);
+}
+
+.stars-empty {
+    color: #ddd;
+}
+
+.rating-text {
+    font-weight: 700;
+    color: #4a5568;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.1em;
+}
+
+.avis-date {
+    color: #718096;
+    font-size: 0.9em;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.avis-author {
+    color: #4a5568;
+    font-weight: 500;
+    font-size: 0.95em;
+}
+
+/* Contenu de l'avis */
+.avis-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.comment-icon {
+    font-size: 1.2em;
+    opacity: 0.7;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.avis-comment {
+    margin: 0;
+    line-height: 1.6;
+    color: #2d3748;
+    font-size: 1em;
+    position: relative;
+}
+
+.avis-title {
+    margin: 0 0 12px 0;
+    color: #2b6cb0;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+/* Pied de l'avis */
+.avis-footer {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(230, 230, 250, 0.3);
+}
+
+.avis-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.btn-helpful, .btn-share {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border: 1px solid #e2e8f0;
+    background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.btn-helpful:hover, .btn-share:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-color: #cbd5e0;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+}
+
+.btn-helpful.active {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+    border-color: #38a169;
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+}
+
+.icon {
+    font-size: 1.1em;
+}
+
+/* Responsive pour les actions */
+@media screen and (max-width: 480px) {
+    .avis-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .avis-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .btn-helpful, .btn-share {
+        font-size: 0.8em;
+        padding: 6px 12px;
+    }
+    
+    .avis-content {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .comment-icon {
+        align-self: flex-start;
+    }
+}
+
+/* Effet de survol sur la carte entière */
+.avis-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(230, 230, 250, 0.4);
+}
+
+/* Indicateur de chargement */
+.loading-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    color: #718096;
+    font-style: italic;
+}
+
+.loading-indicator::before {
+    content: "⏳";
+    margin-right: 8px;
+    animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
         .chat-input {
             flex: 1;
             height: 48px;
@@ -1564,15 +1768,16 @@
         }
 
         #conteneuravis {
-            height: 40%;
-            width: 60%;
+            height: 60%;
+            width: 50%;
             border-radius: 20px;
             border: 2px solid lavender;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
             margin: 20px auto;
-            color: white;
+            color: black;
             font-weight: 600;
+            background-color: white;
+            background: white;
         }
 
         .conteneuravis {
@@ -1829,227 +2034,388 @@
             top: 150px;
             left: 100px;
         }
+
+        #mess {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .chat-container {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                max-width: 100vw !important;
+                max-height: 100vh !important;
+                border-radius: 0 !important;
+                padding: 0 !important;
+                z-index: 9999 !important;
+                box-shadow: none !important;
+                transform: none !important;
+            }
+
+            .chat-header {
+                padding: 0.75rem 0.5rem !important;
+                font-size: 1rem !important;
+            }
+
+            .chat-messages {
+                padding: 0.5rem 0.25rem !important;
+                font-size: 1rem !important;
+            }
+
+            .message {
+                max-width: 98% !important;
+                font-size: 1rem !important;
+                padding: 0.6rem 0.7rem !important;
+            }
+
+            .chat-input-container {
+                padding: 0.5rem 0.25rem !important;
+            }
+
+            .chat-input-group {
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+            }
+
+            .chat-input {
+                width: 100% !important;
+                min-width: 0 !important;
+                font-size: 1rem !important;
+                height: 42px !important;
+            }
+
+            .chat-actions {
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+            }
+
+            .chat-actions .btn,
+            .chat-input-group .btn {
+                width: 100% !important;
+                min-width: 0 !important;
+                font-size: 1rem !important;
+                padding: 0.8rem 0.5rem !important;
+                margin: 0 !important;
+                box-sizing: border-box !important;
+            }
+
+            .btn {
+                width: 100% !important;
+                min-width: 0 !important;
+                font-size: 1rem !important;
+                padding: 0.8rem 0.5rem !important;
+                margin-bottom: 0.5rem !important;
+                box-sizing: border-box !important;
+            }
+
+            /* Boutons principaux scrollables horizontalement sauf le bouton jour/nuit */
+            .entete-actions {
+                display: flex !important;
+                flex-direction: row !important;
+                overflow-x: auto !important;
+                gap: 0.5rem !important;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                padding-bottom: 0.5rem;
+                margin-bottom: 0.5rem;
+                width: 100vw !important;
+            }
+
+            .entete-actions::-webkit-scrollbar {
+                display: none;
+            }
+
+            .entete-actions .btn {
+                width: auto !important;
+                min-width: 120px !important;
+                flex-shrink: 0 !important;
+                margin-bottom: 0 !important;
+            }
+
+            /* Le bouton jour/nuit reste à part dans .entete-logo */
+            .entete-logo {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                gap: 0.5rem !important;
+            }
+
+            #temps {
+                margin-left: auto !important;
+                flex-shrink: 0 !important;
+            }
+        }
+
+        .menu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(230, 230, 250, 0.555);
+            border-top: 1px solid transparent;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        #avis,
+        #mess,
+        #accueilBtn {
+            border: none;
+            background-color: transparent;
+            background: transparent;
+            font-size: 17px;
+        }
+
+        #vendre,
+        #connexionn,
+        #question {
+            margin-bottom: 30px;
+            margin: 30px;
+        }
+        #chat{
+            position: relative;
+            left: 50%;
+            top: 200px;
+        }
     </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
 
 <body id="bod" data-aos="fade-down-right">
-    <div class="entete" id="entete">
-        <div class="container">
-            <div class="entete-content">
-                <div class="entete-logo">
-                    <button class="btn btn-menu" id="trois">☰</button>
-                    <strong>MBOA Librairie</strong>
-                    <button class="btn btn-secondary" id="temps">🌞</button>
-                </div>
 
-                <div class="entete-search">
-                    <i class="fas fa-search"></i>
-                    <input type="search" id="searchBar" placeholder="Rechercher un produit..." autocomplete="off" />
-                    <ul id="suggestions" class="suggestion-liste" style="display:none;"></ul>
-                </div>
+    <div id="ladiv">
+        <div class="entete" id="entete">
+            <div class="container">
+                <div class="entete-content">
+                    <div class="entete-logo">
+                        <button class="btn btn-menu" id="trois">☰</button>
+                        <strong>MBOA Librairie</strong>
+                        <button class="btn btn-secondary" id="temps">🌞</button>
+                    </div>
 
-                <div class="entete-actions">
-                    <button class="btn btn-secondary" id="accueilBtn">
-                        <i class="fas fa-home"></i> Accueil
-                    </button>
-                    <button class="btn btn-secondary" id="avis">🌟 Avis</button>
-                    <button onclick="lireConversations()" class="btn btn-secondary" id="mess"
-                        aria-label="Voir mes conversations">
-                        <i class="fas fa-comments"></i> Messages
-                    </button>
-                    <a href="https://wa.me/237657300644" class="btn btn-secondary" id="question">❓ Question</a>
-                    <button class="btn btn-primary" id="vendre">💼 Vendre</button>
-                    <button class="btn btn-success" id="connexionn">🔐 Connexion</button>
+                    <div class="entete-search">
+
+                        <i class="fas fa-search"></i>
+                        <input type="search" id="searchBar" placeholder="Rechercher un produit..." autocomplete="off" />
+                        <ul id="suggestions" class="suggestion-liste" style="display:none;"></ul>
+                    </div>
+
+                    <div class="entete-actions">
+                        <button class="btn btn-primary" id="vendre">💼 Vendre</button>
+                        <button class="btn btn-success" id="connexionn">🔐 Connexion</button>
+
+                        <a href="https://wa.me/237657300644" class="btn btn-secondary" id="question">❓ Question</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="fournitures" id="fourniture" style="display: none;">
-        <p class="listes">❤️ Mes listes</p>
-        <br>
-        <p class="tous">📋 Tous les rayons</p>
-        <ul>
-            <li onclick="afficherFournituresCategorie('livres')" id="livre">
-                <p class="separe">📚 Livres</p>
-                <ul class="sous-menu">
-                    <li>🎓 Terminale</li>
-                    <li>📖 Première</li>
-                    <li>📝 Seconde</li>
-                    <li>✏️ Troisième</li>
-                    <li>📄 Quatrième</li>
-                    <li>📑 Cinquième</li>
-                    <li>📋 Sixième</li>
-                    <li>📊 CM2</li>
-                    <li>📈 CM1</li>
-                    <li>📉 CE2</li>
-                    <li>📌 CE1</li>
-                    <li>📍 CP</li>
-                    <li>🔤 SIL</li>
-                </ul>
-            </li>
-            <li onclick="afficherFournituresCategorie('produits')" id="produit">
-                <p class="separe">🛍️ Produits</p>
-                <ul class="sous-menu">
-                    <li>📔 Cahiers</li>
-                    <li>📐 Boîte académique</li>
-                    <li>🎒 Sacs</li>
-                    <li>🧮 Calculatrice</li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-
-    <div id="connexion" style="display: none;">
-        <div class="advanced">
-            <h3 style="margin-bottom: 30px; color: var(--primary-color); font-size: 2rem;">🔐 Connexion</h3><button
-                class="croixe"
-                onclick="document.getElementById('connexion').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">×</button>
-        </div>
-        <input type="text" class="nom" id="nom" placeholder="👤 Entrez votre nom" />
-        <input type="number" class="nom" id="numero" placeholder="📱 Votre numéro" />
-        <input type="email" class="nom" id="email" placeholder="📧 Entrez votre adresse email" />
-        <input type="password" class="nom" id="motdepasse" placeholder="🔒 Mot de passe" />
-        <button id="btnCreerCompte">✨ Créer un Compte</button>
-        <button id="btnSeConnecter" class="fas fa-sign-in-alt"> Se connecter</button>
-    </div>
-
-    <div class="chat-container" id="chat" style="display: none;">
-        <div class="chat-header">
-            <span class="chat-title" id="chatTitre">💬 Chat de la vente</span>
-            <button class="chat-close"
-                onclick="document.getElementById('chat').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">✖</button>
+        <div class="fournitures" id="fourniture" style="display: none;">
+            <p class="listes">❤️ Mes listes</p>
+            <br>
+            <p class="tous">📋 Tous les rayons</p>
+            <ul>
+                <li onclick="afficherFournituresCategorie('livres')" id="livre">
+                    <p class="separe">📚 Livres</p>
+                    <ul class="sous-menu">
+                        <li>🎓 Terminale</li>
+                        <li>📖 Première</li>
+                        <li>📝 Seconde</li>
+                        <li>✏️ Troisième</li>
+                        <li>📄 Quatrième</li>
+                        <li>📑 Cinquième</li>
+                        <li>📋 Sixième</li>
+                        <li>📊 CM2</li>
+                        <li>📈 CM1</li>
+                        <li>📉 CE2</li>
+                        <li>📌 CE1</li>
+                        <li>📍 CP</li>
+                        <li>🔤 SIL</li>
+                    </ul>
+                </li>
+                <li onclick="afficherFournituresCategorie('produits')" id="produit">
+                    <p class="separe">🛍️ Produits</p>
+                    <ul class="sous-menu">
+                        <li>📔 Cahiers</li>
+                        <li>📐 Boîte académique</li>
+                        <li>🎒 Sacs</li>
+                        <li>🧮 Calculatrice</li>
+                    </ul>
+                </li>
+            </ul>
         </div>
 
-        <div class="chat-messages" id="messages"></div>
+        <div id="connexion" style="display: none;">
+            <div class="advanced">
+                <h3 style="margin-bottom: 30px; color: var(--primary-color); font-size: 2rem;">🔐 Connexion</h3>
+            </div>
+            <input type="text" class="nom" id="nom" placeholder="👤 Entrez votre nom" />
+            <input type="number" class="nom" id="numero" placeholder="📱 Votre numéro" />
+            <input type="email" class="nom" id="email" placeholder="📧 Entrez votre adresse email" />
+            <input type="password" class="nom" id="motdepasse" placeholder="🔒 Mot de passe" />
+            <button id="btnCreerCompte">✨ Créer un Compte</button>
+            <button id="btnSeConnecter" class="fas fa-sign-in-alt"> Se connecter</button>
+        </div>
 
-        <div class="chat-input-container">
-            <div class="chat-input-group">
-                <input class="chat-input" id="messageInput" placeholder="💭 Écris un message..." />
-                <button class="btn btn-primary" onclick="envoyerMessage()">📤 Envoyer</button>
+        <div class="chat-container" id="chat" style="display: none;">
+            <div class="chat-header">
+                <span class="chat-title" id="chatTitre">💬 Chat de la vente</span>
+                <button class="chat-close"
+                    onclick="document.getElementById('chat').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">✖</button>
             </div>
 
-            <div class="chat-actions">
-                <button class="btn btn-warning" onclick="conclureJob()">✅ Conclure</button>
-                <button class="btn btn-secondary"
-                    onclick="document.getElementById('chat').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">❌
-                    Fermer</button>
+            <div class="chat-messages" id="messages"></div>
+
+            <div class="chat-input-container">
+                <div class="chat-input-group">
+                    <input class="chat-input" id="messageInput" placeholder="💭 Écris un message..." />
+                    <button class="btn btn-primary" onclick="envoyerMessage()">📤 Envoyer</button>
+                </div>
+
+                <div class="chat-actions">
+                    <button class="btn btn-warning" onclick="conclureJob()">✅ Conclure</button>
+                    <button class="btn btn-secondary"
+                        onclick="document.getElementById('chat').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">❌
+                        Fermer</button>
+                </div>
             </div>
         </div>
+        <div id="conteneuravis" style="display: none;"></div>
+
+        <div class="avise" id="avise" style="display: none;">
+            <div class="advanced">
+                <h4 style="margin-bottom: 30px; color: var(--primary-color); font-size: 1.8rem;">⭐ Donnez votre avis
+                </h4>
+                <button class="croix"
+                    onclick="document.getElementById('avise').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">×</button>
+            </div>
+        <form id="formule">
+                <div id="stars" style="margin-bottom: 25px;">
+                    <span class="star" onclick="rate(1)">★</span>
+                    <span class="star" onclick="rate(2)">★</span>
+                    <span class="star" onclick="rate(3)">★</span>
+                    <span class="star" onclick="rate(4)">★</span>
+                    <span class="star" onclick="rate(5)">★</span>
+                </div>
+                <textarea id="avi" placeholder="💭 Votre commentaire..."></textarea>
+                <button class="soumettre" id="soumettre" type="submit">🚀 Soumettre</button>
+            </form>
+        </div>
+
+
+
+        <div class="form-container" id="formulaire" data-aos="fade-up" style="display: none;">
+            <div class="advanced">
+                <h3 class="form-title">📦 Vendre une fourniture</h3><button class="croix"
+                    onclick="document.getElementById('formulaire').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">×</button>
+            </div>
+            <form id="form">
+                <div class="form-group">
+                    <label class="form-label" for="item">🏷️ Que vendez-vous ?</label>
+                    <select class="form-select" id="item">
+                        <option value="Livres">📚 Livres</option>
+                        <option value="Bords">📝 Bords</option>
+                        <option value="Cahiers">📔 Cahiers</option>
+                        <option value="Calculatrice">🧮 Calculatrice</option>
+                        <option value="Sacs">🎒 Sacs</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="categorie">📂 Catégorie :</label>
+                    <select class="form-select" id="categorie" required>
+                        <option value="livres">📚 Livres</option>
+                        <option value="produits">🛍️ Produits</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="price">💰 Prix (en FCFA) :</label>
+                    <input class="form-input" type="number" id="price" min="0" required placeholder="Ex: 5000" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="classe">🎓 Classe :</label>
+                    <select class="form-select" id="classe" required>
+                        <option value="terminale">🎓 Terminale</option>
+                        <option value="premiere">📖 Première</option>
+                        <option value="seconde">📝 Seconde</option>
+                        <option value="troisieme">✏️ Troisième</option>
+                        <option value="quatrieme">📄 Quatrième</option>
+                        <option value="cinquieme">📑 Cinquième</option>
+                        <option value="sixieme">📋 Sixième</option>
+                        <option value="cm2">📊 CM2</option>
+                        <option value="cm1">📈 CM1</option>
+                        <option value="ce2">📉 CE2</option>
+                        <option value="ce1">📌 CE1</option>
+                        <option value="cp">📍 CP</option>
+                        <option value="sil">🔤 SIL</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="location">📍 Lieu (quartier) :</label>
+                    <select class="form-select" id="location">
+                        <option value="Douala">🏙️ Douala</option>
+                        <option value="Yaounde">🏛️ Yaoundé</option>
+                        <option value="Bafoussam">🏔️ Bafoussam</option>
+                        <option value="Limbe">🌊 Limbe</option>
+                        <option value="Kribi">🏖️ Kribi</option>
+                        <option value="Garoua">🌆 Garoua</option>
+                        <option value="Melong">🏘️ Melong</option>
+                        <option value="Nkongsamba">🏞️ Nkongsamba</option>
+                        <option value="Autre">🌍 Autre</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="description">📝 Description :</label>
+                    <input class="form-input" type="text" id="description" required
+                        placeholder="Décrivez votre article..." />
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="photoB">📸 Ajouter une photo</button>
+                    <button class="btn btn-primary" id="confirmer" type="submit">🚀 Publier</button>
+                </div>
+
+                <input type="file" accept="image/*" id="camer" style="display: none;" />
+
+                <div id="maphoto">
+                    <img src="" alt="Aperçu" id="photoPreview"
+                        style="display: none; max-width: 100%; border-radius: 12px; box-shadow: var(--shadow); margin-top: 15px;" />
+                </div>
+            </form>
+        </div>
+
+        <div class="profile" id="conteneurProfils" style="display: none;"></div>
     </div>
-    <div id="conteneuravis"></div>
-
-    <div class="avise" id="avise" style="display: none;">
-        <div class="advanced">
-            <h4 style="margin-bottom: 30px; color: var(--primary-color); font-size: 1.8rem;">⭐ Donnez votre avis</h4>
-            <button class="croix"
-                onclick="document.getElementById('avise').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">×</button>
-        </div>
-        <div id="stars" style="margin-bottom: 25px;">
-            <span class="star" onclick="rate(1)">★</span>
-            <span class="star" onclick="rate(2)">★</span>
-            <span class="star" onclick="rate(3)">★</span>
-            <span class="star" onclick="rate(4)">★</span>
-            <span class="star" onclick="rate(5)">★</span>
-        </div>
-        <textarea id="avi" placeholder="💭 Votre commentaire..."></textarea>
-        <button class="soumettre" id="soumettre">🚀 Soumettre</button>
+    <div class="menu">
+        <button class="btn btn-secondary" id="accueilBtn">
+            <i class="fas fa-home"></i> Accueil
+        </button>
+        <button class="btn btn-secondary" id="avis">🌟 Avis</button>
+        <button onclick="lireConversations()" class="btn btn-secondary" id="mess" aria-label="Voir mes conversations">
+            <i class="fas fa-comments"></i> Messages
+        </button>
+        <button class="btn btn-success" id="payer" style="display:none;">Payer 200 FCFA</button>
     </div>
-
-    <div class="form-container" id="formulaire" data-aos="fade-up" style="display: none;">
-        <div class="advanced">
-            <h3 class="form-title">📦 Vendre une fourniture</h3><button class="croix"
-                onclick="document.getElementById('formulaire').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">×</button>
-        </div>
-        <form id="form">
-            <div class="form-group">
-                <label class="form-label" for="item">🏷️ Que vendez-vous ?</label>
-                <select class="form-select" id="item">
-                    <option value="Livres">📚 Livres</option>
-                    <option value="Bords">📝 Bords</option>
-                    <option value="Cahiers">📔 Cahiers</option>
-                    <option value="Calculatrice">🧮 Calculatrice</option>
-                    <option value="Sacs">🎒 Sacs</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label" for="categorie">📂 Catégorie :</label>
-                <select class="form-select" id="categorie" required>
-                    <option value="livres">📚 Livres</option>
-                    <option value="produits">🛍️ Produits</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label" for="price">💰 Prix (en FCFA) :</label>
-                <input class="form-input" type="number" id="price" min="0" required placeholder="Ex: 5000" />
-            </div>
-
-            <div class="form-group">
-                <label class="form-label" for="classe">🎓 Classe :</label>
-                <select class="form-select" id="classe" required>
-                    <option value="terminale">🎓 Terminale</option>
-                    <option value="premiere">📖 Première</option>
-                    <option value="seconde">📝 Seconde</option>
-                    <option value="troisieme">✏️ Troisième</option>
-                    <option value="quatrieme">📄 Quatrième</option>
-                    <option value="cinquieme">📑 Cinquième</option>
-                    <option value="sixieme">📋 Sixième</option>
-                    <option value="cm2">📊 CM2</option>
-                    <option value="cm1">📈 CM1</option>
-                    <option value="ce2">📉 CE2</option>
-                    <option value="ce1">📌 CE1</option>
-                    <option value="cp">📍 CP</option>
-                    <option value="sil">🔤 SIL</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label" for="location">📍 Lieu (quartier) :</label>
-                <select class="form-select" id="location">
-                    <option value="Douala">🏙️ Douala</option>
-                    <option value="Yaounde">🏛️ Yaoundé</option>
-                    <option value="Bafoussam">🏔️ Bafoussam</option>
-                    <option value="Limbe">🌊 Limbe</option>
-                    <option value="Kribi">🏖️ Kribi</option>
-                    <option value="Garoua">🌆 Garoua</option>
-                    <option value="Melong">🏘️ Melong</option>
-                    <option value="Nkongsamba">🏞️ Nkongsamba</option>
-                    <option value="Autre">🌍 Autre</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label" for="description">📝 Description :</label>
-                <input class="form-input" type="text" id="description" required
-                    placeholder="Décrivez votre article..." />
-            </div>
-
-            <div class="form-actions">
-                <button type="button" class="btn btn-secondary" id="photoB">📸 Ajouter une photo</button>
-                <button class="btn btn-primary" id="confirmer" type="submit">🚀 Publier</button>
-            </div>
-
-            <input type="file" accept="image/*" id="camer" style="display: none;" />
-
-            <div id="maphoto">
-                <img src="" alt="Aperçu" id="photoPreview"
-                    style="display: none; max-width: 100%; border-radius: 12px; box-shadow: var(--shadow); margin-top: 15px;" />
-            </div>
-        </form>
-    </div>
-
-    <div class="profile" id="conteneurProfils" style="display: none;"></div>
     <script src="https://api-checkout.cinetpay.com/v2/checkout.js"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, onSnapshot, query, where, orderBy, setDoc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, onSnapshot, query, where, orderBy, setDoc, getDoc, updateDoc, increment, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-
-        // 🔧 Configuration Firebase
+        // Configuration Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyCwYVursGqdwA47BgpjxFx-UuPOooorqcU",
             authDomain: "mboa-librerie.firebaseapp.com",
@@ -2063,8 +2429,10 @@
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const db = getFirestore(app);
+        window.db = db;
         const storage = getStorage(app);
         const auth = getAuth(app);
+        window.auth = auth;
 
         // 🔎 Sélecteurs
         const form = document.getElementById("form");
@@ -2074,6 +2442,7 @@
         const conteneurProfils = document.getElementById("conteneurProfils");
         const formulaire = document.getElementById("formulaire");
         const confirmerBtn = document.getElementById("confirmer");
+
 
         // --- Variables globales pour annonces ---
         let allAnnonces = [];
@@ -2089,7 +2458,19 @@
         let idAnnonceEnCours = null;
         let idConversation = null;
 
-        // --- Sélecteurs supplémentaires pour l'auth ---
+        // --- Connexion automatique si déjà authentifié ---
+        window.addEventListener('DOMContentLoaded', () => {
+            if (auth.currentUser) {
+                document.getElementById("conteneurProfils").style.display = "block";
+                document.getElementById("fourniture").style.display = "none";
+                document.getElementById("conteneuravis").style.display = "none";
+                document.getElementById("avise").style.display = "none";
+                document.getElementById("chat").style.display = "none";
+                document.getElementById("connexion").style.display = "none";
+                document.getElementById("formulaire").style.display = "none";
+            }
+        });
+
         const btnCreerCompte = document.getElementById("btnCreerCompte");
         const btnSeConnecter = document.getElementById("btnSeConnecter");
         const btnDeconnexion = document.createElement("button");
@@ -2101,109 +2482,166 @@
         userDisplay.style.marginLeft = "15px";
         document.getElementById("entete").appendChild(userDisplay);
 
-        // --- Gestion de l'état de connexion ---
         function majEtatConnexion(user) {
             if (user) {
                 btnDeconnexion.style.display = "inline-block";
-                userDisplay.textContent = `Connecté : ${user.email}`;
-                document.getElementById("connexion").style.display = "none";
-                btnConnexion.style.display = "none";
-                btnVendre.style.display = "inline-block";
-                document.getElementById("question").style.display = "inline-block";
             } else {
                 btnDeconnexion.style.display = "none";
-                userDisplay.textContent = "";
-                btnConnexion.style.display = "inline-block";
-                btnVendre.style.display = "none";
-                document.getElementById("question").style.display = "inline-block";
             }
         }
-        onAuthStateChanged(auth, majEtatConnexion);
 
-        // Bouton pour une photo
-        photoB.addEventListener("click", () => {
-            camer.click();
-        });
-        camer.addEventListener("change", (e) => {
-            imageFile = e.target.files[0];
-            if (imageFile) {
-                const imageUrl = URL.createObjectURL(imageFile);
-                photoPreview.src = imageUrl;
-                photoPreview.style.display = "block";
+        // Fonction qui vérifie si tous les éléments sont prêts
+        function waitForElements() {
+            return new Promise((resolve) => {
+                const checkElements = () => {
+                    const container = document.getElementById("conteneurProfils");
+                    const auth = window.auth;
+                    const db = window.db;
+                    if (container && auth && db) {
+                        resolve();
+                    } else {
+                        setTimeout(checkElements, 100);
+                    }
+                };
+                checkElements();
+            });
+        }
+
+        // Fonction globale lireConversations
+        async function lireConversations() {
+            document.getElementById("conteneuravis").style.display="none";
+             document.getElementById("conteneurProfils").style.display = "none";
+    document.getElementById("fourniture").style.display = "none";
+    document.getElementById("conteneuravis").style.display="none";
+    document.getElementById("avise").style.display = "none";
+    document.getElementById("chat").style.display = "none";
+    document.getElementById("connexion").style.display = "none";
+    document.getElementById("formulaire").style.display = "none";
+            await waitForElements();
+            // --- Sélecteurs et masquage des sections ---
+            const container = document.getElementById("conteneurProfils");
+            if (!container) return alert("Erreur: Interface non disponible");
+            ["fourniture", "avise", "chat", "connexion", "formulaire"].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = "none";
+            });
+            container.style.display = "block";
+            container.innerHTML = `<h3 class='section-title'>💬 Mes Conversations</h3>`;
+
+            // --- Authentification ---
+            const currentUser = window.auth && window.auth.currentUser;
+            if (!currentUser) {
+                container.innerHTML += `<div style='text-align:center;color:red;margin-top:2rem;'>❌ Connecte-toi d'abord</div>`;
+                return;
             }
-        });
+            const email = currentUser.email;
+            let total = 0;
 
-        // formulaire
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
+            // --- Parcours des annonces pour trouver les conversations ---
+            let annoncesSnap;
+            try {
+                annoncesSnap = await getDocs(collection(window.db, "annonces"));
+            } catch (error) {
+                container.innerHTML += `<div style='text-align:center;color:red;margin-top:2rem;'>❌ Erreur lors de la connexion à la base de données</div>`;
+                return;
+            }
+
+            // --- Vendeur (auteur) ---
+            for (const docu of annoncesSnap.docs) {
+                const annonce = { id: docu.id, ...docu.data() };
+                if (annonce.auteur === email) {
+                    const convsSnap = await getDocs(collection(window.db, "annonces", annonce.id, "conversations"));
+                    if (convsSnap.empty) continue;
+                    for (const convDoc of convsSnap.docs) {
+                        const convId = convDoc.id;
+                        // Récupère le dernier message
+                        const messagesRef = collection(window.db, "annonces", annonce.id, "conversations", convId, "messages");
+                        const lastMsgSnap = await getDocs(query(messagesRef, orderBy("timestamp", "desc"), limit(1)));
+                        let lastMsg = null;
+                        lastMsgSnap.forEach(doc => lastMsg = doc.data());
+                        let preview = "";
+                        if (lastMsg) {
+                            const date = new Date(lastMsg.timestamp).toLocaleString();
+                            preview = `<div style='color:#888;font-size:0.9em;margin-bottom:0.5em;'><b>${lastMsg.auteur === email ? 'Moi' : lastMsg.auteur}:</b> ${lastMsg.text} <span style='float:right;'>${date}</span></div>`;
+                        }
+                        const emails = convId.split("_");
+                        const emailAcheteur = emails.find(e => e !== annonce.auteur);
+                        const card = document.createElement("div");
+                        card.className = "annonce-card";
+                        card.innerHTML = `
+                            <h4><i class="fas fa-tasks"></i> ${annonce.nomProduit || "Produit sans nom"}</h4>
+                            <p><i class="fas fa-coins"></i> Prix: ${annonce.prix || "?"} FCFA</p>
+                            <p><i class="fas fa-info-circle"></i> ${annonce.description || "Pas de description"}</p>
+                            <p><strong><i class="fas fa-user"></i> Acheteur:</strong> ${emailAcheteur}</p>
+                            ${preview}
+                            <button class="btn btn-primary" onclick="window.ouvrirChat('${annonce.id}', '${emailAcheteur}', '${annonce.auteur}')">
+                                <i class="fas fa-comments"></i> Ouvrir chat
+                            </button>
+                        `;
+                        container.appendChild(card);
+                        total++;
+                    }
+                }
+            }
+
+            // --- Acheteur (participant à une conversation) ---
+            for (const docu of annoncesSnap.docs) {
+                const annonce = { id: docu.id, ...docu.data() };
+                if (annonce.auteur !== email) {
+                    const convsSnap = await getDocs(collection(window.db, "annonces", annonce.id, "conversations"));
+                    for (const convDoc of convsSnap.docs) {
+                        if (convDoc.id.includes(email)) {
+                            // Récupère le dernier message
+                            const messagesRef = collection(window.db, "annonces", annonce.id, "conversations", convDoc.id, "messages");
+                            const lastMsgSnap = await getDocs(query(messagesRef, orderBy("timestamp", "desc"), limit(1)));
+                            let lastMsg = null;
+                            lastMsgSnap.forEach(doc => lastMsg = doc.data());
+                            let preview = "";
+                            if (lastMsg) {
+                                const date = new Date(lastMsg.timestamp).toLocaleString();
+                                preview = `<div style='color:#888;font-size:0.9em;margin-bottom:0.5em;'><b>${lastMsg.auteur === email ? 'Moi' : lastMsg.auteur}:</b> ${lastMsg.text} <span style='float:right;'>${date}</span></div>`;
+                            }
+                            const card = document.createElement("div");
+                            card.className = "annonce-card";
+                            card.innerHTML = `
+                                <h4><i class="fas fa-tasks"></i> ${annonce.nomProduit || "Produit sans nom"}</h4>
+                                <p><i class="fas fa-coins"></i> Prix: ${annonce.prix || "?"} FCFA</p>
+                                <p><i class="fas fa-info-circle"></i> ${annonce.description || "Pas de description"}</p>
+                                <p><strong><i class="fas fa-user"></i> Vendeur:</strong> ${annonce.auteur}</p>
+                                ${preview}
+                                <button class="btn btn-primary" onclick="window.ouvrirChat('${annonce.id}', '${email}', '${annonce.auteur}')">
+                                    <i class="fas fa-comments"></i> Ouvrir chat
+                                </button>
+                            `;
+                            container.appendChild(card);
+                            total++;
+                        }
+                    }
+                }
+            }
+
+            if (total === 0) {
+                container.innerHTML += `<div class="annonce-card text-center"><i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-light); margin-bottom: 1rem; text-align:center;"></i><p>Tu n'as aucune conversation.</p></div>`;
+            }
+        }
+document.getElementById("accueilBtn").addEventListener("click", function() {
+    document.getElementById("conteneurProfils").style.display = "block";
+    document.getElementById("fourniture").style.display = "none";
+    document.getElementById("conteneuravis").style.display="none";
+    document.getElementById("avise").style.display = "none";
+    document.getElementById("chat").style.display = "none";
+    document.getElementById("connexion").style.display = "none";
+    document.getElementById("formulaire").style.display = "none";
+});
+        // Rendre la fonction accessible globalement
+        window.lireConversations = lireConversations;
+        // Création de compte 
+        btnCreerCompte.addEventListener("click", async () => {
+             document.getElementById("conteneuravis").style.display="none";
             document.getElementById("conteneurProfils").style.display = "none";
             document.getElementById("fourniture").style.display = "none";
             document.getElementById("avise").style.display = "none";
             document.getElementById("chat").style.display = "none";
-            document.getElementById("connexion").style.display = "none";
-            if (!utilisateurConnecte()) {
-                alert("Vous devez être connecté pour publier une annonce.");
-                return;
-            }
-            //  le blocage
-            const stats = await getUserStats(auth.currentUser.email);
-            if (stats.ventes >= 2) {
-                alert("Vous avez atteint la limite de 2 ventes.");
-                return;
-            }
-            if (!imageFile) {
-                alert("Merci de sélectionner une image !");
-                return;
-            }
-            const nomProduit = document.getElementById("item").value;
-            const prix = document.getElementById("price").value;
-            const classe = document.getElementById("classe").value;
-            const lieu = document.getElementById("location").value;
-            const description = document.getElementById("description").value;
-            const categorie = document.getElementById("categorie").value;
-            let imageUrl = "";
-            try {
-                imageUrl = await uploadImage(imageFile);
-                // Ajoute l'annonce dans Firestore et récupère son id
-                const docRef = await addDoc(collection(db, "annonces"), {
-                    nomProduit,
-                    prix,
-                    classe,
-                    lieu,
-                    description,
-                    categorie,
-                    imageUrl,
-                    auteur: auth.currentUser.email
-                });
-                // Ajoute l'annonce dans le tableau local avec son id
-                allAnnonces.push({
-                    id: docRef.id,
-                    nomProduit,
-                    prix,
-                    classe,
-                    lieu,
-                    description,
-                    categorie,
-                    imageUrl,
-                    auteur: auth.currentUser.email
-                });
-                await incrementUserStat(auth.currentUser.email, "ventes");
-                alert("Annonces poster avec succes");
-                afficherAnnonces(allAnnonces);
-                formulaire.style.display = "none";
-                form.reset();
-                photoPreview.style.display = "none";
-                imageFile = null;
-                checkBlockPublier();
-            } catch (err) {
-                alert("Erreur lors de la publication ou de l'upload de l'image : " + err.message);
-
-                return;
-            }
-        });
-
-        // --- Création de compte ---
-        btnCreerCompte.addEventListener("click", async () => {
             document.getElementById("connexion").style.display = "block";
             const email = document.getElementById("email").value;
             const password = document.getElementById("motdepasse").value;
@@ -2219,6 +2657,11 @@
 
         // --- Connexion ---
         btnSeConnecter.addEventListener("click", async () => {
+             document.getElementById("conteneuravis").style.display="none";
+            document.getElementById("conteneurProfils").style.display = "none";
+            document.getElementById("fourniture").style.display = "none";
+            document.getElementById("avise").style.display = "none";
+            document.getElementById("chat").style.display = "none";
 
             document.getElementById("connexion").style.display = "block";
             const email = document.getElementById("email").value;
@@ -2251,6 +2694,7 @@
 
         // --- Recherche dynamique optimisée (filtrage côté client) ---
         searchBar.addEventListener("input", function () {
+             document.getElementById("conteneuravis").style.display="none";
             document.getElementById("conteneurProfils").style.display = "block";
             document.getElementById("fourniture").style.display = "none";
             document.getElementById("avise").style.display = "none";
@@ -2307,29 +2751,43 @@
 
         btnVendre.addEventListener("click", () => {
             formulaire.style.display = "block";
-            document.getElementById("conteneurProfils").style.display = "block";
+            document.getElementById("conteneurProfils").style.display = "none";
             document.getElementById("fourniture").style.display = "none";
             document.getElementById("avise").style.display = "none";
             document.getElementById("chat").style.display = "none";
             document.getElementById("connexion").style.display = "none";
+             document.getElementById("conteneuravis").style.display="none";
         });
 
-        btnAvis.addEventListener("click", () => {
+        btnAvis.addEventListener("click", async () => {
+            // Affiche le formulaire d'avis
             avisZone.style.display = "block";
             formulaire.style.display = "none";
-            document.getElementById("conteneurProfils").style.display = "block";
+            document.getElementById("conteneurProfils").style.display = "none";
             document.getElementById("fourniture").style.display = "none";
             document.getElementById("avise").style.display = "block";
             document.getElementById("chat").style.display = "none";
             document.getElementById("connexion").style.display = "none";
+
+            // Charger et afficher les avis existants
+            try {
+                const avisSnap = await getDocs(collection(db, "avis"));
+                const avisList = avisSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                afficheravis(avisList);
+            } catch (e) {
+                document.getElementById("conteneuravis").innerHTML = "<p>Erreur de chargement des avis.</p>";
+                document.getElementById("conteneuravis").style.display = "block";
+            }
         });
 
         btnJourNuit.addEventListener("click", () => {
             if (body.style.backgroundColor === "black") {
                 body.style.backgroundColor = "white";
+                document.getElementById("ladiv").style.color = "black";
                 btnJourNuit.innerText = "🌞";
             } else {
                 body.style.backgroundColor = "black";
+                document.getElementById("ladiv").style.color = "white";
                 btnJourNuit.innerText = "🌑";
             }
         });
@@ -2345,11 +2803,12 @@
         document.getElementById("trois").addEventListener("click", () => {
             fournitureMenu.style.display = "block";
             formulaire.style.display = "none";
-            document.getElementById("conteneurProfils").style.display = "block";
+            document.getElementById("conteneurProfils").style.display = "none";
             document.getElementById("fourniture").style.display = "block";
             document.getElementById("avise").style.display = "none";
             document.getElementById("chat").style.display = "none";
             document.getElementById("connexion").style.display = "none";
+             document.getElementById("conteneuravis").style.display="none";
         });
 
         // Système d'étoiles pour les avis
@@ -2363,19 +2822,123 @@
         async function afficheravis(avisList) {
             const container = document.getElementById("conteneuravis");
             container.innerHTML = "";
+
             if (!avisList || avisList.length === 0) {
                 container.innerHTML = "<p>Aucun avis trouvé.</p>";
                 container.style.display = "block";
                 return;
             }
-            avisList.forEach(async (avis) => {
-                const bloc = document.createElement("div");
-                bloc.className = "conteneuravis";
-                bloc.innerHTML = `<p><strong>Note: ${avis.rating} étoiles<br>
-                    Commentaire: ${avis.comment}</strong></p>`;
-                container.appendChild(bloc);
-            });
+
+           avisList.forEach((avis, index) => {
+    const bloc = document.createElement("div");
+    bloc.className = "conteneuravis avis-card";
+    bloc.style.animationDelay = `${index * 0.1}s`;
+    const fullStars = '★'.repeat(avis.rating);
+    const emptyStars = '☆'.repeat(5 - avis.rating);
+    const stars = `<span class="stars-full">${fullStars}</span><span class="stars-empty">${emptyStars}</span>`;
+    const dateStr = avis.date ? new Date(avis.date).toLocaleDateString('fr-FR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }) : '';
+    
+    bloc.innerHTML = `
+        <div class="avis-header">
+            <div class="avis-rating-section">
+                <div class="stars-container">${stars}</div>
+                <span class="rating-text">${avis.rating}/5</span>
+            </div>
+            ${dateStr ? `<div class="avis-date">${dateStr}</div>` : ''}
+            ${avis.author ? `<div class="avis-author">Par ${avis.author}</div>` : ''}
+        </div>
+        
+        <div class="avis-content">
+            <div class="comment-icon">💬</div>
+            <p class="avis-comment">${avis.comment}</p>
+        </div>
+        
+        ${avis.title ? `<h4 class="avis-title">${avis.title}</h4>` : ''}
+        
+        <div class="avis-footer">
+            <div class="avis-actions">
+                <button class="btn-helpful" id="pouce" onclick="toggleHelpful(${index})">
+                    <span class="icon">👍</span> Utile
+            </div>
+        </div>
+    `;
+    
+    container.appendChild(bloc);
+});
+
+// Animation du conteneur principal
+container.style.display = "block";
+  document.getElementById("conteneurProfils").style.display = "none";
+            document.getElementById("chat").style.display = "none";
+            conn.style.display = "none";
+            fournitureMenu.style.display = "none";
+            document.getElementById("question").style.display = "none";
+container.style.opacity = "0";
+container.style.transform = "translateY(20px)";
+
+// Animation d'apparition
+setTimeout(() => {
+    container.style.transition = "all 0.6s ease";
+    container.style.opacity = "1";
+    container.style.transform = "translateY(0)";
+}, 100);
+
+// Fonctions utilitaires
+function toggleHelpful(index) {
+    const btn = document.querySelector(`.conteneuravis:nth-child(${index + 1}) .btn-helpful`);
+    btn.classList.toggle('active');
+    btn.innerHTML = btn.classList.contains('active') 
+        ? '<span class="icon">👍</span> Utile ✓' 
+        : '<span class="icon">👍</span> Utile';
+}
+
+function shareAvis(index) {
+    const avis = avisList[index];
+    const shareText = `Avis: ${avis.rating}/5 étoiles - "${avis.comment}"`;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'Avis client',
+            text: shareText
+        });
+    } else {
+        navigator.clipboard.writeText(shareText).then(() => {
+            alert('Avis copié dans le presse-papiers !');
+        });
+    }
+}
+
+            container.style.display = "block";
         }
+
+        document.getElementById("formule").addEventListener("submit", async function(e) {
+            e.preventDefault();
+                        const stars = document.querySelectorAll('#stars .star.active').length;
+            const comment = document.getElementById("avi").value.trim();
+            if (!stars || !comment) {
+                alert("Merci de donner une note et un commentaire.");
+                return;
+            }
+            try {
+                await addDoc(collection(db, "avis"), {
+                    rating: stars,
+                    comment: comment,
+                    timestamp: Date.now()
+                });
+                document.getElementById("avi").value = "";
+                document.querySelectorAll('#stars .star').forEach(star => star.classList.remove('active'));
+                const avisSnap = await getDocs(collection(db, "avis"));
+                const avisList = avisSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                afficheravis(avisList);
+                alert("Merci pour votre avis !");
+            } catch (err) {
+                alert("Erreur lors de l'envoi de l'avis.");
+            }
+        });
 
         // --- Fonction pour afficher les annonces ---
         function escapeHTML(str) {
@@ -2516,6 +3079,7 @@
             document.getElementById("fourniture").style.display = "none";
             document.getElementById("avise").style.display = "block";
             document.getElementById("chat").style.display = "none";
+             document.getElementById("conteneuravis").style.display="none";
             document.getElementById("connexion").style.display = "none";
             try {
                 const filtered = allAnnonces.filter((data) => data.categorie === categorie);
@@ -2525,7 +3089,6 @@
             }
         };
 
-        // --- Chargement initial des annonces ---
         chargerToutesLesAnnonces();
 
         // --- Fonction d'upload Base64 (Gratuit et permanent) ---
@@ -2548,13 +3111,13 @@
             });
         }
 
-        // --- Messagerie adaptée à l'utilisateur connecté ---
         window.envoyerMessage = async function () {
             const input = document.getElementById('messageInput');
             const message = input.value.trim();
-            if (!message)
+            if (!message) {
                 alert("Veuillez entrez un message");
-            return;
+                return;
+            }
             if (!utilisateurConnecte()) {
                 alert("Vous devez être connecté pour envoyer un message.");
                 return;
@@ -2563,7 +3126,6 @@
                 alert("Aucune conversation active.");
                 return;
             }
-
             try {
                 const msgRef = collection(db, "annonces", idAnnonceEnCours, "conversations", idConversation, "messages");
                 await addDoc(msgRef, {
@@ -2571,7 +3133,6 @@
                     text: message,
                     timestamp: Date.now()
                 });
-
                 input.value = '';
             } catch (error) {
                 console.error("Erreur envoi message:", error);
@@ -2579,10 +3140,8 @@
             }
         }
 
-        // Cette fonction n'est plus nécessaire car les messages sont chargés dans ouvrirChat
-        window.chargerMessages = function () {
-            console.log("chargerMessages appelé mais non utilisé");
-        }
+
+
 
         // --- Compteurs d'achats/ventes utilisateur ---
         async function getUserStats(email) {
@@ -2617,6 +3176,42 @@
             }
         }
         onAuthStateChanged(auth, checkBlockPublier);
+// Gestion du paiement pour débloquer ventes/achats
+const payerBtn = document.getElementById("payer");
+if (payerBtn) {
+    payerBtn.addEventListener("click", function() {
+        startPayment(200, async function(success) {
+            if (success) {
+                alert("Paiement validé ! Vous pouvez continuer vos ventes ou achats.");
+                if (utilisateurConnecte()) {
+                    const email = auth.currentUser.email;
+                    const userRef = doc(db, "users", email);
+                    await setDoc(userRef, { ventes: 0, achats: 0 }, { merge: true });
+                    checkBlockPublier();
+                    chargerToutesLesAnnonces();
+                }
+                payerBtn.style.display = "none";
+            }
+        });
+    });
+}
+// Gestion du paiement pour débloquer ventes/achats
+document.getElementById("payer").addEventListener("click", function() {
+    startPayment(200, function(success) {
+        if (success) {
+            alert("Paiement validé ! Vous pouvez continuer vos ventes ou achats.");
+            // Remet à zéro les compteurs Firestore
+            if (utilisateurConnecte()) {
+                const email = auth.currentUser.email;
+                const userRef = doc(db, "users", email);
+                setDoc(userRef, { ventes: 0, achats: 0 }, { merge: true });
+                checkBlockPublier();
+                chargerToutesLesAnnonces();
+            }
+            document.getElementById("payer").style.display = "none";
+        }
+    });
+});
 
         // Fonction pour ouvrir le chat privé pour une annonce
         async function ouvrirChat(idAnnonce, emailAcheteur, emailVendeur) {
@@ -2633,13 +3228,14 @@
             // Affiche le chat et masque les autres sections
             conteneurProfils.style.display = "none";
             fournitureMenu.style.display = "none";
+             document.getElementById("conteneuravis").style.display="none";
             avisZone.style.display = "none";
             formulaire.style.display = "none";
             document.getElementById("fourniture").style.display = "none";
             document.getElementById("avise").style.display = "none";
             document.getElementById("chat").style.display = "block";
             document.getElementById("connexion").style.display = "none";
-            document.getElementById("conteneurProfils").style.display = "block";
+            document.getElementById("conteneurProfils").style.display = "none";
             document.getElementById("formulaire").style.display = "none";
             document.getElementById("chat").style.display = "block";
             document.getElementById("messages").innerHTML = "";
@@ -2676,40 +3272,8 @@
         }
 
         // Fonction pour envoyer un message dans le chat
-        async function envoyerMessage() {
-            const messageInput = document.getElementById("messageInput");
-            const texte = messageInput.value.trim();
 
-            if (!texte) {
-                alert('Veuillez remplir le champ');
-                return;
-            }
 
-            if (!idAnnonceEnCours || !idConversation) {
-                alert("Aucune conversation sélectionnée.");
-                return;
-            }
-
-            if (!utilisateurConnecte()) {
-                alert("Vous devez être connecté pour envoyer un message.");
-                return;
-            }
-
-            try {
-                const email = auth.currentUser.email;
-                const msgRef = collection(db, "annonces", idAnnonceEnCours, "conversations", idConversation, "messages");
-                await addDoc(msgRef, {
-                    auteur: email,
-                    text: texte,
-                    timestamp: Date.now()
-                });
-
-                messageInput.value = "";
-            } catch (error) {
-                console.error("Erreur envoi message:", error);
-                alert("Erreur lors de l'envoi du message.");
-            }
-        }
 
         // conclure la transaction
         async function conclureJob() {
@@ -2793,271 +3357,151 @@
         document.getElementById("fermerChat").addEventListener("click", function () {
             document.getElementById("conteneurProfils").style.display = "block";
             document.getElementById("chat").style.display = "none";
-            conn.style.display = "block";
+             document.getElementById("conteneuravis").style.display="none";
+            conn.style.display = "none";
             fournitureMenu.style.display = "none";
             btnVendre.style.display = "none";
             avisZone.style.display = "none";
             document.getElementById("question").style.display = "none";
         });
-        async function lireConversations() {
-            const container = document.getElementById("conteneurProfils");
-            container.innerHTML = "<h3 class='section-title'>💬 Mes Conversations</h3>";
-            container.style.display = "block";
-            document.getElementById("fourniture").style.display = "none";
-            document.getElementById("avise").style.display = "none";
+
+        (function () {
+            'use strict';
+
+            function waitForElements() {
+                return new Promise((resolve) => {
+                    const checkElements = () => {
+                        const container = document.getElementById("conteneurProfils");
+                        const auth = window.auth;
+                        const db = window.db;
+
+                        if (container && auth && db) {
+                            resolve();
+                        } else {
+                            setTimeout(checkElements, 100);
+                        }
+                    };
+                    checkElements();
+                });
+            }
+
+            async function lireConversations() {
+                  document.getElementById("conteneurProfils").style.display = "none";
             document.getElementById("chat").style.display = "none";
-            document.getElementById("connexion").style.display = "none";
-            document.getElementById("formulaire").style.display = "none";
-
-            const user = auth.currentUser;
-            if (!user) {
-                alert("Connecte-toi d'abord");
-                return;
-            }
-            const email = user.email;
-
-            // Récupère toutes les annonces où l'utilisateur est vendeur ou a déjà postulé (a discuté)
-            const annoncesSnap = await getDocs(collection(db, "annonces"));
-            let conversations = [];
-
-            annoncesSnap.forEach(docu => {
-                const annonce = { id: docu.id, ...docu.data() };
-                // Conversation si je suis vendeur
-                if (annonce.auteur === email) {
-                    conversations.push({ annonce, role: "vendeur" });
-                }
-            });
-
-            // Ajoute les conversations où je suis acheteur
-            for (const docu of annoncesSnap.docs) {
-                const annonce = { id: docu.id, ...docu.data() };
-                const convsSnap = await getDocs(collection(db, "annonces", annonce.id, "conversations"));
-                convsSnap.forEach(convDoc => {
-                    const convId = convDoc.id;
-                    if (convId.includes(email) && annonce.auteur !== email) {
-                        conversations.push({ annonce, role: "acheteur", convId });
-                    }
-                });
-            }
-
-            if (conversations.length === 0) {
-                container.innerHTML += `<div style="text-align:center; color:var(--text-secondary); margin-top:2rem;">Aucune conversation trouvée.</div>`;
-                return;
-            }
-
-            // Affichage des conversations
-            conversations.forEach(({ annonce, role, convId }) => {
-                const card = document.createElement("div");
-                card.className = "annonce-card";
-                card.innerHTML = `
-            ${annonce.imageUrl ? `<img src="${annonce.imageUrl}" alt="${annonce.nomProduit}" class="annonce-image" />` : ""}
-            <div class="annonce-content">
-                <h3 class="annonce-title">${annonce.nomProduit || ""}</h3>
-                <div class="annonce-price">${annonce.prix ? annonce.prix + " FCFA" : ""}</div>
-                <div class="annonce-details">
-                    <div class="annonce-detail"><strong>Classe:</strong> ${annonce.classe || ""}</div>
-                    <div class="annonce-detail"><strong>Lieu:</strong> ${annonce.lieu || ""}</div>
-                    <div class="annonce-detail"><strong>Vendeur:</strong> ${annonce.auteur || ""}</div>
-                </div>
-                <p class="annonce-description">${annonce.description || ""}</p>
-                <div class="annonce-actions">
-                    <button class="btn btn-primary">💬 Ouvrir le chat</button>
-                </div>
-            </div>
-        `;
-                card.querySelector(".btn-primary").addEventListener("click", () => {
-                    // On déduit l'autre participant
-                    let emailVendeur = annonce.auteur;
-                    let emailAcheteur = (role === "vendeur")
-                        ? convId ? convId.replace(emailVendeur, "").replace("_", "") : null
-                        : email;
-                    if (role === "vendeur" && !convId) {
-                        // Si vendeur, on doit choisir un acheteur (on peut lister les conversations)
-                        getDocs(collection(db, "annonces", annonce.id, "conversations")).then(convsSnap => {
-                            if (convsSnap.empty) {
-                                alert("Aucun acheteur pour cette annonce.");
-                                return;
-                            }
-                            // On propose de choisir un acheteur
-                            let acheteurs = [];
-                            convsSnap.forEach(convDoc => {
-                                const emails = convDoc.id.split("_");
-                                const acheteur = emails.find(e => e !== emailVendeur);
-                                if (acheteur) acheteurs.push(acheteur);
-                            });
-                            const choix = prompt("Avec quel acheteur discuter ?\n" + acheteurs.join("\n"));
-                            if (choix && acheteurs.includes(choix)) {
-                                ouvrirChat(annonce.id, choix, emailVendeur);
-                            }
-                        });
-                    } else {
-                        ouvrirChat(annonce.id, emailAcheteur, emailVendeur);
-                    }
-                });
-                container.appendChild(card);
-            });
-        }
-        setTimeout(() => {
-            showNotification('🎉 Bienvenue sur MBOA Librairie !', 'success');
-        }, 3000);
-        window.lireConversations = lireConversations;
-
-        window.addEventListener("DOMContentLoaded", function () {
-            // Fonction utilitaire pour afficher une seule section à la fois
-            function afficherSection(idSection) {
-                const sections = [
-                    "conteneurProfils",
-                    "fourniture",
-                    "avise",
-                    "chat",
-                    "connexion",
-                    "formulaire"
-                ];
-                sections.forEach(id => {
+            conn.style.display = "none";
+            fournitureMenu.style.display = "none";
+             document.getElementById("conteneuravis").style.display="none";
+            btnVendre.style.display = "none";
+            avisZone.style.display = "none";
+            document.getElementById("question").style.display = "none";
+                await waitForElements();
+                const container = document.getElementById("conteneurProfils");
+                if (!container) return alert("Erreur: Interface non disponible");
+                ["fourniture", "avise", "chat", "connexion", "formulaire"].forEach(id => {
                     const el = document.getElementById(id);
                     if (el) el.style.display = "none";
                 });
-                const toShow = document.getElementById(idSection);
-                if (toShow) toShow.style.display = "block";
-            }
-
-            // Handler du bouton Accueil
-            const accueilBtn = document.getElementById("accueilBtn");
-            if (accueilBtn) {
-                accueilBtn.addEventListener("click", () => {
-                    afficherSection("conteneurProfils");
-                    if (typeof afficherAnnonces === "function") afficherAnnonces(allAnnonces);
-                });
-            }
-
-            // Handler du bouton Vendre
-            const btnVendre = document.getElementById("vendre");
-            if (btnVendre) {
-                btnVendre.addEventListener("click", () => {
-                    afficherSection("formulaire");
-                });
-            }
-
-            // Handler du bouton Avis
-            const btnAvis = document.getElementById("avis");
-            if (btnAvis) {
-                btnAvis.addEventListener("click", () => {
-                    afficherSection("avise");
-                });
-            }
-
-            // Handler du bouton Menu
-            const menuBtn = document.getElementById("trois");
-            if (menuBtn) {
-                menuBtn.addEventListener("click", () => {
-                    afficherSection("fourniture");
-                });
-            }
-
-            // Handler du bouton Connexion
-            const btnConnexion = document.getElementById("connexionn");
-            if (btnConnexion) {
-                btnConnexion.addEventListener("click", () => {
-                    afficherSection("connexion");
-                    btnVendre.style.display = "none";
-                    document.getElementById("question").style.display = "none";
-                });
-            }
-
-            // Handler du bouton Jour/Nuit
-            const btnJourNuit = document.getElementById("temps");
-            const body = document.getElementById("bod");
-            if (btnJourNuit) {
-                btnJourNuit.addEventListener("click", () => {
-                    if (body.style.backgroundColor === "black") {
-                        body.style.backgroundColor = "white";
-                        btnJourNuit.innerText = "☀️Jour";
-                    } else {
-                        body.style.backgroundColor = "black";
-                        btnJourNuit.innerText = "Nuit";
-                    }
-                    // NE PAS masquer conteneurProfils ici !
-                });
-            }
-
-            // Handler du bouton Fermer Chat
-            const fermerChatBtn = document.getElementById("fermerChat");
-            if (fermerChatBtn) {
-                fermerChatBtn.addEventListener("click", function () {
-                    afficherSection("conteneurProfils");
-                    if (typeof afficherAnnonces === "function") afficherAnnonces(allAnnonces);
-                });
-            }
-
-            // Handler pour la recherche dynamique (affiche toujours la liste)
-            const searchBar = document.getElementById("searchBar");
-            if (searchBar) {
-                searchBar.addEventListener("input", function () {
-                    afficherSection("conteneurProfils");
-                });
-            }
-
-            // Corrige ouvrirChat pour utiliser afficherSection
-            window.ouvrirChat = async function ouvrirChat(idAnnonce, emailAcheteur, emailVendeur) {
-                idAnnonceEnCours = idAnnonce;
-                idConversation = [emailAcheteur, emailVendeur].sort().join("_");
-                afficherSection("chat");
-                document.getElementById("messages").innerHTML = "";
-                document.getElementById("chatTitre").innerText = `Chat entre ${emailAcheteur} et ${emailVendeur}`;
-                try {
-                    const messagesRef = collection(db, "annonces", idAnnonce, "conversations", idConversation, "messages");
-                    const q = query(messagesRef, orderBy("timestamp", "asc"));
-                    onSnapshot(q, (snapshot) => {
-                        const messagesDiv = document.getElementById("messages");
-                        messagesDiv.innerHTML = "";
-                        snapshot.forEach(docu => {
-                            const msg = docu.data();
-                            const div = document.createElement("div");
-                            const isCurrentUser = msg.auteur === auth.currentUser.email;
-                            div.className = `message ${isCurrentUser ? 'message-sent' : 'message-received'}`;
-                            div.innerHTML = `
-                                <div class="message-author">${isCurrentUser ? 'Moi' : msg.auteur}</div>
-                                <div>${msg.text}</div>
-                            `;
-                            messagesDiv.appendChild(div);
-                        });
-                        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                    });
-                } catch (error) {
-                    alert("Erreur lors de l'ouverture du chat.");
-                }
-            }
-
-            // Corrige postuler pour ouvrir le chat proprement
-            window.postuler = async function (idAnnonce, emailVendeur) {
-                const user = auth.currentUser;
-                if (!user) {
-                    alert("Connecte-toi d'abord");
+                container.style.display = "block";
+                container.innerHTML = `<h3 class='section-title'>💬 Mes Conversations</h3>`;
+                const currentUser = window.auth && window.auth.currentUser;
+                if (!currentUser) {
+                    container.innerHTML += `<div style='text-align:center;color:red;margin-top:2rem;'>❌ Connecte-toi d'abord</div>`;
                     return;
                 }
-                const emailAcheteur = user.email;
+                const email = currentUser.email;
+                let total = 0;
+
+                let annoncesSnap;
                 try {
-                    const convId = [emailAcheteur, emailVendeur].sort().join("_");
-                    const msgRef = collection(db, "annonces", idAnnonce, "conversations", convId, "messages");
-                    const messagesSnap = await getDocs(msgRef);
-                    if (messagesSnap.empty) {
-                        await addDoc(msgRef, {
-                            auteur: emailAcheteur,
-                            text: "Bonjour, je suis intéressé par cette annonce.",
-                            timestamp: Date.now()
-                        });
-                    }
-                    ouvrirChat(idAnnonce, emailAcheteur, emailVendeur);
+                    annoncesSnap = await getDocs(collection(window.db, "annonces"));
                 } catch (error) {
-                    alert("Erreur lors de la création du chat.");
+                    container.innerHTML += `<div style='text-align:center;color:red;margin-top:2rem;'>❌ Erreur lors de la connexion à la base de données</div>`;
+                    return;
+                }
+
+                for (const docu of annoncesSnap.docs) {
+                    const annonce = { id: docu.id, ...docu.data() };
+                    if (annonce.auteur === email) {
+                        const convsSnap = await getDocs(collection(window.db, "annonces", annonce.id, "conversations"));
+                        if (convsSnap.empty) continue;
+                        for (const convDoc of convsSnap.docs) {
+                            const convId = convDoc.id;
+                            const messagesRef = collection(window.db, "annonces", annonce.id, "conversations", convId, "messages");
+                            const lastMsgSnap = await getDocs(query(messagesRef, orderBy("timestamp", "desc"), limit(1)));
+                            let lastMsg = null;
+                            lastMsgSnap.forEach(doc => lastMsg = doc.data());
+                            let preview = "";
+                            if (lastMsg) {
+                                const date = new Date(lastMsg.timestamp).toLocaleString();
+                                preview = `<div style='color:#888;font-size:0.9em;margin-bottom:0.5em;'><b>${lastMsg.auteur === email ? 'Moi' : lastMsg.auteur}:</b> ${lastMsg.text} <span style='float:right;'>${date}</span></div>`;
+                            }
+                            const emails = convId.split("_");
+                            const emailAcheteur = emails.find(e => e !== annonce.auteur);
+                            const card = document.createElement("div");
+                            card.className = "annonce-card";
+                            card.innerHTML = `
+                                <h4><i class="fas fa-tasks"></i> ${annonce.nomProduit || "Produit sans nom"}</h4>
+                                <p><i class="fas fa-coins"></i> Prix: ${annonce.prix || "?"} FCFA</p>
+                                <p><i class="fas fa-info-circle"></i> ${annonce.description || "Pas de description"}</p>
+                                <p><strong><i class="fas fa-user"></i> Acheteur:</strong> ${emailAcheteur}</p>
+                                ${preview}
+                                <button class="btn btn-primary" onclick="window.ouvrirChat('${annonce.id}', '${emailAcheteur}', '${annonce.auteur}')">
+                                    <i class="fas fa-comments"></i> Ouvrir chat
+                                </button>
+                            `;
+                            container.appendChild(card);
+                            total++;
+                        }
+                    }
+                }
+
+                for (const docu of annoncesSnap.docs) {
+                    const annonce = { id: docu.id, ...docu.data() };
+                    if (annonce.auteur !== email) {
+                        const convsSnap = await getDocs(collection(window.db, "annonces", annonce.id, "conversations"));
+                        for (const convDoc of convsSnap.docs) {
+                            if (convDoc.id.includes(email)) {
+                                const messagesRef = collection(window.db, "annonces", annonce.id, "conversations", convDoc.id, "messages");
+                                const lastMsgSnap = await getDocs(query(messagesRef, orderBy("timestamp", "desc"), limit(1)));
+                                let lastMsg = null;
+                                lastMsgSnap.forEach(doc => lastMsg = doc.data());
+                                let preview = "";
+                                if (lastMsg) {
+                                    const date = new Date(lastMsg.timestamp).toLocaleString();
+                                    preview = `<div style='color:#888;font-size:0.9em;margin-bottom:0.5em;'><b>${lastMsg.auteur === email ? 'Moi' : lastMsg.auteur}:</b> ${lastMsg.text} <span style='float:right;'>${date}</span></div>`;
+                                }
+                                const card = document.createElement("div");
+                                card.className = "annonce-card";
+                                card.innerHTML = `
+                                    <h4><i class="fas fa-tasks"></i> ${annonce.nomProduit || "Produit sans nom"}</h4>
+                                    <p><i class="fas fa-coins"></i> Prix: ${annonce.prix || "?"} FCFA</p>
+                                    <p><i class="fas fa-info-circle"></i> ${annonce.description || "Pas de description"}</p>
+                                    <p><strong><i class="fas fa-user"></i> Vendeur:</strong> ${annonce.auteur}</p>
+                                    ${preview}
+                                    <button class="btn btn-primary" onclick="window.ouvrirChat('${annonce.id}', '${email}', '${annonce.auteur}')">
+                                        <i class="fas fa-comments"></i> Ouvrir chat
+                                    </button>
+                                `;
+                                container.appendChild(card);
+                                total++;
+                            }
+                        }
+                    }
+                }
+
+                if (total === 0) {
+                    container.innerHTML += `<div class="annonce-card text-center"><i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-light); margin-bottom: 1rem;"></i><p>Tu n'as aucune conversation.</p></div>`;
                 }
             }
 
-            // Rends lireConversations global
             window.lireConversations = lireConversations;
-        });
-    </script>
 
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                });
+            }
+        })();
+    </script>
 </body>
 
 </html>
