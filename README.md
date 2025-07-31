@@ -1,3291 +1,2672 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saveurs du Cameroun - Restaurant Authentique</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopExpress Beauté INNOVA - Version Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #ff6b9d;
+      --primary-dark: #e55a8a;
+      --secondary-color: #4ecdc4;
+      --accent-color: #ffe66d;
+      --success-color: #25d366;
+      --danger-color: #ff4757;
+      --warning-color: #ffa726;
+      --info-color: #42a5f5;
+      --dark-color: #2f3542;
+      --light-color: #f1f2f6;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+      --border-radius: 20px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: var(--dark-color);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Nouveauté: Notification Bar */
+    .notification-bar {
+      background: linear-gradient(90deg, var(--success-color), var(--secondary-color));
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-weight: 500;
+      animation: slideDown 0.5s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .notification-bar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    /* Navigation améliorée */
+    .nav-menu {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark-color);
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-color);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Animation d'arrière-plan améliorée */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="80" cy="80" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="40" cy="60" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      z-index: -1;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: var(--white);
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23ffffff" opacity="0.1"/></svg>');
+      animation: rotate 30s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    header h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    header p {
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      font-weight: 300;
+      position: relative;
+      z-index: 1;
+      opacity: 0.9;
+    }
+
+    /* Nouveauté: Badge de promotions */
+    .promo-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(45deg, var(--warning-color), #ff9800);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Nouveauté: Section statistiques */
+    .stats-section {
+      background: var(--white);
+      padding: 3rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: -2rem auto 0;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 10;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1.5rem;
+      border-radius: 15px;
+      background: linear-gradient(135deg, var(--light-color), #e8eaf6);
+      transition: var(--transition);
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      display: block;
+    }
+
+    .stat-label {
+      color: #666;
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+
+    .main-container {
+      background: var(--white);
+      margin: 2rem 1rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Nouveauté: Système de filtres */
+    .filter-section {
+      padding: 2rem;
+      background: var(--light-color);
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.8rem 1.5rem;
+      border: 2px solid var(--primary-color);
+      background: transparent;
+      color: var(--primary-color);
+      border-radius: 25px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 3rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .service {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: var(--transition);
+      position: relative;
+      transform: translateY(0);
+    }
+
+    .service::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: var(--transition);
+    }
+
+    .service:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .service:hover::before {
+      transform: scaleX(1);
+    }
+
+    .service img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .service:hover img {
+      transform: scale(1.1);
+    }
+
+    .service-content {
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .service-content h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .service-content p {
+      font-size: 1rem;
+      color: #666;
+      margin: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .service-content p i {
+      color: var(--secondary-color);
+    }
+
+    /* Nouveauté: Système de notation */
+    .rating {
+      display: flex;
+      justify-content: center;
+      gap: 0.2rem;
+      margin: 1rem 0;
+    }
+
+    .star {
+      color: #ffc107;
+      font-size: 1.2rem;
+    }
+
+    .rating-text {
+      margin-left: 0.5rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Nouveauté: Disponibilité en temps réel */
+    .availability {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1rem 0;
+      padding: 0.5rem;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .availability.available {
+      background: rgba(76, 175, 80, 0.1);
+      color: var(--success-color);
+    }
+
+    .availability.busy {
+      background: rgba(255, 167, 38, 0.1);
+      color: var(--warning-color);
+    }
+
+    .availability.unavailable {
+      background: rgba(244, 67, 54, 0.1);
+      color: var(--danger-color);
+    }
+
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--success-color), #20b058);
+      color: var(--white);
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      margin-top: 1.5rem;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .whatsapp-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: var(--transition);
+    }
+
+    .whatsapp-btn:hover::before {
+      left: 100%;
+    }
+
+    .whatsapp-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+    }
+
+    /* Nouveauté: Section témoignages */
+    .testimonials-section {
+      background: linear-gradient(135deg, var(--light-color), #e8eaf6);
+      padding: 4rem 2rem;
+      margin: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+
+    .testimonials-title {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--dark-color);
+      margin-bottom: 3rem;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .testimonial {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .testimonial:hover {
+      transform: translateY(-5px);
+    }
+
+    .testimonial-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      color: #666;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .testimonial-author {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    /* Nouveauté: Calendrier de disponibilité */
+    .calendar-section {
+      background: var(--white);
+      margin: 2rem;
+      padding: 3rem 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+
+    .calendar-title {
+      text-align: center;
+      font-size: 1.8rem;
+      color: var(--dark-color);
+      margin-bottom: 2rem;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.5rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .calendar-day.available {
+      background: rgba(76, 175, 80, 0.1);
+      color: var(--success-color);
+    }
+
+    .calendar-day.busy {
+      background: rgba(255, 167, 38, 0.1);
+      color: var(--warning-color);
+    }
+
+    .calendar-day.unavailable {
+      background: rgba(244, 67, 54, 0.1);
+      color: var(--danger-color);
+    }
+
+    .calendar-day:hover {
+      transform: scale(1.1);
+    }
+
+    /* Status Check Section améliorée */
+    .status-section {
+      background: linear-gradient(135deg, var(--light-color), #e8eaf6);
+      padding: 3rem 2rem;
+      margin: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .status-section h3 {
+      font-size: 1.8rem;
+      color: var(--dark-color);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .status-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border-radius: 2px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .input-group input {
+      padding: 1rem 1.5rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 50px;
+      font-size: 1rem;
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .input-group input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+    }
+
+    /* Nouveauté: Chat en ligne */
+    .chat-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .chat-toggle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    .chat-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    .chat-window {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 300px;
+      height: 400px;
+      background: var(--white);
+      border-radius: 15px;
+      box-shadow: var(--shadow-hover);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+    }
+
+    .chat-input {
+      padding: 1rem;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 20px;
+      outline: none;
+    }
+
+    .chat-send {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+    }
+
+    .verify-btn {
+      background: linear-gradient(135deg, var(--secondary-color), #3db8b0);
+      color: var(--white);
+      border: none;
+      padding: 1rem 3rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+
+    .verify-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    #statusResult {
+      margin-top: 2rem;
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Form Styles améliorés */
+    .form-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .form-content {
+      background: var(--white);
+      padding: 3rem;
+      border-radius: var(--border-radius);
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .form-content h3 {
+      text-align: center;
+      color: var(--primary-color);
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--dark-color);
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(255, 107, 157, 0.1);
+    }
+
+    .form-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      min-width: 120px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--success-color), #20b058);
+      color: var(--white);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, var(--danger-color), #e74c3c);
+      color: var(--white);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    /* Admin Dashboard amélioré */
+    .admin-controls {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .admin-btn {
+      background: linear-gradient(135deg, var(--dark-color), #57606f);
+      color: var(--white);
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .admin-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .dashboard {
+      background: var(--white);
+      margin: 2rem;
+      padding: 3rem 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      display: none;
+    }
+
+    .dashboard h2 {
+      text-align: center;
+      color: var(--dark-color);
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    .booking-item {
+      background: var(--light-color);
+      padding: 2rem;
+      margin: 1rem 0;
+      border-radius: 15px;
+      border-left: 4px solid var(--primary-color);
+      transition: var(--transition);
+    }
+
+    .booking-item:hover {
+      transform: translateX(5px);
+      box-shadow: var(--shadow);
+    }
+
+    .booking-info {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .booking-details h4 {
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .booking-details p {
+      color: #666;
+      margin: 0.25rem 0;
+    }
+
+    .cancel-btn {
+      background: var(--danger-color);
+      color: var(--white);
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .cancel-btn:hover {
+      background: #e74c3c;
+      transform: scale(1.05);
+    }
+
+    /* Footer amélioré */
+    footer {
+      background: var(--dark-color);
+      color: var(--white);
+      text-align: center;
+      padding: 3rem 2rem;
+      margin-top: 3rem;
+    }
+
+    .social-links {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: var(--white);
+      border-radius: 50%;
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      transform: translateY(-3px) scale(1.1);
+      box-shadow: var(--shadow);
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .notification-bar {
+        font-size: 0.9rem;
+        padding: 8px;
+      }
+
+      .nav-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .stats-section {
+        grid-template-columns: repeat(2, 1fr);
+        margin: -1rem 0.5rem 0;
+      }
+
+      .main-container {
+        margin: 1rem 0.5rem;
+        border-radius: 15px;
+      }
+
+      .services {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 2rem 1rem;
+      }
+
+      .service img {
+        height: 200px;
+      }
+
+      .testimonials-section,
+      .calendar-section,
+      .status-section {
+        margin: 1rem 0.5rem;
+        padding: 2rem 1rem;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .calendar-grid {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0.3rem;
+      }
+
+      .filter-buttons {
+        gap: 0.5rem;
+      }
+
+      .filter-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .input-group {
+        max-width: 100%;
+      }
+
+      .form-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .booking-info {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .dashboard {
+        margin: 1rem 0.5rem;
+        padding: 2rem 1rem;
+      }
+
+      .chat-window {
+        width: 280px;
+        height: 350px;
+      }
+
+      header {
+        padding: 3rem 1rem;
+      }
+
+      .social-links a {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-section {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .services {
+        padding: 1.5rem 0.8rem;
+      }
+
+      .service-content {
+        padding: 1.5rem;
+      }
+
+      .form-content {
+        padding: 2rem 1.5rem;
+      }
+
+      .status-section {
+        padding: 1.5rem 1rem;
+      }
+
+      .dashboard {
+        padding: 1.5rem 1rem;
+      }
+
+      .chat-window {
+        width: 260px;
+        height: 320px;
+      }
+    }
+
+    /* Animations supplémentaires */
+    .fade-in {
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Loading spinner */
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid var(--primary-color);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Nouveauté: Boutons d'action client */
+    .client-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .client-btn {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .client-btn.cancel {
+      background: linear-gradient(135deg, var(--danger-color), #e74c3c);
+      color: white;
+    }
+
+    .client-btn.modify {
+      background: linear-gradient(135deg, var(--warning-color), #ff9800);
+      color: white;
+    }
+
+    .client-btn.whatsapp {
+      background: linear-gradient(135deg, var(--success-color), #20b058);
+      color: white;
+    }
+
+    .client-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .client-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    /* Modal de confirmation */
+    .confirm-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1001;
+    }
+
+    .confirm-content {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    .confirm-content h4 {
+      color: var(--danger-color);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .confirm-content p {
+      color: #666;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    .confirm-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    /* Nouveauté: Politique d'annulation */
+    .cancellation-policy {
+      background: rgba(255, 193, 7, 0.1);
+      border: 1px solid #ffc107;
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+      color: #856404;
+    }
+
+    .policy-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--white);
+      border: 2px solid var(--primary-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      transition: var(--transition);
+      z-index: 1000;
+      box-shadow: var(--shadow);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    /* Toast notifications */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 1rem 2rem;
+      border-radius: 25px;
+      color: white;
+      font-weight: 500;
+      z-index: 10000;
+      animation: slideInRight 0.3s ease-out;
+      box-shadow: var(--shadow);
+      max-width: 350px;
+    }
+
+    .toast.success { background: var(--success-color); }
+    .toast.error { background: var(--danger-color); }
+    .toast.warning { background: var(--warning-color); }
+    .toast.info { background: var(--info-color); }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideOutRight {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100%); opacity: 0; }
+    }
+
+    /* Nouveauté: Progress bar pour les réservations */
+    .booking-progress {
+      width: 100%;
+      height: 6px;
+      background: #e0e0e0;
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--success-color), var(--secondary-color));
+      border-radius: 3px;
+      transition: width 0.3s ease;
+      animation: shimmer 2s infinite;
+    }
+
+    /* Nouveauté: Weather widget */
+    .weather-widget {
+      background: linear-gradient(135deg, #87CEEB, #4682B4);
+      color: white;
+      padding: 1rem;
+      border-radius: 15px;
+      text-align: center;
+      margin: 1rem 0;
+      box-shadow: var(--shadow);
+    }
+
+    .weather-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .weather-temp {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .weather-desc {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
     <style>
-        :root {
-            --primary-color: #2c5530;
-            --secondary-color: #d4af37;
-            --accent-color: #8b4513;
-            --text-light: #ffffff;
-            --text-dark: #333333;
-            --background-light: #f8f9fa;
-            --background-dark: #1a1a1a;
-            --success-color: #28a745;
-            --warning-color: #ffc107;
-            --danger-color: #dc3545;
-            --info-color: #17a2b8;
-            --border-color: #dee2e6;
-            --shadow-light: 0 2px 15px rgba(0, 0, 0, 0.1);
-            --shadow-medium: 0 4px 25px rgba(0, 0, 0, 0.15);
-            --shadow-heavy: 0 8px 40px rgba(0, 0, 0, 0.2);
-            --transition-fast: 0.3s ease;
-            --transition-medium: 0.5s ease;
-            --transition-slow: 0.8s ease;
-            --border-radius-small: 8px;
-            --border-radius-medium: 12px;
-            --border-radius-large: 20px;
-            --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, #1e3a24 100%);
-            --gradient-secondary: linear-gradient(135deg, var(--secondary-color) 0%, #b8941f 100%);
-            --gradient-overlay: linear-gradient(45deg, rgba(44, 85, 48, 0.9) 0%, rgba(139, 69, 19, 0.8) 100%);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        /* Modernisation du design général */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            overflow-x: hidden;
+            background: #fff;
+            color: #222;
+            margin: 0;
+            padding: 0;
         }
-
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-primary);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            transition: opacity var(--transition-slow);
+        header, .header, .entete {
+            background: linear-gradient(135deg, #c59d5f 0%, #6d4c41 100%);
+            color: #fff;
+            padding: 1.2rem 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
         }
-
-        .loading-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            margin-bottom: 0.7em;
         }
-
-        .loader {
-            width: 80px;
-            height: 80px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid var(--secondary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        .loading-text {
-            color: var(--text-light);
-            font-size: 1.2em;
+        .btn, button, input[type="submit"] {
+            background: linear-gradient(135deg, #c59d5f 0%, #6d4c41 100%);
+            color: #fff;
+            border: none;
+            border-radius: 18px;
+            padding: 0.8em 1.2em;
+            font-size: 1em;
             font-weight: 600;
-            letter-spacing: 2px;
-            animation: pulse 2s ease-in-out infinite;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            transition: all 0.3s;
         }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+        .btn:hover, button:hover, input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(197,157,95,0.15);
         }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.6;
-            }
-        }
-
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(44, 85, 48, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            transition: all var(--transition-fast);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .navbar.scrolled {
-            background: rgba(44, 85, 48, 0.98);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .nav-container {
+        .container, .main, .content {
             max-width: 1200px;
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 1rem 2rem;
         }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--text-light);
-            text-decoration: none;
-            transition: transform var(--transition-fast);
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .logo i {
-            margin-right: 10px;
-            color: var(--secondary-color);
-            animation: rotate 4s linear infinite;
-        }
-
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            25% {
-                transform: rotate(5deg);
-            }
-
-            50% {
-                transform: rotate(0deg);
-            }
-
-            75% {
-                transform: rotate(-5deg);
-            }
-
-            100% {
-                transform: rotate(0deg);
-            }
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            transition: color var(--transition-fast);
-            padding: 0.5rem 0;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--secondary-color);
-            transition: width var(--transition-fast);
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--secondary-color);
-        }
-
-        .reservation-btn {
-            background: var(--gradient-secondary);
-            color: var(--text-dark) !important;
-            padding: 0.7rem 1.5rem;
-            border-radius: var(--border-radius-large);
-            font-weight: 600;
-            transition: all var(--transition-fast);
-            box-shadow: var(--shadow-light);
-        }
-
-        .reservation-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-light);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(var(--gradient-overlay)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23d4af37" width="1200" height="800"/><rect fill="%232c5530" x="0" y="0" width="400" height="800"/><rect fill="%238b4513" x="800" y="0" width="400" height="800"/><circle fill="%23ffffff" cx="200" cy="200" r="50" opacity="0.1"/><circle fill="%23ffffff" cx="1000" cy="600" r="80" opacity="0.1"/><polygon fill="%23ffffff" points="600,100 650,200 550,200" opacity="0.1"/></svg>');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" patternUnits="userSpaceOnUse" width="100" height="100"><circle fill="%23ffffff" cx="50" cy="50" r="1" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            animation: grain 8s steps(8) infinite;
-        }
-
-        @keyframes grain {
-
-            0%,
-            100% {
-                transform: translate(0, 0);
-            }
-
-            10% {
-                transform: translate(-5%, -10%);
-            }
-
-            30% {
-                transform: translate(3%, -15%);
-            }
-
-            50% {
-                transform: translate(12%, 9%);
-            }
-
-            70% {
-                transform: translate(9%, 4%);
-            }
-
-            90% {
-                transform: translate(-1%, 7%);
-            }
-        }
-
-        .hero-content {
-            z-index: 2;
-            color: var(--text-light);
-            max-width: 800px;
-            padding: 2rem;
-            animation: fadeInUp 1.2s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            margin-bottom: 1rem;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            line-height: 1.2;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.6rem);
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
-        .hero-description {
-            font-size: 1.1rem;
-            margin-bottom: 3rem;
-            opacity: 0.8;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: var(--border-radius-large);
-            font-size: 1rem;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: var(--gradient-secondary);
-            color: var(--text-dark);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-light);
-            border: 2px solid var(--text-light);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-heavy);
-        }
-
-        .btn-secondary:hover {
-            background: var(--text-light);
-            color: var(--text-dark);
-        }
-
-        /* Floating Elements */
-        .floating-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .floating-element {
-            position: absolute;
-            opacity: 0.1;
-            animation: float 10s ease-in-out infinite;
-        }
-
-        .floating-element:nth-child(1) {
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-            font-size: 3rem;
-        }
-
-        .floating-element:nth-child(2) {
-            top: 60%;
-            right: 15%;
-            animation-delay: 2s;
-            font-size: 2.5rem;
-        }
-
-        .floating-element:nth-child(3) {
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 4s;
-            font-size: 2rem;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-
-            50% {
-                transform: translateY(-20px) rotate(5deg);
-            }
-        }
-
-        /* About Section */
-        .about {
-            padding: 8rem 0;
-            background: var(--background-light);
-            position: relative;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: var(--gradient-secondary);
-            border-radius: 2px;
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-dark);
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text-dark);
-        }
-
-        .about-text p {
+        .card, .service, .section {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
             margin-bottom: 1.5rem;
-        }
-
-        .about-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 2rem;
-            background: white;
-            border-radius: var(--border-radius-medium);
-            box-shadow: var(--shadow-light);
-            transition: transform var(--transition-fast);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--text-dark);
-            opacity: 0.8;
-            font-weight: 500;
-        }
-
-        .about-image {
-            position: relative;
-            border-radius: var(--border-radius-large);
-            overflow: hidden;
-            box-shadow: var(--shadow-medium);
-        }
-
-        .about-image img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            transition: transform var(--transition-slow);
-        }
-
-        .about-image:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Menu Section */
-        .menu {
-            padding: 8rem 0;
-            background: white;
-        }
-
-        .menu-categories {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 3rem;
-        }
-
-        .category-btn {
-            padding: 0.8rem 1.5rem;
-            border: 2px solid var(--primary-color);
-            background: transparent;
-            color: var(--primary-color);
-            border-radius: var(--border-radius-large);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-        }
-
-        .category-btn.active,
-        .category-btn:hover {
-            background: var(--primary-color);
-            color: var(--text-light);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-light);
-        }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .menu-item {
-            background: white;
-            border-radius: var(--border-radius-medium);
-            overflow: hidden;
-            box-shadow: var(--shadow-light);
-            transition: all var(--transition-fast);
-            position: relative;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .menu-item.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .menu-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .menu-item-image {
-            height: 200px;
-            background: var(--gradient-secondary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .menu-item-image::before {
-            content: '🍽️';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem;
-            opacity: 0.3;
-        }
-
-        .price-tag {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: var(--gradient-secondary);
-            color: var(--text-dark);
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius-large);
-            font-weight: bold;
-            box-shadow: var(--shadow-light);
-        }
-
-        .menu-item-content {
-            padding: 1.5rem;
-        }
-
-        .menu-item-title {
-            font-size: 1.3rem;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .menu-item-description {
-            color: var(--text-dark);
-            opacity: 0.8;
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .menu-item-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .spice-level {
-            display: flex;
-            gap: 0.2rem;
-        }
-
-        .spice-icon {
-            color: var(--danger-color);
-            font-size: 0.9rem;
-        }
-
-        .add-to-cart {
-            background: var(--gradient-primary);
-            color: var(--text-light);
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: var(--border-radius-small);
-            cursor: pointer;
-            font-weight: 600;
-            transition: all var(--transition-fast);
-        }
-
-        .add-to-cart:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-light);
-        }
-
-        /* Reservation Section */
-        .reservation {
-            padding: 8rem 0;
-            background: var(--gradient-primary);
-            color: var(--text-light);
-        }
-
-        .reservation-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .reservation-info h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .reservation-info p {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            line-height: 1.8;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .contact-item i {
-            color: var(--secondary-color);
-            width: 20px;
-        }
-
-        .reservation-form {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 3rem;
-            border-radius: var(--border-radius-large);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--text-light);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: var(--border-radius-small);
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-light);
-            font-size: 1rem;
-            transition: all var(--transition-fast);
-        }
-
-        .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--secondary-color);
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: var(--gradient-secondary);
-            color: var(--text-dark);
-            border: none;
             padding: 1.2rem;
-            border-radius: var(--border-radius-small);
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition-fast);
         }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
+        img, .img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-
-        .submit-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Gallery Section */
-        .gallery {
-            padding: 8rem 0;
-            background: var(--background-light);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 3rem;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: var(--border-radius-medium);
-            overflow: hidden;
-            aspect-ratio: 1;
-            background: var(--gradient-secondary);
-            cursor: pointer;
-            transition: transform var(--transition-fast);
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
-        }
-
-        .gallery-item::before {
-            content: '📸';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem;
-            opacity: 0.3;
-            z-index: 1;
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(44, 85, 48, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity var(--transition-fast);
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-
-        .gallery-overlay i {
-            color: var(--text-light);
-            font-size: 2rem;
-        }
-
-        /* Reviews Section */
-        .reviews {
-            padding: 8rem 0;
-            background: white;
-        }
-
-        .reviews-slider {
-            position: relative;
-            max-width: 800px;
-            margin: 3rem auto 0;
-            overflow: hidden;
-            border-radius: var(--border-radius-large);
-        }
-
-        .review-card {
-            background: white;
-            padding: 3rem;
+        footer {
+            background: #6d4c41;
+            color: #fff;
             text-align: center;
-            box-shadow: var(--shadow-medium);
-            border-radius: var(--border-radius-large);
-            position: relative;
-        }
-
-        .review-card::before {
-            content: '"';
-            position: absolute;
-            top: 1rem;
-            left: 2rem;
-            font-size: 4rem;
-            color: var(--secondary-color);
-            opacity: 0.3;
-            font-family: serif;
-        }
-
-        .review-text {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            color: var(--text-dark);
-            font-style: italic;
-        }
-
-        .review-author {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .review-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--gradient-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--text-dark);
-        }
-
-        .review-info h4 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .review-rating {
-            color: var(--secondary-color);
-            font-size: 1.2rem;
-        }
-
-        .review-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
+            padding: 2rem 0 1rem;
             margin-top: 2rem;
         }
-
-        .nav-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(44, 85, 48, 0.3);
-            cursor: pointer;
-            transition: background var(--transition-fast);
-        }
-
-        .nav-dot.active {
-            background: var(--primary-color);
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--background-dark);
-            color: var(--text-light);
-            padding: 4rem 0 2rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-section h3 {
-            color: var(--secondary-color);
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
-        }
-
-        .footer-section p,
-        .footer-section li {
-            opacity: 0.8;
-            line-height: 1.8;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section a {
-            color: var(--text-light);
-            text-decoration: none;
-            transition: color var(--transition-fast);
-        }
-
-        .footer-section a:hover {
-            color: var(--secondary-color);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: var(--primary-color);
-            color: var(--text-light);
-            border-radius: 50%;
-            text-decoration: none;
-            transition: all var(--transition-fast);
-        }
-
-        .social-link:hover {
-            background: var(--secondary-color);
-            color: var(--text-dark);
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0.6;
-        }
-
-        /* Cart Sidebar */
-        .cart-sidebar {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            width: 400px;
-            height: 100%;
-            background: white;
-            box-shadow: var(--shadow-heavy);
-            z-index: 1001;
-            transition: right var(--transition-medium);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cart-sidebar.open {
-            right: 0;
-        }
-
-        .cart-header {
-            padding: 2rem;
-            background: var(--gradient-primary);
-            color: var(--text-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .cart-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .cart-close {
-            background: none;
-            border: none;
-            color: var(--text-light);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            transition: background var(--transition-fast);
-        }
-
-        .cart-close:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1rem;
-        }
-
-        .cart-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            border-bottom: 1px solid var(--border-color);
-            transition: background var(--transition-fast);
-        }
-
-        .cart-item:hover {
-            background: var(--background-light);
-        }
-
-        .cart-item-image {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-secondary);
-            border-radius: var(--border-radius-small);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        .cart-item-details {
-            flex: 1;
-        }
-
-        .cart-item-name {
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 0.25rem;
-        }
-
-        .cart-item-price {
-            color: var(--secondary-color);
-            font-weight: bold;
-        }
-
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .quantity-btn {
-            width: 30px;
-            height: 30px;
-            border: none;
-            background: var(--primary-color);
-            color: var(--text-light);
-            border-radius: 50%;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all var(--transition-fast);
-        }
-
-        .quantity-btn:hover {
-            background: var(--secondary-color);
-            color: var(--text-dark);
-            transform: scale(1.1);
-        }
-
-        .quantity {
-            font-weight: bold;
-            min-width: 30px;
-            text-align: center;
-        }
-
-        .cart-footer {
-            padding: 2rem;
-            border-top: 1px solid var(--border-color);
-            background: var(--background-light);
-        }
-
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .checkout-btn {
-            width: 100%;
-            background: var(--gradient-secondary);
-            color: var(--text-dark);
-            border: none;
-            padding: 1rem;
-            border-radius: var(--border-radius-small);
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-        }
-
-        .checkout-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        /* Modal */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all var(--transition-fast);
-        }
-
-        .modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 3rem;
-            border-radius: var(--border-radius-large);
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            transform: scale(0.8);
-            transition: transform var(--transition-fast);
-        }
-
-        .modal.show .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .modal-text {
-            color: var(--text-dark);
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-
-        .modal-btn {
-            background: var(--gradient-primary);
-            color: var(--text-light);
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: var(--border-radius-small);
-            font-weight: bold;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-        }
-
-        .modal-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-light);
-        }
-
-        /* Scroll to Top */
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-secondary);
-            color: var(--text-dark);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all var(--transition-fast);
-            opacity: 0;
-            visibility: hidden;
-            z-index: 1000;
-        }
-
-        .scroll-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .scroll-top:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        /* Animations */
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .animate-on-scroll {
-            opacity: 0;
-            transition: all var(--transition-medium);
-        }
-
-        .animate-on-scroll.animated {
-            opacity: 1;
-        }
-
-        .slide-left {
-            transform: translateX(-50px);
-        }
-
-        .slide-left.animated {
-            transform: translateX(0);
-        }
-
-        .slide-right {
-            transform: translateX(50px);
-        }
-
-        .slide-right.animated {
-            transform: translateX(0);
-        }
-
-        .slide-up {
-            transform: translateY(50px);
-        }
-
-        .slide-up.animated {
-            transform: translateY(0);
-        }
-
         /* Responsive Design */
-        @media (max-width: 1024px) {
-            .nav-container {
+        @media (max-width: 900px) {
+            .container, .main, .content {
+                padding: 1rem 1rem;
+            }
+            .card, .service, .section {
                 padding: 1rem;
             }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .reservation-container {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .cart-sidebar {
-                width: 350px;
-            }
         }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .nav-links {
-                position: fixed;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: var(--primary-color);
-                flex-direction: column;
-                padding: 2rem;
-                gap: 1rem;
-                transform: translateY(-100%);
-                transition: transform var(--transition-fast);
-                box-shadow: var(--shadow-medium);
-            }
-
-            .nav-links.open {
-                transform: translateY(0);
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 100%;
-                max-width: 250px;
-            }
-
-            .menu-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .about-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .cart-sidebar {
-                width: 100%;
-                right: -100%;
-            }
-
-            .floating-elements {
-                display: none;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-container {
-                padding: 0.5rem 0.5rem;
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .logo {
-                font-size: 1.3rem;
-                padding: 0.5rem 0;
-            }
-            .nav-links {
-                flex-direction: column;
-                gap: 0.7rem;
-                padding: 1rem 0.5rem;
-                width: 100%;
-                align-items: stretch;
-            }
-            .nav-links a, .reservation-btn, .cart-toggle {
+        @media (max-width: 600px) {
+            header, .header, .entete {
+                padding: 0.7rem 0.2rem;
                 font-size: 1.1em;
-                padding: 0.8em 0.5em;
-                border-radius: 16px;
-                width: 100%;
-                text-align: left;
             }
-            .mobile-menu-btn {
-                font-size: 2em;
-                padding: 0.5em;
+            .container, .main, .content {
+                padding: 0.5rem 0.2rem;
             }
-            .hero {
-                padding: 1.2rem 0.5rem;
-                min-height: 70vh;
+            .card, .service, .section {
+                padding: 0.7rem;
+                margin-bottom: 1rem;
             }
-            .hero-content {
-                padding: 1rem 0.5rem;
+            h1, h2, h3, h4 {
+                font-size: 1.2em;
             }
-            .hero-buttons {
-                flex-direction: column;
-                gap: 0.7rem;
-                align-items: stretch;
-            }
-            .btn {
-                width: 100%;
-                max-width: none;
-                font-size: 1.1em;
-                padding: 0.9em 0.5em;
-                border-radius: 16px;
-            }
-            .container {
-                padding: 0 0.5rem;
-            }
-            .section-title {
-                font-size: 1.3rem;
-            }
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .about-image img {
-                height: 220px;
-            }
-            .about-stats {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            .menu-categories {
-                flex-direction: row;
-                gap: 0.5rem;
-                overflow-x: auto;
-                padding-bottom: 0.5rem;
-                scrollbar-width: none;
-                -ms-overflow-style: none;
-            }
-            .menu-categories::-webkit-scrollbar {
-                display: none;
-            }
-            .category-btn {
-                min-width: 120px;
+            .btn, button, input[type="submit"] {
                 font-size: 1em;
                 padding: 0.7em 0.5em;
-                border-radius: 16px;
+                border-radius: 14px;
             }
-            .menu-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
+            img, .img {
+                border-radius: 8px;
             }
-            .menu-item-image {
-                height: 120px;
-            }
-            .menu-item-content {
-                padding: 1rem;
-            }
-            .reservation-form {
-                padding: 1rem;
-            }
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-            .gallery-grid {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-            .review-card {
-                padding: 1rem;
-            }
-            .reviews-slider {
-                max-width: 100%;
-                margin: 1rem auto 0;
-            }
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 1rem;
+            .grid, .row, .services {
+                display: flex;
+                flex-direction: column !important;
+                gap: 0.7rem !important;
             }
             .footer {
-                padding: 2rem 0 1rem;
-            }
-            .footer-section h3 {
-                font-size: 1.1rem;
-            }
-            .footer-bottom {
-                padding-top: 1rem;
-            }
-            .cart-sidebar {
-                width: 100vw;
-                right: -100vw;
-                min-width: 0;
-            }
-            .cart-sidebar.open {
-                right: 0;
-            }
-            .cart-header, .cart-footer {
-                padding: 1rem;
-            }
-            .cart-item {
-                padding: 0.7rem;
-            }
-            .cart-item-image {
-                width: 40px;
-                height: 40px;
-                font-size: 1.1rem;
-            }
-            .checkout-btn, .submit-btn {
-                font-size: 1em;
-                padding: 0.8em;
-                border-radius: 16px;
-            }
-            .modal-content {
-                padding: 1rem;
-                max-width: 95vw;
-            }
-            .scroll-top {
-                width: 40px;
-                height: 40px;
-                bottom: 1rem;
-                right: 1rem;
-                font-size: 1em;
+                padding: 1rem 0 0.5rem;
             }
         }
-
-        /* Dark mode toggle */
-        .theme-toggle {
-            position: fixed;
-            top: 50%;
-            left: 20px;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-secondary);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all var(--transition-fast);
-            z-index: 1000;
-            box-shadow: var(--shadow-light);
-        }
-
-        .theme-toggle:hover {
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: var(--shadow-medium);
-        }
-
-        /* Dark theme */
-        body.dark-theme {
-            --background-light: #2a2a2a;
-            --text-dark: #ffffff;
-            --border-color: #444444;
-        }
-
-        body.dark-theme .menu,
-        body.dark-theme .reviews {
-            background: #1a1a1a;
-        }
-
-        body.dark-theme .menu-item,
-        body.dark-theme .review-card,
-        body.dark-theme .stat-card {
-            background: #2a2a2a;
-            border: 1px solid #444444;
-        }
-
-        body.dark-theme .form-control {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: #444444;
-            color: var(--text-light);
-        }
-
-        /* Custom scrollbar */
+        /* Scrollbar et accessibilité */
         ::-webkit-scrollbar {
             width: 8px;
         }
-
-        ::-webkit-scrollbar-track {
-            background: var(--background-light);
-        }
-
         ::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
+            background: #c59d5f;
             border-radius: 4px;
         }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--secondary-color);
-        }
-
-        /* Print styles */
-        @media print {
-
-            .navbar,
-            .cart-sidebar,
-            .scroll-top,
-            .theme-toggle,
-            .floating-elements {
-                display: none !important;
-            }
-
-            body {
-                font-size: 12pt;
-                line-height: 1.4;
-            }
-
-            .hero {
-                height: auto;
-                padding: 2rem 0;
-            }
-
-            .section {
-                padding: 2rem 0;
-                page-break-inside: avoid;
-            }
-        }
-
-        /* Accessibility improvements */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        /* Focus styles */
         *:focus {
-            outline: 2px solid var(--secondary-color);
+            outline: 2px solid #c59d5f;
             outline-offset: 2px;
         }
-
-        .btn:focus,
-        .form-control:focus {
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
-        }
-        #table{
-            background-color: #28a7467c;
-        }
-         #table:hover{
-            background-color: rgba(0, 0, 255, 0.336);
-        }
     </style>
-</head>
+  <!-- Nouveauté: Barre de notification -->
+  <div class="notification-bar">
+    <i class="fas fa-gift"></i> 
+    Promotion spéciale : -20% sur tous les services jusqu'au 31 août ! 
+    <i class="fas fa-sparkles"></i>
+  </div>
 
-<body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loader"></div>
-        <div class="loading-text">Saveurs du Cameroun</div>
+  <!-- Nouveauté: Toggle thème -->
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <i class="fas fa-moon" id="theme-icon"></i>
+  </button>
+
+  <!-- Nouveauté: Navigation améliorée -->
+  <nav class="nav-menu">
+    <div class="nav-content">
+      <div class="logo">
+        <i class="fas fa-sparkles"></i> ShopExpress
+      </div>
+      <ul class="nav-links">
+        <li><a href="#services" onclick="showSection('services')">Services</a></li>
+        <li><a href="#testimonials" onclick="showSection('testimonials')">Avis</a></li>
+        <li><a href="#calendar" onclick="showSection('calendar')">Disponibilités</a></li>
+        <li><a href="#contact" onclick="showSection('contact')">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header>
+    <h1><i class="fas fa-sparkles"></i> ShopExpress Beauté INNOVA</h1>
+    <p>Réservez votre look en un clic ✨</p>
+  </header>
+
+  <!-- Nouveauté: Section statistiques -->
+  <section class="stats-section">
+    <div class="stat-item">
+      <span class="stat-number" id="clientsCount">250+</span>
+      <div class="stat-label">Clients satisfaits</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number" id="servicesCount">500+</span>
+      <div class="stat-label">Services réalisés</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">4.9</span>
+      <div class="stat-label">Note moyenne</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-number">24h</span>
+      <div class="stat-label">Réponse rapide</div>
+    </div>
+  </section>
+
+  <div class="main-container">
+    <!-- Nouveauté: Section de filtres -->
+    <section class="filter-section">
+      <div class="filter-buttons">
+        <button class="filter-btn active" onclick="filterServices('tous')">Tous les services</button>
+        <button class="filter-btn" onclick="filterServices('coiffure')">Coiffure</button>
+        <button class="filter-btn" onclick="filterServices('maquillage')">Maquillage</button>
+        <button class="filter-btn" onclick="filterServices('soins')">Soins</button>
+      </div>
+    </section>
+
+    <section class="services" id="services">
+      <div class="service fade-in" data-category="coiffure">
+        <div class="promo-badge">-20%</div>
+        <img src="https://i.postimg.cc/02V0vj1q/Screenshot-20250703-215049.jpg" alt="Nattes africaines">
+        <div class="service-content">
+          <h3><i class="fas fa-cut"></i> Nattes africaines</h3>
+          <div class="rating">
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <span class="rating-text">(128 avis)</span>
+          </div>
+          <p><i class="fas fa-euro-sign"></i> Prix : <span class="old-price" style="text-decoration: line-through; opacity: 0.6;">5 000</span> 4 000 FCFA</p>
+          <p><i class="fas fa-clock"></i> Durée : ~1h30</p>
+          <div class="availability available">
+            <i class="fas fa-circle"></i> Disponible aujourd'hui
+          </div>
+          <button class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+            Réserver
+          </button>
+        </div>
+      </div>
+
+      <div class="service fade-in" data-category="maquillage">
+        <img src="https://i.postimg.cc/nh5KsWLR/Screenshot-20250703-215157.jpg" alt="Maquillage professionnel">
+        <div class="service-content">
+          <h3><i class="fas fa-paint-brush"></i> Maquillage professionnel</h3>
+          <div class="rating">
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <span class="rating-text">(95 avis)</span>
+          </div>
+          <p><i class="fas fa-euro-sign"></i> Prix : 7 000 FCFA</p>
+          <p><i class="fas fa-clock"></i> Durée : ~45 min</p>
+          <div class="availability busy">
+            <i class="fas fa-circle"></i> Peu de créneaux
+          </div>
+          <button class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+            Réserver
+          </button>
+        </div>
+      </div>
+
+      <div class="service fade-in" data-category="coiffure">
+        <img src="https://i.postimg.cc/tJtDWNc1/Screenshot-20250703-215113-2.jpg" alt="Pose de perruque">
+        <div class="service-content">
+          <h3><i class="fas fa-user-crown"></i> Pose de perruque</h3>
+          <div class="rating">
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="far fa-star star"></i>
+            <span class="rating-text">(73 avis)</span>
+          </div>
+          <p><i class="fas fa-euro-sign"></i> Prix : 5 500 FCFA</p>
+          <p><i class="fas fa-clock"></i> Durée : ~1h</p>
+          <div class="availability available">
+            <i class="fas fa-circle"></i> Disponible
+          </div>
+          <button class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+            Réserver
+          </button>
+        </div>
+      </div>
+
+      <!-- Nouveaux services ajoutés -->
+      <div class="service fade-in" data-category="soins">
+        <img src="https://via.placeholder.com/400x250/FF69B4/FFFFFF?text=Soin+Visage" alt="Soin du visage">
+        <div class="service-content">
+          <h3><i class="fas fa-spa"></i> Soin du visage</h3>
+          <div class="rating">
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <span class="rating-text">(156 avis)</span>
+          </div>
+          <p><i class="fas fa-euro-sign"></i> Prix : 8 500 FCFA</p>
+          <p><i class="fas fa-clock"></i> Durée : ~1h15</p>
+          <div class="availability available">
+            <i class="fas fa-circle"></i> Disponible
+          </div>
+          <button class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+            Réserver
+          </button>
+        </div>
+      </div>
+
+      <div class="service fade-in" data-category="coiffure">
+        <div class="promo-badge">Nouveau!</div>
+        <img src="https://via.placeholder.com/400x250/4ECDC4/FFFFFF?text=Coiffure+Mariée" alt="Coiffure de mariée">
+        <div class="service-content">
+          <h3><i class="fas fa-crown"></i> Coiffure de mariée</h3>
+          <div class="rating">
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <span class="rating-text">(42 avis)</span>
+          </div>
+          <p><i class="fas fa-euro-sign"></i> Prix : 15 000 FCFA</p>
+          <p><i class="fas fa-clock"></i> Durée : ~2h30</p>
+          <div class="availability busy">
+            <i class="fas fa-circle"></i> Sur réservation
+          </div>
+          <button class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+            Réserver
+          </button>
+        </div>
+      </div>
+
+      <div class="service fade-in" data-category="soins">
+        <img src="https://via.placeholder.com/400x250/FFE66D/333333?text=Manucure+Pédicure" alt="Manucure Pédicure">
+        <div class="service-content">
+          <h3><i class="fas fa-hand-sparkles"></i> Manucure & Pédicure</h3>
+          <div class="rating">
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="fas fa-star star"></i>
+            <i class="far fa-star star"></i>
+            <span class="rating-text">(89 avis)</span>
+          </div>
+          <p><i class="fas fa-euro-sign"></i> Prix : 6 500 FCFA</p>
+          <p><i class="fas fa-clock"></i> Durée : ~1h45</p>
+          <div class="availability available">
+            <i class="fas fa-circle"></i> Disponible
+          </div>
+          <button class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+            Réserver
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nouveauté: Section météo -->
+    <div class="weather-widget" id="weather">
+      <div class="weather-icon">
+        <i class="fas fa-sun"></i>
+      </div>
+      <div class="weather-temp">28°C</div>
+      <div class="weather-desc">Parfait pour une sortie beauté!</div>
     </div>
 
-    <!-- Theme Toggle -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-        🌙
+    <div class="status-section">
+      <h3><i class="fas fa-search"></i> Gérer vos réservations</h3>
+      <div class="input-group">
+        <input type="number" id="checkNumber" placeholder="Entrez votre numéro WhatsApp" required>
+        <button onclick="checkStatus()" class="verify-btn">
+          <i class="fas fa-check-circle"></i> Vérifier
+        </button>
+      </div>
+      <div id="statusResult"></div>
+    </div>
+
+    <div class="admin-controls">
+      <button onclick="showDashboard()" class="admin-btn">
+        <i class="fas fa-cogs"></i> Tableau de bord (Admin)
+      </button>
+    </div>
+  </div>
+
+  <!-- Nouveauté: Section témoignages -->
+  <section class="testimonials-section" id="testimonials">
+    <h2 class="testimonials-title">
+      <i class="fas fa-quote-left"></i> Ce que disent nos clientes
+    </h2>
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <div class="testimonial-avatar">M</div>
+        <div class="testimonial-text">
+          "Service exceptionnel! Ma coiffure de mariage était absolument parfaite. L'équipe est très professionnelle et à l'écoute."
+        </div>
+        <div class="testimonial-author">- Marie K.</div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-avatar">S</div>
+        <div class="testimonial-text">
+          "Le maquillage était magnifique et a tenu toute la journée. Je recommande vivement ShopExpress Beauté!"
+        </div>
+        <div class="testimonial-author">- Sarah D.</div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-avatar">A</div>
+        <div class="testimonial-text">
+          "Toujours satisfaite de mes nattes! Un travail soigné et un accueil chaleureux. Mon salon de beauté préféré."
+        </div>
+        <div class="testimonial-author">- Aminata B.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nouveauté: Calendrier de disponibilité -->
+  <section class="calendar-section" id="calendar">
+    <h2 class="calendar-title">
+      <i class="fas fa-calendar-alt"></i> Disponibilités de la semaine
+    </h2>
+    <div class="calendar-grid" id="calendarGrid">
+      <!-- Généré dynamiquement par JavaScript -->
+    </div>
+    <div style="margin-top: 2rem; text-align: center;">
+      <div style="display: inline-flex; gap: 2rem; flex-wrap: wrap;">
+        <div><i class="fas fa-circle" style="color: var(--success-color);"></i> Disponible</div>
+        <div><i class="fas fa-circle" style="color: var(--warning-color);"></i> Peu de créneaux</div>
+        <div><i class="fas fa-circle" style="color: var(--danger-color);"></i> Complet</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nouveauté: Widget de chat -->
+  <div class="chat-widget">
+    <button class="chat-toggle" onclick="toggleChat()">
+      <i class="fas fa-comments"></i>
     </button>
-
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <i class="fas fa-utensils"></i>
-                Saveurs du Cameroun
-            </a>
-
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home" class="nav-link active">Accueil</a></li>
-                <li><a href="#about" class="nav-link">À Propos</a></li>
-                <li><a href="#menu" class="nav-link">Menu</a></li>
-                <li><a href="#gallery" class="nav-link">Galerie</a></li>
-                <li><a href="#reviews" class="nav-link">Avis</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-                <li>
-                    <button class="cart-toggle" id="cartToggle" aria-label="Open shopping cart">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count" id="cartCount">0</span>
-                    </button>
-                </li>
-                <li><a href="#reservation" class="reservation-btn">Réserver</a></li>
-            </ul>
-
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
-                <i class="fas fa-bars"></i>
-            </button>
+    <div class="chat-window" id="chatWindow">
+      <div class="chat-header">
+        <i class="fas fa-headset"></i> Assistance en ligne
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div style="padding: 1rem; background: #f0f0f0; border-radius: 10px; margin-bottom: 1rem;">
+          Bonjour! Comment puis-je vous aider aujourd'hui? 😊
         </div>
-    </nav>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="Tapez votre message...">
+        <button class="chat-send" onclick="sendMessage()">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="floating-elements">
-            <div class="floating-element">🍛</div>
-            <div class="floating-element">🥘</div>
-            <div class="floating-element">🌶️</div>
+  <!-- Formulaire de réservation (Modal amélioré) -->
+  <div id="formulaire" class="form-container">
+    <div class="form-content">
+      <h3><i class="fas fa-calendar-plus"></i> Réservation en ligne</h3>
+      <div class="booking-progress">
+        <div class="progress-fill" style="width: 0%" id="bookingProgress"></div>
+      </div>
+      <form id="formule">
+        <div class="form-group">
+          <label><i class="fas fa-concierge-bell"></i> Service sélectionné :</label>
+          <input type="text" id="service" readonly>
         </div>
 
-        <div class="hero-content">
-            <h1 style="color:blue">Saveurs Authentiques du Cameroun</h1>
-            <p class="hero-subtitle">Une expérience culinaire unique au cœur de l'Afrique</p>
-            <p class="hero-description">
-                Découvrez les saveurs authentiques du Cameroun dans un cadre chaleureux et convivial.
-                Nos chefs passionnés vous proposent des plats traditionnels préparés avec amour et des ingrédients
-                frais.
-            </p>
-            <div class="hero-buttons">
-                <a href="#menu" class="btn btn-primary">
-                    <i class="fas fa-utensils"></i>
-                    Découvrir le Menu
-                </a>
-                <a href="#reservation" id="table" class="btn btn-secondary">
-                    <i class="fas fa-calendar-alt"></i>
-                    Réserver une Table
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title animate-on-scroll slide-up">À Propos de Nous</h2>
-                <p class="section-subtitle animate-on-scroll slide-up">
-                    Une passion pour la cuisine camerounaise transmise de génération en génération
-                </p>
-            </div>
-
-            <div class="about-content">
-                <div class="about-text animate-on-scroll slide-left">
-                    <p>
-                        <strong>Saveurs du Cameroun</strong> est né d'une passion profonde pour la richesse culinaire du
-                        Cameroun.
-                        Fondé par une famille d'immigrants camerounais, notre restaurant vous invite à découvrir
-                        les saveurs authentiques de l'Afrique centrale.
-                    </p>
-                    <p>
-                        Nos chefs expérimentés perpétuent les traditions culinaires ancestrales tout en apportant
-                        une touche moderne à nos plats. Chaque recette raconte une histoire, chaque épice a sa
-                        signification, et chaque repas est une célébration de notre héritage culturel.
-                    </p>
-                    <p>
-                        De l'emblématique <strong>Ndolé</strong> au savoureux <strong>Poulet DG</strong>, en passant par
-                        le traditionnel <strong>Eru</strong>, nous vous promettons un voyage gustatif inoubliable
-                        dans un environnement chaleureux et accueillant.
-                    </p>
-
-                    <div class="about-stats">
-                        <div class="stat-card">
-                            <div class="stat-number" data-count="15">0</div>
-                            <div class="stat-label">Années d'Expérience</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number" data-count="50">0</div>
-                            <div class="stat-label">Plats Traditionnels</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number" data-count="10000">0</div>
-                            <div class="stat-label">Clients Satisfaits</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number" data-count="5">0</div>
-                            <div class="stat-label">Étoiles Moyennes</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="about-image animate-on-scroll slide-right">
-                    <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'><rect fill='%23d4af37' width='600' height='400'/><rect fill='%232c5530' x='0' y='300' width='600' height='100'/><circle fill='%238b4513' cx='300' cy='200' r='80'/><text x='300' y='210' text-anchor='middle' fill='%23ffffff' font-size='20' font-family='Arial'>Chef</text><rect fill='%23ffffff' x='200' y='100' width='200' height='20' rx='10'/><rect fill='%23ffffff' x='220' y='130' width='160' height='15' rx='7'/></svg>"
-                        alt="Notre Chef" />
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Menu Section -->
-    <section class="menu" id="menu">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title animate-on-scroll slide-up">Notre Menu</h2>
-                <p class="section-subtitle animate-on-scroll slide-up">
-                    Découvrez nos spécialités camerounaises préparées avec passion
-                </p>
-            </div>
-
-            <div class="menu-categories">
-                <button class="category-btn active" data-category="all">Tous</button>
-                <button class="category-btn" data-category="plats-principaux">Plats Principaux</button>
-                <button class="category-btn" data-category="soupes">Soupes</button>
-                <button class="category-btn" data-category="grillades">Grillades</button>
-                <button class="category-btn" data-category="accompagnements">Accompagnements</button>
-                <button class="category-btn" data-category="desserts">Desserts</button>
-                <button class="category-btn" data-category="boissons">Boissons</button>
-            </div>
-
-            <div class="menu-grid" id="menuGrid">
-                <!-- Menu items will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Reservation Section -->
-    <section class="reservation" id="reservation">
-        <div class="container">
-            <div class="reservation-container">
-                <div class="reservation-info animate-on-scroll slide-left">
-                    <h2>Réservez Votre Table</h2>
-                    <p>
-                        Rejoignez-nous pour une expérience culinaire authentique dans une ambiance
-                        conviviale. Réservez votre table dès maintenant et laissez-vous transporter
-                        par les saveurs du Cameroun.
-                    </p>
-
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>123 Rue de la Gastronomie, Douala, Cameroun</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+237 6XX XX XX XX</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>contact@saveurscameroun.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-clock"></i>
-                            <span>Lun-Dim: 11h00 - 23h00</span>
-                        </div>
-                    </div>
-                </div>
-
-                <form class="reservation-form animate-on-scroll slide-right" id="reservationForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="firstName">Prénom *</label>
-                            <input type="text" id="firstName" name="firstName" class="form-control" required
-                                placeholder="Votre prénom">
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName">Nom *</label>
-                            <input type="text" id="lastName" name="lastName" class="form-control" required
-                                placeholder="Votre nom">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="email">Email *</label>
-                            <input type="email" id="email" name="email" class="form-control" required
-                                placeholder="votre@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Téléphone *</label>
-                            <input type="tel" id="phone" name="phone" class="form-control" required
-                                placeholder="+237 6XX XX XX XX">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="date">Date *</label>
-                            <input type="date" id="date" name="date" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="time">Heure *</label>
-                            <input type="time" id="time" name="time" class="form-control" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="guests">Nombre de Personnes *</label>
-                            <select id="guests" name="guests" class="form-control" required>
-                                <option value="">Choisir...</option>
-                                <option value="1">1 personne</option>
-                                <option value="2">2 personnes</option>
-                                <option value="3">3 personnes</option>
-                                <option value="4">4 personnes</option>
-                                <option value="5">5 personnes</option>
-                                <option value="6">6 personnes</option>
-                                <option value="7">7 personnes</option>
-                                <option value="8">8 personnes</option>
-                                <option value="more">Plus de 8</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="occasion">Occasion</label>
-                            <select id="occasion" name="occasion" class="form-control">
-                                <option value="">Sélectionner...</option>
-                                <option value="birthday">Anniversaire</option>
-                                <option value="anniversary">Anniversaire de mariage</option>
-                                <option value="business">Repas d'affaires</option>
-                                <option value="date">Rendez-vous romantique</option>
-                                <option value="family">Repas en famille</option>
-                                <option value="celebration">Célébration</option>
-                                <option value="other">Autre</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Message / Demandes Spéciales</label>
-                        <textarea id="message" name="message" class="form-control" rows="4"
-                            placeholder="Allergies, préférences alimentaires, demandes spéciales..."></textarea>
-                    </div>
-
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-calendar-check"></i>
-                        Confirmer la Réservation
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="gallery" id="gallery">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title animate-on-scroll slide-up">Galerie</h2>
-                <p class="section-subtitle animate-on-scroll slide-up">
-                    Découvrez l'ambiance de notre restaurant et nos délicieux plats
-                </p>
-            </div>
-
-            <div class="gallery-grid" id="galleryGrid">
-                <!-- Gallery items will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Reviews Section -->
-    <section class="reviews" id="reviews">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title animate-on-scroll slide-up">Avis de nos Clients</h2>
-                <p class="section-subtitle animate-on-scroll slide-up">
-                    Ce que disent nos clients sur leur expérience chez nous
-                </p>
-            </div>
-
-            <div class="reviews-slider" id="reviewsSlider">
-                <!-- Reviews will be populated by JavaScript -->
-            </div>
-
-            <div class="review-nav" id="reviewNav">
-                <!-- Navigation dots will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Saveurs du Cameroun</h3>
-                    <p>
-                        Restaurant authentique spécialisé dans la cuisine traditionnelle camerounaise.
-                        Venez découvrir les saveurs uniques de l'Afrique centrale dans un cadre chaleureux et convivial.
-                    </p>
-                    <div class="social-links">
-                        <a href="#" class="social-link" aria-label="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="TikTok">
-                            <i class="fab fa-tiktok"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Navigation</h3>
-                    <ul>
-                        <li><a href="#home">Accueil</a></li>
-                        <li><a href="#about">À Propos</a></li>
-                        <li><a href="#menu">Menu</a></li>
-                        <li><a href="#gallery">Galerie</a></li>
-                        <li><a href="#reviews">Avis</a></li>
-                        <li><a href="#reservation">Réservation</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> 123 Rue de la Gastronomie, Douala</li>
-                        <li><i class="fas fa-phone"></i> +237 6XX XX XX XX</li>
-                        <li><i class="fas fa-envelope"></i> contact@saveurscameroun.com</li>
-                        <li><i class="fas fa-clock"></i> Lun-Dim: 11h00 - 23h00</li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Spécialités</h3>
-                    <ul>
-                        <li>Ndolé traditionnel</li>
-                        <li>Poulet DG</li>
-                        <li>Eru aux crevettes</li>
-                        <li>Poisson braisé</li>
-                        <li>Koki de niébé</li>
-                        <li>Beignets de plantain</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 Saveurs du Cameroun. Tous droits réservés. | Conçu avec ❤️ pour la culture camerounaise
-                </p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Cart Sidebar -->
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3 class="cart-title">Mon Panier</h3>
-            <button class="cart-close" id="cartClose" aria-label="Close cart">
-                <i class="fas fa-times"></i>
-            </button>
+        <div class="form-group">
+          <label><i class="fas fa-calendar-day"></i> Jour de rendez-vous :</label>
+          <input type="date" id="date" required>
         </div>
 
-        <div class="cart-items" id="cartItems">
-            <!-- Cart items will be populated by JavaScript -->
+        <div class="form-group">
+          <label><i class="fas fa-clock"></i> Heure de rendez-vous :</label>
+          <select id="time" required>
+            <option value="">Choisir une heure</option>
+            <option value="08:00">08:00</option>
+            <option value="09:00">09:00</option>
+            <option value="10:00">10:00</option>
+            <option value="11:00">11:00</option>
+            <option value="12:00">12:00</option>
+            <option value="13:00">13:00</option>
+            <option value="14:00">14:00</option>
+            <option value="15:00">15:00</option>
+            <option value="16:00">16:00</option>
+            <option value="17:00">17:00</option>
+            <option value="18:00">18:00</option>
+          </select>
         </div>
 
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cartTotal">0 FCFA</span>
-            </div>
-            <button class="checkout-btn" id="checkoutBtn">
-                <i class="fas fa-credit-card"></i>
-                Passer Commande
-            </button>
+        <div class="form-group">
+          <label><i class="fab fa-whatsapp"></i> Numéro WhatsApp :</label>
+          <input type="number" id="numero" placeholder="Ex: 237670000000" required>
         </div>
+
+        <!-- Nouveauté: Options supplémentaires -->
+        <div class="form-group">
+          <label><i class="fas fa-comment"></i> Commentaires particuliers :</label>
+          <textarea id="comments" placeholder="Demandes spéciales, allergies, etc." rows="3" style="width: 100%; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 12px; resize: vertical;"></textarea>
+        </div>
+
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-check"></i> Confirmer
+          </button>
+          <button type="button" onclick="fermer()" class="btn btn-secondary">
+            <i class="fas fa-times"></i> Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dashboard Admin amélioré -->
+  <div id="dashboard" class="dashboard">
+    <h2><i class="fas fa-chart-line"></i> Tableau de bord - Gestion des réservations</h2>
+    
+    <!-- Nouveauté: Statistiques du dashboard -->
+    <div class="dashboard-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+      <div class="stat-item">
+        <span class="stat-number" id="todayBookings">0</span>
+        <div class="stat-label">Réservations aujourd'hui</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="weekBookings">0</span>
+        <div class="stat-label">Cette semaine</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="monthRevenue">0</span>
+        <div class="stat-label">Revenus du mois (FCFA)</div>
+      </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <div class="modal-icon" id="modalIcon">✅</div>
-            <h3 class="modal-title" id="modalTitle">Succès!</h3>
-            <p class="modal-text" id="modalText">Votre action a été effectuée avec succès.</p>
-            <button class="modal-btn" id="modalBtn">OK</button>
-        </div>
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <button onclick="toggleDashboard()" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Retour
+      </button>
+      <button onclick="exportBookings()" class="btn" style="background: var(--info-color); color: white; margin-left: 1rem;">
+        <i class="fas fa-download"></i> Exporter
+      </button>
     </div>
-
-    <!-- Scroll to Top Button -->
-    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <script>
-        // ===== DATA =====
-        const menuData = [
-            {
-                id: 1,
-                name: "Ndolé Traditionnel",
-                category: "plats-principaux",
-                price: 3500,
-                description: "Plat emblématique du Cameroun à base de feuilles de ndolé, arachides et viande/poisson",
-                spiceLevel: 2,
-                image: ""
-            },
-            {
-                id: 2,
-                name: "Poulet DG",
-                category: "plats-principaux",
-                price: 4000,
-                description: "Poulet sauté aux légumes (plantains, carottes, haricots verts) dans une sauce savoureuse",
-                spiceLevel: 1,
-                image: "🍗"
-            },
-            {
-                id: 3,
-                name: "Eru aux Crevettes",
-                category: "soupes",
-                price: 4500,
-                description: "Soupe traditionnelle à base de feuilles d'eru, crevettes séchées et viande fumée",
-                spiceLevel: 3,
-                image: "🍲"
-            },
-            {
-                id: 4,
-                name: "Poisson Braisé",
-                category: "grillades",
-                price: 3000,
-                description: "Poisson frais grillé aux épices camerounaises, accompagné d'attiéké ou de plantain",
-                spiceLevel: 2,
-                image: "🐟"
-            },
-            {
-                id: 5,
-                name: "Koki de Niébé",
-                category: "accompagnements",
-                price: 1500,
-                description: "Gâteau de haricots vapeur, spécialité de l'Ouest Cameroun",
-                spiceLevel: 1,
-                image: "🫘"
-            },
-            {
-                id: 6,
-                name: "Beignets de Plantain",
-                category: "accompagnements",
-                price: 1000,
-                description: "Beignets croustillants de plantain mûr, parfaits en accompagnement",
-                spiceLevel: 0,
-                image: "🍌"
-            },
-            {
-                id: 7,
-                name: "Soupe de Pistache",
-                category: "soupes",
-                price: 3800,
-                description: "Soupe riche aux arachides avec du bœuf et des légumes traditionnels",
-                spiceLevel: 2,
-                image: "🥜"
-            },
-            {
-                id: 8,
-                name: "Brochettes de Bœuf",
-                category: "grillades",
-                price: 3500,
-                description: "Brochettes de bœuf marinées aux épices locales, grillées au feu de bois",
-                spiceLevel: 2,
-                image: "🍢"
-            },
-            {
-                id: 9,
-                name: "Fufu de Plantain",
-                category: "accompagnements",
-                price: 1200,
-                description: "Accompagnement traditionnel à base de plantain pilé",
-                spiceLevel: 0,
-                image: "🥖"
-            },
-            {
-                id: 10,
-                name: "Sauce Gombo",
-                category: "soupes",
-                price: 3200,
-                description: "Sauce visqueuse au gombo avec du poisson fumé et de la viande",
-                spiceLevel: 2,
-                image: "🌶️"
-            },
-            {
-                id: 11,
-                name: "Porc au Gingembre",
-                category: "plats-principaux",
-                price: 4200,
-                description: "Porc mijoté dans une sauce au gingembre et aux légumes frais",
-                spiceLevel: 1,
-                image: "🐷"
-            },
-            {
-                id: 12,
-                name: "Mbanga Soup",
-                category: "soupes",
-                price: 3600,
-                description: "Soupe de palme traditionnelle avec du poisson et de la viande",
-                spiceLevel: 2,
-                image: "🥥"
-            },
-            {
-                id: 13,
-                name: "Kwacoco Anglais",
-                category: "accompagnements",
-                price: 1800,
-                description: "Taro vapeur accompagné de sauce tomate épicée",
-                spiceLevel: 1,
-                image: "🍠"
-            },
-            {
-                id: 14,
-                name: "Suya de Chèvre",
-                category: "grillades",
-                price: 4000,
-                description: "Viande de chèvre grillée aux épices suya, spécialité du Nord",
-                spiceLevel: 3,
-                image: "🐐"
-            },
-            {
-                id: 15,
-                name: "Bobolo",
-                category: "accompagnements",
-                price: 800,
-                description: "Manioc fermenté enveloppé dans des feuilles, cuit à la vapeur",
-                spiceLevel: 0,
-                image: "🌿"
-            },
-            {
-                id: 16,
-                name: "Beignet Haricot",
-                category: "desserts",
-                price: 500,
-                description: "Beignets sucrés aux haricots, collation traditionnelle",
-                spiceLevel: 0,
-                image: "🍩"
-            },
-            {
-                id: 17,
-                name: "Piments Verts Farcis",
-                category: "plats-principaux",
-                price: 2800,
-                description: "Piments verts farcis au poisson et aux épices",
-                spiceLevel: 3,
-                image: "🫑"
-            },
-            {
-                id: 18,
-                name: "Kondré de Chèvre",
-                category: "plats-principaux",
-                price: 4500,
-                description: "Ragoût de chèvre aux légumes et épices du Nord Cameroun",
-                spiceLevel: 2,
-                image: "🍛"
-            },
-            {
-                id: 19,
-                name: "Bière Mutzig",
-                category: "boissons",
-                price: 800,
-                description: "Bière locale camerounaise, fraîche et désaltérante",
-                spiceLevel: 0,
-                image: "🍺"
-            },
-            {
-                id: 20,
-                name: "Jus de Bissap",
-                category: "boissons",
-                price: 1000,
-                description: "Boisson rafraîchissante à base de fleurs d'hibiscus",
-                spiceLevel: 0,
-                image: "🧃"
-            },
-            {
-                id: 21,
-                name: "Vin de Palme",
-                category: "boissons",
-                price: 1500,
-                description: "Boisson traditionnelle fermentée à base de sève de palmier",
-                spiceLevel: 0,
-                image: "🍷"
-            },
-            {
-                id: 22,
-                name: "Puff-Puff",
-                category: "desserts",
-                price: 300,
-                description: "Beignets sucrés moelleux, parfaits pour le dessert",
-                spiceLevel: 0,
-                image: "⚪"
-            },
-            {
-                id: 23,
-                name: "Plantain Rôti",
-                category: "desserts",
-                price: 800,
-                description: "Plantain mûr grillé, caramélisé naturellement",
-                spiceLevel: 0,
-                image: "🍌"
-            },
-            {
-                id: 24,
-                name: "Mangue Fraîche",
-                category: "desserts",
-                price: 600,
-                description: "Mangue locale fraîche et juteuse de saison",
-                spiceLevel: 0,
-                image: "🥭"
-            }
-        ];
-
-        const reviewsData = [
-            {
-                id: 1,
-                author: "Marie Dubois",
-                rating: 5,
-                text: "Une expérience culinaire exceptionnelle ! Le ndolé était absolument délicieux et l'ambiance très chaleureuse. Je recommande vivement ce restaurant à tous ceux qui veulent découvrir la vraie cuisine camerounaise.",
-                avatar: "MD"
-            },
-            {
-                id: 2,
-                author: "Jean-Paul Mvondo",
-                rating: 5,
-                text: "Enfin un restaurant qui respecte les traditions culinaires camerounaises ! Le poulet DG était parfaitement préparé et le service impeccable. Un vrai régal pour les papilles.",
-                avatar: "JM"
-            },
-            {
-                id: 3,
-                author: "Sarah Johnson",
-                rating: 4,
-                text: "Découverte fantastique de la cuisine camerounaise. Les saveurs sont authentiques et les portions généreuses. L'eru aux crevettes était un délice. Seul bémol : l'attente un peu longue.",
-                avatar: "SJ"
-            },
-            {
-                id: 4,
-                author: "Pierre Nkomo",
-                rating: 5,
-                text: "Comme à la maison ! Les plats me rappellent ceux de ma grand-mère. L'équipe est accueillante et les prix très raisonnables. Une adresse à retenir absolument.",
-                avatar: "PN"
-            },
-            {
-                id: 5,
-                author: "Fatima Al-Hassan",
-                rating: 5,
-                text: "Service exceptionnel et cuisine authentique. Le poisson braisé était cuit à la perfection et les accompagnements parfaitement assaisonnés. Une expérience culinaire inoubliable !",
-                avatar: "FA"
-            }
-        ];
-
-        const galleryData = [
-            { id: 1, category: "restaurant", alt: "Intérieur du restaurant" },
-            { id: 2, category: "food", alt: "Ndolé traditionnel" },
-            { id: 3, category: "food", alt: "Poulet DG" },
-            { id: 4, category: "restaurant", alt: "Salle à manger" },
-            { id: 5, category: "food", alt: "Eru aux crevettes" },
-            { id: 6, category: "food", alt: "Poisson braisé" },
-            { id: 7, category: "restaurant", alt: "Cuisine ouverte" },
-            { id: 8, category: "food", alt: "Desserts traditionnels" },
-            { id: 9, category: "events", alt: "Événement spécial" },
-            { id: 10, category: "food", alt: "Brochettes de bœuf" },
-            { id: 11, category: "restaurant", alt: "Terrasse extérieure" },
-            { id: 12, category: "food", alt: "Boissons traditionnelles" }
-        ];
-
-        // ===== STATE MANAGEMENT =====
-        let cart = [];
-        let currentReviewIndex = 0;
-        let isMenuLoaded = false;
-        let animationObserver;
-
-        // ===== UTILITY FUNCTIONS =====
-        function formatPrice(price) {
-            return new Intl.NumberFormat('fr-FR').format(price) + ' FCFA';
-        }
-
-        function generateSpiceIcons(level) {
-            let icons = '';
-            for (let i = 0; i < 3; i++) {
-                icons += `<i class="spice-icon ${i < level ? 'fas' : 'far'} fa-pepper-hot"></i>`;
-            }
-            return icons;
-        }
-
-        function showModal(icon, title, text) {
-            const modal = document.getElementById('modal');
-            const modalIcon = document.getElementById('modalIcon');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalText = document.getElementById('modalText');
-
-            modalIcon.textContent = icon;
-            modalTitle.textContent = title;
-            modalText.textContent = text;
-
-            modal.classList.add('show');
-        }
-
-        function hideModal() {
-            document.getElementById('modal').classList.remove('show');
-        }
-
-        function updateCartUI() {
-            const cartCount = document.getElementById('cartCount');
-            const cartItems = document.getElementById('cartItems');
-            const cartTotal = document.getElementById('cartTotal');
-
-            // Update cart count
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCount.textContent = totalItems;
-            cartCount.style.display = totalItems > 0 ? 'inline' : 'none';
-
-            // Update cart items
-            if (cart.length === 0) {
-                cartItems.innerHTML = `
-                    <div style="text-align: center; padding: 3rem; color: #666;">
-                        <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
-                        <p>Votre panier est vide</p>
-                        <p style="font-size: 0.9em; opacity: 0.7;">Ajoutez des plats délicieux depuis notre menu</p>
-                    </div>
-                `;
-                cartTotal.textContent = '0 FCFA';
-            } else {
-                cartItems.innerHTML = cart.map(item => `
-                    <div class="cart-item">
-                        <div class="cart-item-image">${item.image}</div>
-                        <div class="cart-item-details">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">${formatPrice(item.price)}</div>
-                            <div class="quantity-controls">
-                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
-                                <span class="quantity">${item.quantity}</span>
-                                <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-
-                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                cartTotal.textContent = formatPrice(total);
-            }
-        }
-
-        function addToCart(menuItem) {
-            const existingItem = cart.find(item => item.id === menuItem.id);
-
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ ...menuItem, quantity: 1 });
-            }
-
-            updateCartUI();
-            showModal('🛒', 'Ajouté au panier!', `${menuItem.name} a été ajouté à votre panier.`);
-        }
-
-        function updateQuantity(itemId, change) {
-            const item = cart.find(item => item.id === itemId);
-            if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    cart = cart.filter(item => item.id !== itemId);
-                }
-                updateCartUI();
-            }
-        }
-
-        // ===== MENU FUNCTIONS =====
-        function renderMenuItems(items = menuData) {
-            const menuGrid = document.getElementById('menuGrid');
-
-            menuGrid.innerHTML = items.map(item => `
-                <div class="menu-item animate-on-scroll slide-up" data-category="${item.category}">
-                    <div class="menu-item-image">
-                        <div class="price-tag">${formatPrice(item.price)}</div>
-                    </div>
-                    <div class="menu-item-content">
-                        <h3 class="menu-item-title">${item.name}</h3>
-                        <p class="menu-item-description">${item.description}</p>
-                        <div class="menu-item-footer">
-                            <div class="spice-level" title="Niveau de piment">
-                                ${generateSpiceIcons(item.spiceLevel)}
-                            </div>
-                            <button class="add-to-cart" onclick="addToCart(${JSON.stringify(item).replace(/"/g, '&quot;')})">
-                                <i class="fas fa-plus"></i>
-                                Ajouter
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            // Trigger animation for new items
-            setTimeout(() => {
-                document.querySelectorAll('.menu-item').forEach((item, index) => {
-                    setTimeout(() => {
-                        item.classList.add('show');
-                    }, index * 100);
-                });
-            }, 100);
-        }
-
-        function filterMenu(category) {
-            const filteredItems = category === 'all' ? menuData : menuData.filter(item => item.category === category);
-            renderMenuItems(filteredItems);
-
-            // Update active category button
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`[data-category="${category}"]`).classList.add('active');
-        }
-
-        // ===== GALLERY FUNCTIONS =====
-        function renderGallery() {
-            const galleryGrid = document.getElementById('galleryGrid');
-
-            galleryGrid.innerHTML = galleryData.map(item => `
-                <div class="gallery-item animate-on-scroll slide-up" onclick="openGalleryModal(${item.id})">
-                    <div class="gallery-overlay">
-                        <i class="fas fa-search-plus"></i>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function openGalleryModal(itemId) {
-            const item = galleryData.find(g => g.id === itemId);
-            showModal('📸', 'Galerie', `Affichage de: ${item.alt}`);
-        }
-
-        // ===== REVIEWS FUNCTIONS =====
-        function renderReviews() {
-            const reviewsSlider = document.getElementById('reviewsSlider');
-            const reviewNav = document.getElementById('reviewNav');
-
-            // Render current review
-            const currentReview = reviewsData[currentReviewIndex];
-            reviewsSlider.innerHTML = `
-                <div class="review-card">
-                    <p class="review-text">${currentReview.text}</p>
-                    <div class="review-author">
-                        <div class="review-avatar">${currentReview.avatar}</div>
-                        <div class="review-info">
-                            <h4>${currentReview.author}</h4>
-                            <div class="review-rating">
-                                ${'★'.repeat(currentReview.rating)}${'☆'.repeat(5 - currentReview.rating)}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Render navigation dots
-            reviewNav.innerHTML = reviewsData.map((_, index) => `
-                <div class="nav-dot ${index === currentReviewIndex ? 'active' : ''}" onclick="goToReview(${index})"></div>
-            `).join('');
-        }
-
-        function goToReview(index) {
-            currentReviewIndex = index;
-            renderReviews();
-        }
-
-        function nextReview() {
-            currentReviewIndex = (currentReviewIndex + 1) % reviewsData.length;
-            renderReviews();
-        }
-
-        // ===== ANIMATION FUNCTIONS =====
-        function initScrollAnimations() {
-            animationObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animated');
-                    }
-                });
-            }, {
-                threshold: 0.2,
-                rootMargin: '0px 0px -50px 0px'
-            });
-
-            document.querySelectorAll('.animate-on-scroll').forEach(el => {
-                animationObserver.observe(el);
-            });
-        }
-
-        function animateCounters() {
-            document.querySelectorAll('.stat-number').forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-count'));
-                const increment = target / 100;
-                let current = 0;
-
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        counter.textContent = target.toLocaleString();
-                        clearInterval(timer);
-                    } else {
-                        counter.textContent = Math.floor(current).toLocaleString();
-                    }
-                }, 20);
-            });
-        }
-
-        // ===== FORM HANDLING =====
-        function initReservationForm() {
-            const form = document.getElementById('reservationForm');
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('date').min = today;
-
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                // Simulate form submission
-                const submitBtn = document.querySelector('.submit-btn');
-                const originalText = submitBtn.innerHTML;
-
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
-
-                setTimeout(() => {
-                    showModal('✅', 'Réservation Confirmée!',
-                        'Votre demande de réservation a été envoyée avec succès. Nous vous contacterons bientôt pour confirmer.');
-                    form.reset();
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalText;
-                }, 2000);
-            });
-        }
-
-        // ===== NAVIGATION =====
-        function initNavigation() {
-            const navbar = document.getElementById('navbar');
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navLinks = document.getElementById('navLinks');
-            const scrollTop = document.getElementById('scrollTop');
-
-            // Navbar scroll effect
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 100) {
-                    navbar.classList.add('scrolled');
-                    scrollTop.classList.add('show');
-                } else {
-                    navbar.classList.remove('scrolled');
-                    scrollTop.classList.remove('show');
-                }
-            });
-
-            // Mobile menu toggle
-            mobileMenuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('open');
-                const icon = mobileMenuBtn.querySelector('i');
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-times');
-            });
-
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('.nav-link, .hero-buttons a, .scroll-top').forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId.startsWith('#')) {
-                        const targetElement = document.querySelector(targetId);
-                        if (targetElement) {
-                            targetElement.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-
-                            // Close mobile menu if open
-                            navLinks.classList.remove('open');
-                            mobileMenuBtn.querySelector('i').classList.add('fa-bars');
-                            mobileMenuBtn.querySelector('i').classList.remove('fa-times');
-                        }
-                    }
-                });
-            });
-
-            // Update active navigation link on scroll
-            const sections = document.querySelectorAll('section[id]');
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 150;
-                    if (window.pageYOffset >= sectionTop) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${current}`) {
-                        link.classList.add('active');
-                    }
-                });
-            });
-        }
-
-        // ===== CART FUNCTIONS =====
-        function initCart() {
-            const cartToggle = document.getElementById('cartToggle');
-            const cartSidebar = document.getElementById('cartSidebar');
-            const cartClose = document.getElementById('cartClose');
-            const checkoutBtn = document.getElementById('checkoutBtn');
-
-            cartToggle.addEventListener('click', () => {
-                cartSidebar.classList.add('open');
-            });
-
-            cartClose.addEventListener('click', () => {
-                cartSidebar.classList.remove('open');
-            });
-
-            checkoutBtn.addEventListener('click', () => {
-                if (cart.length === 0) {
-                    showModal('⚠️', 'Panier Vide', 'Ajoutez des plats à votre panier avant de passer commande.');
-                    return;
-                }
-
-                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                showModal('🎉', 'Commande Confirmée!',
-                    `Votre commande d'un montant de ${formatPrice(total)} a été confirmée. Merci pour votre confiance!`);
-                cart = [];
-                updateCartUI();
-                cartSidebar.classList.remove('open');
-            });
-
-            // Close cart when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!cartSidebar.contains(e.target) && !cartToggle.contains(e.target)) {
-                    cartSidebar.classList.remove('open');
-                }
-            });
-        }
-
-        // ===== THEME TOGGLE =====
-        function initThemeToggle() {
-            const themeToggle = document.getElementById('themeToggle');
-            const body = document.body;
-
-            // Check for saved theme preference
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                body.classList.add('dark-theme');
-                themeToggle.textContent = '☀️';
-            }
-
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('dark-theme');
-                const isDark = body.classList.contains('dark-theme');
-                themeToggle.textContent = isDark ? '☀️' : '🌙';
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            });
-        }
-
-        // ===== INITIALIZATION =====
-        function init() {
-            // Remove loading screen
-            setTimeout(() => {
-                document.getElementById('loadingScreen').classList.add('hidden');
-            }, 2000);
-
-            // Initialize all components
-            initNavigation();
-            initCart();
-            initThemeToggle();
-            initReservationForm();
-            renderMenuItems();
-            renderGallery();
-            renderReviews();
-            initScrollAnimations();
-
-            // Set up menu category filters
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const category = btn.getAttribute('data-category');
-                    filterMenu(category);
-                });
-            });
-
-            // Auto-rotate reviews
-            setInterval(nextReview, 5000);
-
-            // Initialize modal close
-            document.getElementById('modalBtn').addEventListener('click', hideModal);
-            document.getElementById('modal').addEventListener('click', (e) => {
-                if (e.target.id === 'modal') hideModal();
-            });
-
-            // Animate counters when about section is visible
-            const aboutSection = document.getElementById('about');
-            const aboutObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateCounters();
-                        aboutObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            aboutObserver.observe(aboutSection);
-
-            // Add cart icon style
-            const cartToggle = document.getElementById('cartToggle');
-            cartToggle.style.cssText = `
-                position: relative;
-                background: none;
-                border: none;
-                color: white;
-                font-size: 1.2rem;
-                cursor: pointer;
-                padding: 0.5rem;
-                border-radius: 50%;
-                transition: all 0.3s ease;
-            `;
-
-            const cartCount = document.getElementById('cartCount');
-            cartCount.style.cssText = `
-                position: absolute;
-                top: -5px;
-                right: -5px;
-                background: #dc3545;
-                color: white;
-                border-radius: 50%;
-                width: 20px;
-                height: 20px;
-                font-size: 0.8rem;
-                display: none;
-                align-items: center;
-                justify-content: center;
-                font-weight: bold;
-            `;
-
-            updateCartUI();
-
-            // Add hover effects
-            document.addEventListener('mouseover', (e) => {
-                if (e.target.matches('.btn, .menu-item, .gallery-item, .review-card')) {
-                    e.target.style.transform = 'translateY(-2px)';
-                }
-            });
-
-            document.addEventListener('mouseout', (e) => {
-                if (e.target.matches('.btn, .menu-item, .gallery-item, .review-card')) {
-                    e.target.style.transform = 'translateY(0)';
-                }
-            });
-
-            // Add keyboard navigation
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    hideModal();
-                    document.getElementById('cartSidebar').classList.remove('open');
-                    document.getElementById('navLinks').classList.remove('open');
-                }
-            });
-
-            // Add loading states for images
-            document.querySelectorAll('.menu-item-image, .gallery-item').forEach(item => {
-                item.style.background = 'linear-gradient(45deg, #d4af37, #2c5530)';
-                item.style.backgroundSize = '200% 200%';
-                item.style.animation = 'gradientShift 3s ease infinite';
-            });
-
-            // Add gradient animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes gradientShift {
-                    0% { background-position: 0% 50%; }
-                    50% { background-position: 100% 50%; }
-                    100% { background-position: 0% 50%; }
-                }
-                
-                .cart-count {
-                    animation: pulse 2s infinite;
-                }
-                
-                @keyframes pulse {
-                    0% { transform: scale(1); }
-                    50% { transform: scale(1.1); }
-                    100% { transform: scale(1); }
-                }
-            `;
-            document.head.appendChild(style);
-
-            // Add search functionality (bonus feature)
-            const searchInput = document.createElement('input');
-            searchInput.type = 'text';
-            searchInput.placeholder = 'Rechercher un plat...';
-            searchInput.className = 'search-input';
-            searchInput.style.cssText = `
-                width: 100%;
-                max-width: 400px;
-                padding: 1rem;
-                margin: 2rem auto;
-                display: block;
-                border: 2px solid #d4af37;
-                border-radius: 25px;
-                font-size: 1rem;
-                text-align: center;
-                transition: all 0.3s ease;
-            `;
-
-            const menuContainer = document.querySelector('.menu .container');
-            const menuHeader = menuContainer.querySelector('.section-header');
-            menuHeader.appendChild(searchInput);
-
-            searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                const filteredItems = menuData.filter(item =>
-                    item.name.toLowerCase().includes(searchTerm) ||
-                    item.description.toLowerCase().includes(searchTerm)
-                );
-                renderMenuItems(filteredItems);
-            });
-
-            // Add nutrition info modal (bonus feature)
-            window.showNutritionInfo = function (itemId) {
-                const item = menuData.find(m => m.id === itemId);
-                if (item) {
-                    const nutritionInfo = {
-                        calories: Math.floor(Math.random() * 400) + 200,
-                        protein: Math.floor(Math.random() * 30) + 10,
-                        carbs: Math.floor(Math.random() * 50) + 20,
-                        fat: Math.floor(Math.random() * 20) + 5
-                    };
-
-                    showModal('📊', 'Informations Nutritionnelles',
-                        `${item.name}\n\nCalories: ${nutritionInfo.calories} kcal\nProtéines: ${nutritionInfo.protein}g\nGlucides: ${nutritionInfo.carbs}g\nLipides: ${nutritionInfo.fat}g`);
-                }
-            };
-
-            // Add social sharing
-            window.shareMenu = function () {
-                if (navigator.share) {
-                    navigator.share({
-                        title: 'Saveurs du Cameroun - Menu',
-                        text: 'Découvrez notre délicieux menu de cuisine camerounaise authentique!',
-                        url: window.location.href
-                    });
-                } else {
-                    navigator.clipboard.writeText(window.location.href).then(() => {
-                        showModal('📋', 'Lien Copié!', 'Le lien du menu a été copié dans votre presse-papiers.');
-                    });
-                }
-            };
-
-            // Add contact form validation
-            const inputs = document.querySelectorAll('.form-control');
-            inputs.forEach(input => {
-                input.addEventListener('blur', function () {
-                    if (this.hasAttribute('required') && !this.value.trim()) {
-                        this.style.borderColor = '#dc3545';
-                        this.style.boxShadow = '0 0 0 3px rgba(220, 53, 69, 0.3)';
-                    } else {
-                        this.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-                        this.style.boxShadow = 'none';
-                    }
-                });
-
-                input.addEventListener('input', function () {
-                    if (this.style.borderColor === 'rgb(220, 53, 69)') {
-                        this.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-                        this.style.boxShadow = 'none';
-                    }
-                });
-            });
-
-            // Add real-time availability checker
-            function checkAvailability() {
-                const now = new Date();
-                const hours = now.getHours();
-                const isOpen = hours >= 11 && hours < 23;
-
-                const statusIndicator = document.createElement('div');
-                statusIndicator.className = 'status-indicator';
-                statusIndicator.innerHTML = `
-                    <div style="
-                        position: fixed;
-                        top: 100px;
-                        right: 20px;
-                        background: ${isOpen ? '#28a745' : '#dc3545'};
-                        color: white;
-                        padding: 1rem;
-                        border-radius: 10px;
-                        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-                        z-index: 1000;
-                        font-weight: bold;
-                        animation: slideInRight 0.5s ease;
-                    ">
-                        <i class="fas fa-clock"></i>
-                        ${isOpen ? 'Ouvert maintenant!' : 'Fermé actuellement'}
-                        <div style="font-size: 0.8em; margin-top: 0.5rem;">
-                            ${isOpen ? 'Jusqu\'à 23h00' : 'Ouverture à 11h00'}
-                        </div>
-                    </div>
-                `;
-
-                document.body.appendChild(statusIndicator);
-
-                // Auto-hide after 5 seconds
-                setTimeout(() => {
-                    statusIndicator.style.animation = 'slideOutRight 0.5s ease';
-                    setTimeout(() => statusIndicator.remove(), 500);
-                }, 5000);
-            }
-
-            checkAvailability();
-
-            // Add slideInRight animation
-            const animationStyle = document.createElement('style');
-            animationStyle.textContent += `
-                @keyframes slideInRight {
-                    from {
-                        transform: translateX(100%);
-                        opacity: 0;
-                    }
-                    to {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
-                }
-                
-                @keyframes slideOutRight {
-                    from {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
-                    to {
-                        transform: translateX(100%);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(animationStyle);
-
-            // Add performance monitoring
-            window.addEventListener('load', () => {
-                const loadTime = performance.now();
-                console.log(`🚀 Site chargé en ${Math.round(loadTime)}ms`);
-
-                if (loadTime > 3000) {
-                    console.warn('⚠️ Temps de chargement élevé détecté');
-                }
-            });
-
-            // Add error handling for failed operations
-            window.addEventListener('error', (e) => {
-                console.error('❌ Erreur détectée:', e.error);
-                showModal('⚠️', 'Erreur', 'Une erreur s\'est produite. Veuillez rafraîchir la page.');
-            });
-
-            // Add offline detection
-            window.addEventListener('online', () => {
-                showModal('✅', 'Connexion Rétablie', 'Vous êtes de nouveau en ligne!');
-            });
-
-            window.addEventListener('offline', () => {
-                showModal('⚠️', 'Hors Ligne', 'Vous êtes actuellement hors ligne. Certaines fonctionnalités peuvent être limitées.');
-            });
-
-            // Add progressive enhancement
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/sw.js').catch(e => {
-                    console.log('Service Worker non disponible');
-                });
-            }
-
-            // Add final touch - welcome message
-            setTimeout(() => {
-                if (sessionStorage.getItem('welcomed') !== 'true') {
-                    showModal('🎉', 'Bienvenue!', 'Bienvenue chez Saveurs du Cameroun! Découvrez notre cuisine authentique et nos spécialités traditionnelles.');
-                    sessionStorage.setItem('welcomed', 'true');
-                }
-            }, 3000);
-
-            console.log('🍽️ Restaurant website fully loaded and ready!');
-        }
-
-        // ===== ADDITIONAL UTILITY FUNCTIONS =====
-
-        // Format currency for different regions
-        function formatCurrency(amount, currency = 'FCFA') {
-            if (currency === 'FCFA') {
-                return new Intl.NumberFormat('fr-FR').format(amount) + ' FCFA';
-            }
-            return new Intl.NumberFormat('fr-FR', {
-                style: 'currency',
-                currency: currency
-            }).format(amount);
-        }
-
-        // Advanced search with filters
-        function advancedSearch(term, filters = {}) {
-            return menuData.filter(item => {
-                const matchesSearch = !term ||
-                    item.name.toLowerCase().includes(term.toLowerCase()) ||
-                    item.description.toLowerCase().includes(term.toLowerCase());
-
-                const matchesCategory = !filters.category ||
-                    filters.category === 'all' ||
-                    item.category === filters.category;
-
-                const matchesSpiceLevel = filters.spiceLevel === undefined ||
-                    item.spiceLevel <= filters.spiceLevel;
-
-                const matchesPriceRange = (!filters.minPrice || item.price >= filters.minPrice) &&
-                    (!filters.maxPrice || item.price <= filters.maxPrice);
-
-                return matchesSearch && matchesCategory && matchesSpiceLevel && matchesPriceRange;
-            });
-        }
-
-        // Generate receipt
-        function generateReceipt() {
-            if (cart.length === 0) return null;
-
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const tax = subtotal * 0.18; // 18% VAT
-            const total = subtotal + tax;
-
-            return {
-                items: cart,
-                subtotal: subtotal,
-                tax: tax,
-                total: total,
-                date: new Date().toLocaleString('fr-FR'),
-                orderNumber: 'CMD' + Date.now().toString().slice(-6)
-            };
-        }
-
-        // Export cart to different formats
-        function exportCart(format = 'json') {
-            const receipt = generateReceipt();
-            if (!receipt) return;
-
-            let content;
-            let filename;
-            let mimeType;
-
-            switch (format) {
-                case 'json':
-                    content = JSON.stringify(receipt, null, 2);
-                    filename = `commande_${receipt.orderNumber}.json`;
-                    mimeType = 'application/json';
-                    break;
-
-                case 'csv':
-                    const csvHeaders = 'Plat,Quantité,Prix Unitaire,Total\n';
-                    const csvContent = cart.map(item =>
-                        `"${item.name}",${item.quantity},${item.price},${item.price * item.quantity}`
-                    ).join('\n');
-                    content = csvHeaders + csvContent + `\n\nSous-total,,,${receipt.subtotal}\nTVA,,,${receipt.tax}\nTotal,,,${receipt.total}`;
-                    filename = `commande_${receipt.orderNumber}.csv`;
-                    mimeType = 'text/csv';
-                    break;
-
-                case 'txt':
-                    content = `SAVEURS DU CAMEROUN\nCommande #${receipt.orderNumber}\nDate: ${receipt.date}\n\n`;
-                    content += cart.map(item =>
-                        `${item.name} x${item.quantity} - ${formatPrice(item.price * item.quantity)}`
-                    ).join('\n');
-                    content += `\n\nSous-total: ${formatPrice(receipt.subtotal)}\nTVA (18%): ${formatPrice(receipt.tax)}\nTOTAL: ${formatPrice(receipt.total)}`;
-                    filename = `commande_${receipt.orderNumber}.txt`;
-                    mimeType = 'text/plain';
-                    break;
-            }
-
-            const blob = new Blob([content], { type: mimeType });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        // Initialize everything when DOM is loaded
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
+    <div id="bookingList"></div>
+  </div>
+
+  <footer>
+    <p>© 2025 ShopExpress Beauté INNOVA - Votre beauté, notre priorité</p>
+    <div class="social-links">
+      <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, query, where, getDocs, onSnapshot, doc, updateDoc, orderBy } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA6rq0a6kG0bf7ChXEZyarDPWh4ougVofQ",
+      authDomain: "gere-b2d31.firebaseapp.com",
+      projectId: "gere-b2d31",
+      storageBucket: "gere-b2d31.appspot.com",
+      messagingSenderId: "166834348126",
+      appId: "1:166834348126:web:cffe60797ac377fb4a14cf",
+      measurementId: "G-YK8Y0Z7F2L"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Variables globales
+    let isDarkMode = false;
+    let chatOpen = false;
+
+    // Nouvelles fonctions
+
+    // Gestion du thème sombre
+    window.toggleTheme = function() {
+      isDarkMode = !isDarkMode;
+      const body = document.body;
+      const icon = document.getElementById('theme-icon');
+      
+      if (isDarkMode) {
+        body.style.filter = 'invert(1) hue-rotate(180deg)';
+        icon.className = 'fas fa-sun';
+        showToast('Mode sombre activé', 'info');
+      } else {
+        body.style.filter = 'none';
+        icon.className = 'fas fa-moon';
+        showToast('Mode clair activé', 'info');
+      }
+    };
+
+    // Système de filtrage des services
+    window.filterServices = function(category) {
+      const services = document.querySelectorAll('.service');
+      const buttons = document.querySelectorAll('.filter-btn');
+      
+      // Mise à jour des boutons
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // Filtrage des services
+      services.forEach(service => {
+        if (category === 'tous' || service.dataset.category === category) {
+          service.style.display = 'block';
+          service.style.animation = 'fadeIn 0.5s ease-out';
         } else {
-            init();
+          service.style.display = 'none';
+        }
+      });
+      
+      showToast(`Filtrage: ${category}`, 'info');
+    };
+
+    // Navigation fluide
+    window.showSection = function(sectionId) {
+      const element = document.getElementById(sectionId) || document.querySelector(`.${sectionId}-section`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
+    // Gestion du chat
+    window.toggleChat = function() {
+      const chatWindow = document.getElementById('chatWindow');
+      chatOpen = !chatOpen;
+      chatWindow.style.display = chatOpen ? 'flex' : 'none';
+      
+      if (chatOpen) {
+        document.getElementById('chatInput').focus();
+      }
+    };
+
+    window.sendMessage = function() {
+      const input = document.getElementById('chatInput');
+      const message = input.value.trim();
+      
+      if (message) {
+        const chatMessages = document.getElementById('chatMessages');
+        
+        // Message utilisateur
+        const userMsg = document.createElement('div');
+        userMsg.style.cssText = `
+          text-align: right; 
+          margin-bottom: 1rem; 
+          padding: 0.5rem 1rem; 
+          background: var(--primary-color); 
+          color: white; 
+          border-radius: 15px 15px 5px 15px; 
+          max-width: 80%; 
+          margin-left: auto;
+        `;
+        userMsg.textContent = message;
+        chatMessages.appendChild(userMsg);
+        
+        // Réponse automatique
+        setTimeout(() => {
+          const botMsg = document.createElement('div');
+          botMsg.style.cssText = `
+            text-align: left; 
+            margin-bottom: 1rem; 
+            padding: 0.5rem 1rem; 
+            background: #f0f0f0; 
+            border-radius: 15px 15px 15px 5px; 
+            max-width: 80%;
+          `;
+          
+          const responses = [
+            "Merci pour votre message! Un conseiller vous répondra rapidement.",
+            "Pour une réservation rapide, utilisez le bouton WhatsApp sur nos services.",
+            "Avez-vous consulté nos disponibilités dans le calendrier?",
+            "Notre équipe est disponible de 8h à 18h pour vous servir!"
+          ];
+          
+          botMsg.textContent = responses[Math.floor(Math.random() * responses.length)];
+          chatMessages.appendChild(botMsg);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 1000);
+        
+        input.value = '';
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    };
+
+    // Gestion des notifications toast
+    window.showToast = function(message, type = 'success') {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.animation = 'slideOutRight 0.3s ease-out';
+        setTimeout(() => {
+          if (document.body.contains(toast)) {
+            document.body.removeChild(toast);
+          }
+        }, 300);
+      }, 3000);
+    };
+
+    // Génération du calendrier
+    function generateCalendar() {
+      const calendarGrid = document.getElementById('calendarGrid');
+      const days = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+      const availabilityStates = ['available', 'busy', 'unavailable'];
+      
+      // En-têtes des jours
+      days.forEach(day => {
+        const header = document.createElement('div');
+        header.style.cssText = 'font-weight: bold; text-align: center; padding: 0.5rem; color: var(--dark-color);';
+        header.textContent = day;
+        calendarGrid.appendChild(header);
+      });
+      
+      // Jours du mois (exemple pour 7 jours)
+      for (let i = 1; i <= 7; i++) {
+        const dayElement = document.createElement('div');
+        const randomState = availabilityStates[Math.floor(Math.random() * availabilityStates.length)];
+        dayElement.className = `calendar-day ${randomState}`;
+        dayElement.textContent = i + 30; // Exemple: fin juillet/début août
+        dayElement.onclick = () => {
+          showToast(`Jour ${i + 30}: ${randomState}`, 'info');
+        };
+        calendarGrid.appendChild(dayElement);
+      }
+    }
+
+    // Mise à jour des statistiques
+    function updateStats() {
+      const stats = {
+        clients: Math.floor(Math.random() * 50) + 250,
+        services: Math.floor(Math.random() * 100) + 500,
+        todayBookings: Math.floor(Math.random() * 10) + 1,
+        weekBookings: Math.floor(Math.random() * 50) + 20,
+        monthRevenue: Math.floor(Math.random() * 500000) + 2000000
+      };
+      
+      document.getElementById('clientsCount').textContent = stats.clients + '+';
+      document.getElementById('servicesCount').textContent = stats.services + '+';
+      document.getElementById('todayBookings').textContent = stats.todayBookings;
+      document.getElementById('weekBookings').textContent = stats.weekBookings;
+      document.getElementById('monthRevenue').textContent = stats.monthRevenue.toLocaleString();
+    }
+
+    // Fonction d'export des réservations
+    window.exportBookings = function() {
+      showToast('Export en cours...', 'info');
+      
+      setTimeout(() => {
+        const csvContent = "data:text/csv;charset=utf-8,Date,Service,Client,Statut\n" +
+          "01/08/2025,Nattes africaines,237670000000,confirmé\n" +
+          "02/08/2025,Maquillage,237671111111,confirmé\n" +
+          "03/08/2025,Pose perruque,237672222222,annulé\n";
+        
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "reservations_" + new Date().toISOString().split('T')[0] + ".csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showToast('Export terminé!', 'success');
+      }, 1500);
+    };
+
+    // Mise à jour de la barre de progression de réservation
+    function updateBookingProgress() {
+      const inputs = document.querySelectorAll('#formule input, #formule select');
+      let filledInputs = 0;
+      
+      inputs.forEach(input => {
+        if (input.value.trim() !== '') {
+          filledInputs++;
+        }
+      });
+      
+      const progress = (filledInputs / inputs.length) * 100;
+      document.getElementById('bookingProgress').style.width = progress + '%';
+    }
+
+    // Fonctions existantes améliorées
+    window.fermer = function () {
+      document.getElementById('formulaire').style.display = 'none';
+      document.body.style.overflow = 'auto';
+      document.getElementById('bookingProgress').style.width = '0%';
+    };
+
+    // Gestion des boutons de réservation
+    document.querySelectorAll('.whatsapp-btn').forEach(btn => {
+      btn.addEventListener("click", () => {
+        const titre = btn.parentElement.querySelector("h3").textContent;
+        document.getElementById('service').value = titre.replace(/.*\s/, '');
+        document.getElementById('formulaire').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        
+        // Animation d'entrée
+        setTimeout(() => {
+          document.querySelector('.form-content').style.animation = 'slideIn 0.3s ease-out';
+        }, 10);
+      });
+    });
+
+    // Fermer le modal en cliquant à l'extérieur
+    document.getElementById('formulaire').addEventListener('click', (e) => {
+      if (e.target.id === 'formulaire') {
+        fermer();
+      }
+    });
+
+    // Mise à jour de la barre de progression en temps réel
+    document.querySelectorAll('#formule input, #formule select').forEach(input => {
+      input.addEventListener('input', updateBookingProgress);
+    });
+
+    // Soumission du formulaire améliorée
+    document.getElementById('formule').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<div class="spinner"></div>';
+      submitBtn.disabled = true;
+
+      const service = document.getElementById('service').value;
+      const date = document.getElementById('date').value;
+      const heure = document.getElementById('time').value;
+      const numero = document.getElementById('numero').value;
+      const comments = document.getElementById('comments').value;
+
+      if (!service || !date || !heure || !numero) {
+        showToast("Veuillez remplir tous les champs obligatoires.", 'error');
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+        return;
+      }
+
+      const form = {
+        service,
+        date,
+        heure,
+        numero,
+        comments,
+        status: 'confirmé',
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        await addDoc(collection(db, "bookings"), form);
+        showToast(`✅ Réservation confirmée pour ${form.service} le ${form.date} à ${form.heure}`, 'success');
+        fermer();
+        document.getElementById('formule').reset();
+        updateStats(); // Mise à jour des stats
+      } catch (error) {
+        console.error("❌ Erreur Firebase :", error);
+        showToast("Erreur lors de la réservation!", 'error');
+      } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Vérification du statut en temps réel (améliorée)
+    document.addEventListener("DOMContentLoaded", () => {
+      const unsubscribe = {};
+
+      document.getElementById('checkNumber').addEventListener('input', async (e) => {
+        const phone = e.target.value;
+        if (unsubscribe[phone]) unsubscribe[phone]();
+        
+        if (phone) {
+          const q = query(collection(db, 'bookings'), where('numero', '==', phone));
+          unsubscribe[phone] = onSnapshot(q, (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+              if (change.type === 'modified') {
+                const data = change.doc.data();
+                if (data.status === 'annulé') {
+                  showToast(`❌ Votre réservation pour ${data.service} a été annulée.`, 'error');
+                  document.getElementById('statusResult').innerHTML = `
+                    <div style="background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; padding: 1rem; border-radius: 10px;">
+                      <i class="fas fa-times-circle"></i> <strong>Statut : ${data.status}</strong>
+                    </div>`;
+                }
+              }
+            });
+          });
+        } else {
+          document.getElementById('statusResult').innerHTML = '';
+        }
+      });
+
+      window.checkStatus = async function () {
+        const phone = document.getElementById('checkNumber').value;
+        const statusResult = document.getElementById('statusResult');
+        
+        if (!phone) {
+          showToast('Veuillez entrer votre numéro WhatsApp', 'warning');
+          return;
         }
 
-        // Expose useful functions to global scope for debugging
-        window.restaurantApp = {
-            menuData,
-            reviewsData,
-            galleryData,
-            cart,
-            formatPrice,
-            addToCart,
-            updateQuantity,
-            generateReceipt,
-            exportCart,
-            advancedSearch,
-            showModal,
-            hideModal
-        };
+        statusResult.innerHTML = '<div class="spinner"></div>';
 
-    </script>
+        try {
+          const q = query(collection(db, 'bookings'), where('numero', '==', phone));
+          const snapshot = await getDocs(q);
+          
+          if (!snapshot.empty) {
+            let resultHTML = '';
+            const bookings = [];
+            
+            // Collecter toutes les réservations et les trier
+            snapshot.forEach((docSnap) => {
+              const data = docSnap.data();
+              bookings.push({ id: docSnap.id, ...data });
+            });
+            
+            // Trier par date de création (plus récent en premier)
+            bookings.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+            
+            bookings.forEach((data) => {
+              const docId = data.id;
+              const statusColor = data.status === 'confirmé' ? '#e8f5e8' : '#ffebee';
+              const textColor = data.status === 'confirmé' ? '#2e7d32' : '#c62828';
+              const icon = data.status === 'confirmé' ? 'check-circle' : 'times-circle';
+              
+              // Calculer si l'annulation est possible (24h avant le RDV)
+              let canCancel = false;
+              let canModify = false;
+              
+              try {
+                if (data.date && data.heure && data.status === 'confirmé') {
+                  const bookingDate = new Date(data.date + 'T' + data.heure);
+                  const now = new Date();
+                  const timeDiff = bookingDate.getTime() - now.getTime();
+                  const hoursDiff = timeDiff / (1000 * 3600);
+                  canCancel = hoursDiff > 24;
+                  canModify = hoursDiff > 12;
+                }
+              } catch (error) {
+                console.log('Erreur calcul date:', error);
+                // En cas d'erreur, permettre le contact
+              }
+              
+              resultHTML += `
+                <div style="background: ${statusColor}; color: ${textColor}; border: 1px solid ${data.status === 'confirmé' ? '#c8e6c9' : '#ffcdd2'}; padding: 1.5rem; border-radius: 15px; margin-bottom: 1rem; box-shadow: var(--shadow);">
+                  <div style="text-align: center;">
+                    <i class="fas fa-${icon}" style="font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
+                    <h4 style="margin-bottom: 1rem; color: ${textColor};">${data.service || 'Service non spécifié'}</h4>
+                  </div>
+                  
+                  <div style="display: grid; gap: 0.5rem; margin-bottom: 1rem; text-align: left;">
+                    <p><i class="fas fa-calendar-day"></i> <strong>Date:</strong> ${data.date || 'Non spécifiée'} à ${data.heure || 'Non spécifiée'}</p>
+                    <p><i class="fas fa-info-circle"></i> <strong>Statut:</strong> ${data.status || 'confirmé'}</p>
+                    ${data.comments ? `<p><i class="fas fa-comment"></i> <strong>Commentaires:</strong> ${data.comments}</p>` : ''}
+                    <p><i class="fas fa-clock"></i> <strong>Réservé le:</strong> ${data.createdAt ? new Date(data.createdAt).toLocaleDateString('fr-FR') : 'Date inconnue'}</p>
+                  </div>
+
+                  ${data.status === 'confirmé' || !data.status ? `
+                    <div class="client-actions">
+                      ${canCancel ? `
+                        <button class="client-btn cancel" onclick="requestCancellation('${docId}', '${data.service || 'ce service'}', '${data.date || ''}', '${data.heure || ''}')">
+                          <i class="fas fa-times"></i> Annuler
+                        </button>
+                      ` : `
+                        <button class="client-btn cancel" disabled title="Annulation possible jusqu'à 24h avant le RDV">
+                          <i class="fas fa-lock"></i> Trop tard
+                        </button>
+                      `}
+                      
+                      ${canModify ? `
+                        <button class="client-btn modify" onclick="requestModification('${docId}', '${phone}')">
+                          <i class="fas fa-edit"></i> Modifier
+                        </button>
+                      ` : ''}
+                      
+                      <button class="client-btn whatsapp" onclick="contactSalon('${phone}', '${data.service || ''}', '${data.date || ''}')">
+                        <i class="fab fa-whatsapp"></i> Contacter
+                      </button>
+                    </div>
+                    
+                    ${canCancel ? `
+                      <div class="cancellation-policy">
+                        <div class="policy-title">
+                          <i class="fas fa-exclamation-triangle"></i> Politique d'annulation
+                        </div>
+                        <p>• Annulation gratuite jusqu'à 24h avant le RDV<br>
+                        • Modification possible jusqu'à 12h avant<br>
+                        • Annulation tardive: 50% du montant retenu</p>
+                      </div>
+                    ` : ''}
+                  ` : (data.status && data.status.includes('annulé')) ? `
+                    <div style="text-align: center; margin-top: 1rem;">
+                      <p style="font-weight: 600;"><i class="fas fa-ban"></i> Réservation annulée</p>
+                      <button class="client-btn whatsapp" onclick="contactSalon('${phone}', '${data.service || ''}', '${data.date || ''}')">
+                        <i class="fab fa-whatsapp"></i> Nouvelle réservation
+                      </button>
+                    </div>
+                  ` : ''}
+                </div>`;
+            });
+            statusResult.innerHTML = resultHTML;
+          } else {
+            statusResult.innerHTML = `
+              <div style="background: #fff3e0; color: #ef6c00; border: 1px solid #ffe0b2; padding: 1rem; border-radius: 10px;">
+                <i class="fas fa-exclamation-triangle"></i>
+                Aucune réservation trouvée avec ce numéro.
+              </div>`;
+          }
+        } catch (error) {
+          console.error('Erreur lors de la vérification:', error);
+          statusResult.innerHTML = `
+            <div style="background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; padding: 1.5rem; border-radius: 15px; text-align: center;">
+              <i class="fas fa-exclamation-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+              <h4>Erreur de connexion</h4>
+              <p>Vérifiez votre connexion internet et réessayez.</p>
+              <button onclick="checkStatus()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: var(--primary-color); color: white; border: none; border-radius: 20px; cursor: pointer;">
+                <i class="fas fa-refresh"></i> Réessayer
+              </button>
+            </div>`;
+          showToast('❌ Erreur lors de la vérification. Vérifiez votre connexion.', 'error');
+        }
+      };
+    });
+
+    // Gestion de l'admin (améliorée)
+    const ADMIN_PASSWORD = "admin123";
+    
+    window.showDashboard = async function () {
+      const password = prompt("Entrez le mot de passe admin :");
+      if (password === ADMIN_PASSWORD) {
+        document.getElementById('dashboard').style.display = 'block';
+        document.getElementById('services').style.display = 'none';
+        document.querySelector('.status-section').style.display = 'none';
+        document.querySelector('.admin-controls').style.display = 'none';
+        document.querySelector('.testimonials-section').style.display = 'none';
+        document.querySelector('.calendar-section').style.display = 'none';
+        await loadBookings();
+        updateStats();
+        showToast('Dashboard admin ouvert', 'success');
+      } else if (password !== null) {
+        showToast("❌ Mot de passe incorrect!", 'error');
+      }
+    };
+
+    window.toggleDashboard = function () {
+      document.getElementById('dashboard').style.display = 'none';
+      document.getElementById('services').style.display = 'grid';
+      document.querySelector('.status-section').style.display = 'block';
+      document.querySelector('.admin-controls').style.display = 'block';
+      document.querySelector('.testimonials-section').style.display = 'block';
+      document.querySelector('.calendar-section').style.display = 'block';
+    };
+
+    async function loadBookings() {
+      const bookingList = document.getElementById('bookingList');
+      bookingList.innerHTML = '<div class="spinner" style="margin: 2rem auto;"></div>';
+
+      try {
+        const q = query(collection(db, "bookings"));
+        const querySnapshot = await getDocs(q);
+        bookingList.innerHTML = '';
+
+        if (querySnapshot.empty) {
+          bookingList.innerHTML = `
+            <div style="text-align: center; padding: 2rem; color: #666;">
+              <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+              <p>Aucune réservation pour le moment</p>
+            </div>`;
+          return;
+        }
+
+        // Collecter et trier les réservations
+        const bookings = [];
+        querySnapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          bookings.push({ id: docSnap.id, ...data });
+        });
+        
+        // Trier par date de création (plus récent en premier)
+        bookings.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+        bookings.forEach((data) => {
+          const statusColor = data.status === 'confirmé' || !data.status ? '#e8f5e8' : '#ffebee';
+          const statusIcon = data.status === 'confirmé' || !data.status ? 'check-circle' : 'times-circle';
+          
+          const bookingItem = document.createElement("div");
+          bookingItem.className = "booking-item";
+          bookingItem.style.background = statusColor;
+          
+          bookingItem.innerHTML = `
+            <div class="booking-info">
+              <div class="booking-details">
+                <h4><i class="fas fa-calendar"></i> ${data.service || 'Service non spécifié'}</h4>
+                <p><i class="fas fa-calendar-day"></i> <strong>Date:</strong> ${data.date || 'Non spécifiée'} à ${data.heure || 'Non spécifiée'}</p>
+                <p><i class="fab fa-whatsapp"></i> <strong>Contact:</strong> ${data.numero || 'Non spécifié'}</p>
+                <p><i class="fas fa-${statusIcon}"></i> <strong>Statut:</strong> ${data.status || "confirmé"}</p>
+                ${data.comments ? `<p><i class="fas fa-comment"></i> <strong>Commentaires:</strong> ${data.comments}</p>` : ''}
+                ${data.cancelReason ? `<p><i class="fas fa-info-circle"></i> <strong>Raison:</strong> ${data.cancelReason}</p>` : ''}
+                <p><i class="fas fa-clock"></i> <strong>Créé le:</strong> ${data.createdAt ? new Date(data.createdAt).toLocaleDateString('fr-FR') : 'Date inconnue'}</p>
+                ${data.cancelledAt ? `<p><i class="fas fa-ban"></i> <strong>Annulé le:</strong> ${new Date(data.cancelledAt).toLocaleDateString('fr-FR')}</p>` : ''}
+              </div>
+              ${!data.status || data.status === 'confirmé' ? `
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                  <button class="cancel-btn" onclick="cancelBooking('${data.id}', '${data.numero || ''}')">
+                    <i class="fas fa-ban"></i> Annuler
+                  </button>
+                  <button class="btn" style="background: var(--info-color); color: white; padding: 0.5rem 1rem; border-radius: 20px;" onclick="contactClient('${data.numero || ''}')">
+                    <i class="fas fa-phone"></i> Contacter
+                  </button>
+                </div>
+              ` : `
+                <div style="text-align: center;">
+                  <span style="color: #c62828; font-weight: bold; display: block; margin-bottom: 0.5rem;">
+                    <i class="fas fa-times-circle"></i> ${data.status}
+                  </span>
+                  ${data.status && data.status.includes('client') ? `
+                    <span style="color: #666; font-size: 0.8rem;">
+                      <i class="fas fa-user"></i> Annulation client
+                    </span>
+                  ` : ''}
+                </div>
+              `}
+            </div>
+          `;
+          
+          bookingList.appendChild(bookingItem);
+        });
+      } catch (error) {
+        console.error('Erreur lors du chargement:', error);
+        bookingList.innerHTML = `
+          <div style="text-align: center; padding: 2rem; color: #c62828;">
+            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+            <p>Erreur lors du chargement des réservations</p>
+          </div>`;
+      }
+    }
+
+    window.cancelBooking = async function (id, phone) {
+      if (!confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')) {
+        return;
+      }
+
+      try {
+        await updateDoc(doc(db, 'bookings', id), { 
+          status: "annulé par salon",
+          cancelledAt: new Date().toISOString(),
+          cancelReason: "Annulation salon"
+        });
+        await loadBookings();
+        showToast(`✅ Réservation annulée. Le client au ${phone} sera informé.`, 'success');
+      } catch (error) {
+        console.error('Erreur Firebase :', error);
+        showToast("❌ Erreur lors de l'annulation!", 'error');
+      }
+    };
+
+    // Nouvelle fonction: demande d'annulation par le client
+    window.requestCancellation = function(bookingId, service, date, heure) {
+      const modal = document.createElement('div');
+      modal.className = 'confirm-modal';
+      modal.innerHTML = `
+        <div class="confirm-content">
+          <h4><i class="fas fa-exclamation-triangle"></i> Confirmer l'annulation</h4>
+          <p>Êtes-vous sûr de vouloir annuler votre réservation pour :</p>
+          <p style="font-weight: 600; color: var(--primary-color);">${service}<br>Le ${date} à ${heure}</p>
+          <p style="font-size: 0.9rem; color: #666;">Cette action est irréversible.</p>
+          
+          <div class="confirm-buttons">
+            <button class="btn btn-secondary" onclick="closeCancelModal()">
+              <i class="fas fa-arrow-left"></i> Retour
+            </button>
+            <button class="btn" style="background: var(--danger-color); color: white;" onclick="confirmCancellation('${bookingId}')">
+              <i class="fas fa-check"></i> Confirmer l'annulation
+            </button>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.closeCancelModal = function() {
+      const modal = document.querySelector('.confirm-modal');
+      if (modal) {
+        document.body.removeChild(modal);
+        document.body.style.overflow = 'auto';
+      }
+    };
+
+    window.confirmCancellation = async function(bookingId) {
+      try {
+        // Mettre à jour le statut de la réservation
+        await updateDoc(doc(db, 'bookings', bookingId), { 
+          status: "annulé par client",
+          cancelledAt: new Date().toISOString(),
+          cancelReason: "Demande client"
+        });
+        
+        closeCancelModal();
+        showToast('✅ Réservation annulée avec succès!', 'success');
+        
+        // Rafraîchir l'affichage
+        setTimeout(() => {
+          const phone = document.getElementById('checkNumber').value;
+          if (phone) {
+            checkStatus();
+          }
+        }, 1000);
+        
+      } catch (error) {
+        console.error('Erreur lors de l\'annulation:', error);
+        showToast('❌ Erreur lors de l\'annulation. Veuillez réessayer.', 'error');
+      }
+    };
+
+    // Nouvelle fonction: demande de modification
+    window.requestModification = function(bookingId, phone) {
+      const message = encodeURIComponent(`Bonjour! Je souhaite modifier ma réservation (ID: ${bookingId}). Pouvez-vous m'aider?`);
+      window.open(`https://wa.me/237696020536?text=${message}`, '_blank');
+      showToast('Redirection vers WhatsApp pour modification...', 'info');
+    };
+
+    // Nouvelle fonction: contacter le salon
+    window.contactSalon = function(clientPhone, service, date) {
+      const message = encodeURIComponent(`Bonjour! Je vous contacte concernant ${service ? 'ma réservation pour ' + service + (date ? ' du ' + date : '') : 'une réservation'}. Mon numéro: ${clientPhone}`);
+      window.open(`https://wa.me/237696020536?text=${message}`, '_blank');
+      showToast('Redirection vers WhatsApp...', 'info');
+    };
+    window.contactClient = function(phone) {
+      const message = encodeURIComponent("Bonjour! Concernant votre réservation chez ShopExpress Beauté INNOVA...");
+      window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+      showToast('Redirection vers WhatsApp...', 'info');
+    };
+
+    // Animation au scroll améliorée
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observer tous les services et sections
+    document.querySelectorAll('.service, .testimonial, .stat-item').forEach(element => {
+      element.style.opacity = '0';
+      element.style.transform = 'translateY(30px)';
+      element.style.transition = 'all 0.6s ease-out';
+      observer.observe(element);
+    });
+
+    // Effet de parallaxe pour l'en-tête
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const parallax = document.querySelector('header');
+      const speed = scrolled * 0.5;
+      parallax.style.transform = `translateY(${speed}px)`;
+    });
+
+    // Validation du formulaire en temps réel
+    const inputs = document.querySelectorAll('#formule input, #formule select');
+    inputs.forEach(input => {
+      input.addEventListener('input', function() {
+        if (this.checkValidity()) {
+          this.style.borderColor = '#4caf50';
+        } else {
+          this.style.borderColor = '#f44336';
+        }
+      });
+    });
+
+    // Gestion des touches du clavier
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        fermer();
+        if (chatOpen) {
+          toggleChat();
+        }
+      }
+      if (e.key === 'Enter' && chatOpen && document.activeElement.id === 'chatInput') {
+        sendMessage();
+      }
+    });
+
+    // Initialisation au chargement
+    window.addEventListener('load', () => {
+      // Animation des services au chargement
+      const services = document.querySelectorAll('.service');
+      services.forEach((service, index) => {
+        setTimeout(() => {
+          service.classList.add('fade-in');
+        }, index * 200);
+      });
+
+      // Génération du calendrier
+      generateCalendar();
+      
+      // Mise à jour des statistiques
+      updateStats();
+      
+      // Mise à jour périodique des stats
+      setInterval(updateStats, 30000); // Toutes les 30 secondes
+      
+      // Message de bienvenue
+      setTimeout(() => {
+        showToast('Bienvenue chez ShopExpress Beauté INNOVA! 💄✨', 'success');
+      }, 1000);
+    });
+
+    // Gestion de la météo (simulation)
+    function updateWeather() {
+      const weatherWidget = document.getElementById('weather');
+      const weather = [
+        { icon: 'fas fa-sun', temp: '28°C', desc: 'Parfait pour une sortie beauté!' },
+        { icon: 'fas fa-cloud-sun', temp: '26°C', desc: 'Temps idéal pour se faire belle!' },
+        { icon: 'fas fa-cloud-rain', temp: '24°C', desc: 'Journée cocooning beauté!' }
+      ];
+      
+      const current = weather[Math.floor(Math.random() * weather.length)];
+      weatherWidget.innerHTML = `
+        <div class="weather-icon">
+          <i class="${current.icon}"></i>
+        </div>
+        <div class="weather-temp">${current.temp}</div>
+        <div class="weather-desc">${current.desc}</div>
+      `;
+    }
+
+    // Mise à jour de la météo
+    updateWeather();
+    setInterval(updateWeather, 300000); // Toutes les 5 minutes
+
+    // Gestion des animations d'hover personnalisées
+    document.querySelectorAll('.service').forEach(service => {
+      service.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px) scale(1.02)';
+      });
+      
+      service.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+    // Système de notification push (simulation)
+    function simulateNotifications() {
+      const notifications = [
+        "Nouvelle réservation reçue!",
+        "Rappel: RDV dans 30 minutes",
+        "Client satisfait - 5 étoiles reçues!",
+        "Promotion: -20% jusqu'à demain!"
+      ];
+      
+      setInterval(() => {
+        if (Math.random() > 0.7) { // 30% de chance
+          const notification = notifications[Math.floor(Math.random() * notifications.length)];
+          showToast(notification, 'info');
+        }
+      }, 60000); // Toutes les minutes
+    }
+    // Démarrer les notifications
+    simulateNotifications();
+
+    console.log("🎨 ShopExpress Beauté INNOVA - Version Pro chargée avec succès!");
+  </script>
 </body>
-
 </html>
