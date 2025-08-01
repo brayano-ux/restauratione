@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -921,7 +921,6 @@
 
         // 🆕 Création de compte uniquement
         async function creerCompte() {
-            document.getElementById("profile-header").style.display = "none";
             const nom = get('nom').value.trim();
             const numero = get('numero').value.trim();
             const mdp = get('motdepasse').value.trim();
@@ -947,6 +946,28 @@
                     Swal.fire('Attention', 'Ce numéro est déjà utilisé. Essaie sur un autre téléphone.', 'warning');
                 } else {
                     Swal.fire('Erreur', 'Erreur: ' + e.message, 'error');
+                }
+            }
+        }
+
+        // 🔐 Connexion
+        async function seConnecter() {
+            const numero = get('numero').value.trim();
+            const mdp = get('motdepasse').value.trim();
+
+            if (!numero || !mdp) return Swal.fire('Attention', 'Remplis tous les champs', 'warning');
+
+            try {
+                const email = numero + "@momo.cm";
+                await signInWithEmailAndPassword(auth, email, mdp);
+                Swal.fire('Succès', 'Connexion réussie !', 'success');
+            } catch (e) {
+                if (e.code === "auth/user-not-found") {
+                    Swal.fire('Attention', 'Aucun compte trouvé avec ce numéro. Créez d\'abord un compte.', 'warning');
+                } else if (e.code === "auth/wrong-password") {
+                    Swal.fire('Attention', 'Mot de passe incorrect', 'warning');
+                } else {
+                    Swal.fire('Erreur', 'Erreur de connexion: ' + e.message, 'error');
                 }
             }
         }
@@ -1447,6 +1468,7 @@
         // Liaison des boutons
         window.addEventListener("DOMContentLoaded", () => {
             if (get("btnCreerCompte")) get("btnCreerCompte").addEventListener("click", creerCompte);
+            if (get("btnSeConnecter")) get("btnSeConnecter").addEventListener("click", seConnecter);
 
             if (get("posterBtn")) get("posterBtn").addEventListener("click", envoyer);
             if (get("btnAcceuil")) get("btnAcceuil").addEventListener("click", afficheracceuil);
