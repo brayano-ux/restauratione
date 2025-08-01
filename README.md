@@ -644,9 +644,9 @@
         .mt-4 {
             margin-top: 1rem;
         }
-    #voirProfils{
-    position:fixed;
-    top:150px;
+        #voirProfils{
+        position:fixed;
+        top:150px;}
     </style>
 </head>
 
@@ -865,16 +865,30 @@
                     const snapshot = await getDoc(doc(db, "users", user.uid));
                     const data = snapshot.data();
 
-                    utilisateurnom = data.nom;
+                    // Utiliser le nom s'il existe, sinon utiliser l'email ou un nom par défaut
+                    utilisateurnom = data?.nom || data?.prenom || user.email?.split('@')[0] || "Utilisateur";
                     utilisateurconnecter = true;
 
                     connexionDiv.style.display = "none";
                     menuOptions.style.display = "flex";
 
+                    // Afficher automatiquement les jobs
                     afficheracceuil();
                 } catch (e) {
                     console.error("Erreur lors du chargement des infos :", e);
+                    // Même en cas d'erreur, on peut continuer avec un nom par défaut
+                    utilisateurnom = user.email?.split('@')[0] || "Utilisateur";
+                    utilisateurconnecter = true;
+                    connexionDiv.style.display = "none";
+                    menuOptions.style.display = "flex";
+                    afficheracceuil();
                 }
+            } else {
+                // Utilisateur déconnecté
+                utilisateurconnecter = false;
+                utilisateurnom = "";
+                connexionDiv.style.display = "block";
+                menuOptions.style.display = "none";
             }
         });
 
@@ -986,11 +1000,16 @@
         // Afficher les jobs
         async function afficheracceuil() {
             moi.style.display = "none";
-            document.getElementById("profile-header").style.display = "none";
+            // Vérifier si l'élément existe avant d'essayer de le modifier
+            const profileHeader = document.getElementById("profile-header");
+            if (profileHeader) profileHeader.style.display = "none";
+
             formulaire.style.display = "none";
             chatDiv.style.display = "none";
             container.style.display = "block";
-            document.getElementById("voirProfils").style.display = "block";
+
+            const voirProfils = document.getElementById("voirProfils");
+            if (voirProfils) voirProfils.style.display = "block";
 
             // Afficher un indicateur de chargement
             container.innerHTML = `
@@ -1065,7 +1084,9 @@
         // Formulaire de job
         function afficherformulaire() {
             moi.style.display = "none";
-            document.getElementById("profile-header").style.display = "none";
+            const profileHeader = document.getElementById("profile-header");
+            if (profileHeader) profileHeader.style.display = "none";
+
             formulaire.style.display = "block";
             container.style.display = "none";
             chatDiv.style.display = "none";
@@ -1073,7 +1094,9 @@
 
         // Envoi d'un job
         async function envoyer() {
-            document.getElementById("profile-header").style.display = "none";
+            const profileHeader = document.getElementById("profile-header");
+            if (profileHeader) profileHeader.style.display = "none";
+
             const titre = get('titre').value.trim();
             const prix = get('prix').value.trim();
             const description = get('description').value.trim();
@@ -1100,7 +1123,9 @@
 
         //  Postuler
         async function postuler(idJob) {
-            document.getElementById("profile-header").style.display = "none";
+            const profileHeader = document.getElementById("profile-header");
+            if (profileHeader) profileHeader.style.display = "none";
+
             const user = auth.currentUser;
             if (!user) return Swal.fire('Attention', 'Connecte-toi d\'abord', 'warning');
 
@@ -1144,7 +1169,9 @@
             idConversation = [uid1, uid2].sort().join("_");
 
             moi.style.display = "none";
-            document.getElementById("profile-header").style.display = "none";
+            const profileHeader = document.getElementById("profile-header");
+            if (profileHeader) profileHeader.style.display = "none";
+
             container.style.display = "none";
             formulaire.style.display = "none";
             chatDiv.style.display = "block";
@@ -1313,7 +1340,9 @@
         //  Afficher les profils des utilisateurs
         async function afficherProfilsUtilisateurs() {
             moi.style.display = "none";
-            document.getElementById("profile-header").style.display = "none";
+            const profileHeader = document.getElementById("profile-header");
+            if (profileHeader) profileHeader.style.display = "none";
+
             formulaire.style.display = "none";
             chatDiv.style.display = "none";
             container.style.display = "block";
@@ -1353,7 +1382,9 @@
         // Lire les conversations
         async function lireConversations() {
             moi.style.display = "none";
-            document.getElementById("profile-header").style.display = "none";
+            const profileHeader = document.getElementById("profile-header");
+            if (profileHeader) profileHeader.style.display = "none";
+
             formulaire.style.display = "none";
             chatDiv.style.display = "none";
             container.style.display = "block";
