@@ -644,6 +644,9 @@
         .mt-4 {
             margin-top: 1rem;
         }
+    #voirProfils{
+    position:fixed;
+    top:150px;
     </style>
 </head>
 
@@ -940,6 +943,10 @@
                 });
 
                 Swal.fire('Succès', 'Compte créé avec succès !', 'success');
+                // Afficher automatiquement les jobs après création de compte
+                setTimeout(() => {
+                    afficheracceuil();
+                }, 1000);
 
             } catch (e) {
                 if (e.code === "auth/email-already-in-use") {
@@ -961,6 +968,10 @@
                 const email = numero + "@momo.cm";
                 await signInWithEmailAndPassword(auth, email, mdp);
                 Swal.fire('Succès', 'Connexion réussie !', 'success');
+                // Afficher automatiquement les jobs après connexion
+                setTimeout(() => {
+                    afficheracceuil();
+                }, 1000);
             } catch (e) {
                 if (e.code === "auth/user-not-found") {
                     Swal.fire('Attention', 'Aucun compte trouvé avec ce numéro. Créez d\'abord un compte.', 'warning');
@@ -981,44 +992,73 @@
             container.style.display = "block";
             document.getElementById("voirProfils").style.display = "block";
 
-            container.innerHTML = "<h3 class='text-center mb-4'><i class='fas fa-briefcase'></i> Liste des jobs disponibles</h3>";
+            // Afficher un indicateur de chargement
+            container.innerHTML = `
+                <div class="text-center" style="padding: 2rem;">
+                    <div style="display: inline-block; width: 40px; height: 40px; border: 4px solid #e5e7eb; border-top: 4px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                    <p style="margin-top: 1rem; color: var(--text-secondary);">Chargement des jobs...</p>
+                </div>
+                <style>
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                </style>
+            `;
 
-            const q = query(collection(db, "jobs"), orderBy("timestamp", "desc"));
-            const snap = await getDocs(q);
+            try {
+                const q = query(collection(db, "jobs"), orderBy("timestamp", "desc"));
+                const snap = await getDocs(q);
 
-            if (snap.empty) {
-                container.innerHTML += `
-          <div class="card text-center">
-            <i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-light); margin-bottom: 1rem;"></i>
-            <p>Aucun job disponible pour le moment.</p>
-            <p>Soyez le premier à poster un job !</p>
-          </div>`;
-                return;
-            }
-
-            for (const docu of snap.docs) {
-                const job = docu.data();
-                if (job.conclu) continue;
-
-                let nomPosteur = "Inconnu";
-                if (job.posteurUID) {
-                    const posteurSnap = await getDoc(doc(db, "users", job.posteurUID));
-                    if (posteurSnap.exists()) nomPosteur = posteurSnap.data().nom;
+                if (snap.empty) {
+                    container.innerHTML = `
+                        <h3 class='text-center mb-4'><i class='fas fa-briefcase'></i> Liste des jobs disponibles</h3>
+                        <div class="card text-center">
+                            <i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-light); margin-bottom: 1rem;"></i>
+                            <p>Aucun job disponible pour le moment.</p>
+                            <p>Soyez le premier à poster un job !</p>
+                        </div>`;
+                    return;
                 }
 
-                const div = document.createElement("div");
-                div.className = "card";
-                div.innerHTML = `
-          <h4><i class="fas fa-tasks"></i> ${job.titre}</h4>
-          <p><strong><i class="fas fa-coins"></i> Prix:</strong> ${job.prix} FCFA</p>
-          <p><strong><i class="fas fa-user"></i> Posté par:</strong> ${nomPosteur}</p>
-          <p><i class="fas fa-info-circle"></i> ${job.description}</p>
-          <button class="btn btn-primary" data-id="${docu.id}">
-            <i class="fas fa-handshake"></i> Postuler
-          </button>
-        `;
-                container.appendChild(div);
-                div.querySelector("button").addEventListener("click", () => postuler(docu.id));
+                // Réinitialiser le contenu avec le titre
+                container.innerHTML = "<h3 class='text-center mb-4'><i class='fas fa-briefcase'></i> Liste des jobs disponibles</h3>";
+
+                for (const docu of snap.docs) {
+                    const job = docu.data();
+                    if (job.conclu) continue;
+
+                    let nomPosteur = "Inconnu";
+                    if (job.posteurUID) {
+                        const posteurSnap = await getDoc(doc(db, "users", job.posteurUID));
+                        if (posteurSnap.exists()) nomPosteur = posteurSnap.data().nom;
+                    }
+
+                    const div = document.createElement("div");
+                    div.className = "card";
+                    div.innerHTML = `
+                        <h4><i class="fas fa-tasks"></i> ${job.titre}</h4>
+                        <p><strong><i class="fas fa-coins"></i> Prix:</strong> ${job.prix} FCFA</p>
+                        <p><strong><i class="fas fa-user"></i> Posté par:</strong> ${nomPosteur}</p>
+                        <p><i class="fas fa-info-circle"></i> ${job.description}</p>
+                        <button class="btn btn-primary" data-id="${docu.id}">
+                            <i class="fas fa-handshake"></i> Postuler
+                        </button>
+                    `;
+                    container.appendChild(div);
+                    div.querySelector("button").addEventListener("click", () => postuler(docu.id));
+                }
+            } catch (error) {
+                console.error("Erreur lors du chargement des jobs:", error);
+                container.innerHTML = `
+                    <h3 class='text-center mb-4'><i class='fas fa-briefcase'></i> Liste des jobs disponibles</h3>
+                    <div class="card text-center">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--danger-color); margin-bottom: 1rem;"></i>
+                        <p>Erreur lors du chargement des jobs.</p>
+                        <button class="btn btn-primary" onclick="afficheracceuil()">
+                            <i class="fas fa-refresh"></i> Réessayer
+                        </button>
+                    </div>`;
             }
         }
 
