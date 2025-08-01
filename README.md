@@ -1,4 +1,3 @@
-
 <html lang="fr">
 
 <head>
@@ -88,7 +87,7 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             padding: 1rem 2rem;
-            position: fixed;
+            position: relative;
             top: 0;
             left: 0;
             width: 100vw;
@@ -2186,8 +2185,7 @@
 
             <!-- Nouveaux services ajoutés -->
             <div class="service fade-in" data-category="soins">
-                <img src="https://via.placeholder.com/400x250/FF69B4/FFFFFF?text=Soin+Visage" alt="Soin du visage">
-                <div class="service-content">
+<img src="https://i.ibb.co/CKLfYGBh/file-00000000890061fbb39c513ced8077fd.png" alt="Coiffure mariée" />                <div class="service-content">
                     <h3><i class="fas fa-spa"></i> Soin du visage</h3>
                     <div class="rating">
                         <i class="fas fa-star star"></i>
@@ -2211,8 +2209,7 @@
 
             <div class="service fade-in" data-category="coiffure">
                 <div class="promo-badge">Nouveau!</div>
-                <img src="https://via.placeholder.com/400x250/4ECDC4/FFFFFF?text=Coiffure+Mariée"
-                    alt="Coiffure de mariée">
+<img src="https://i.ibb.co/kf6sSnb/file-000000004b686243b4c87573cfdb5e7c.png"                     alt="Coiffure de mariée">
                 <div class="service-content">
                     <h3><i class="fas fa-crown"></i> Coiffure de mariée</h3>
                     <div class="rating">
@@ -2236,7 +2233,7 @@
             </div>
 
             <div class="service fade-in" data-category="soins">
-                <img src="https://via.placeholder.com/400x250/FFE66D/333333?text=Manucure+Pédicure"
+                <img src="c:\Users\lenovo\Pictures\51a06b1b571c7b1d4474370d464729e3.png"
                     alt="Manucure Pédicure">
                 <div class="service-content">
                     <h3><i class="fas fa-hand-sparkles"></i> Manucure & Pédicure</h3>
