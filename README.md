@@ -644,6 +644,10 @@
         .mt-4 {
             margin-top: 1rem;
         }
+        #voirProfils{
+        position:fixed;
+        top:150px;
+        }
     </style>
 </head>
 
