@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Petits Jobs Express</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -13,15 +13,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         :root {
-            --primary-color: #2563eb;
-            --primary-light: #3b82f6;
-            --primary-dark: #1d4ed8;
+            --primary-color: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
             --secondary-color: #10b981;
             --secondary-light: #34d399;
             --accent-color: #f59e0b;
-            --success-color: #059669;
-            --danger-color: #dc2626;
-            --warning-color: #d97706;
             --background-color: #f8fafc;
             --surface-color: #ffffff;
             --text-primary: #1f2937;
@@ -32,10 +29,12 @@
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --border-radius: 8px;
-            --border-radius-lg: 12px;
-            --border-radius-xl: 16px;
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --border-radius-xl: 24px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --container-max-width: 1200px;
+
         }
 
         * {
@@ -44,61 +43,165 @@
             box-sizing: border-box;
         }
 
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
             line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--background-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
             overflow-x: hidden;
         }
 
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow-lg);
-        }
-
-        header h1 {
-            text-align: center;
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin: 0;
-        }
-
-        /* Container principal */
-        .main-container {
-            max-width: 1200px;
+        /* Container responsive */
+        .container {
+            max-width: var(--container-max-width, 1200px);
             margin: 0 auto;
             padding: 0 1rem;
+            width: 100%;
         }
 
-        #contenuPrincipal {
-            margin-top: 80px;
-            padding: 2rem 0;
+        /* En-tête principal */
+        .entete {
+            background: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+            width: 100%;
         }
 
-        /* Boutons */
+        /* Contenu de l'en-tête */
+        .entete-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            gap: 1rem;
+            flex-wrap: nowrap;
+        }
+
+        /* Logo et menu burger */
+        .entete-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .entete-logo strong {
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.025em;
+            white-space: nowrap;
+        }
+
+        /* Bouton menu burger (caché par défaut) */
+        .btn-menu {
+            display: none;
+            background: var(--surface-color);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            width: 44px;
+            height: 44px;
+            border-radius: var(--border-radius);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-menu:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Barre de recherche */
+        .entete-search {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+            min-width: 0;
+        }
+
+        .entete-search input {
+            width: 100%;
+            height: 48px;
+            padding: 0 1rem 0 3rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-xl, 24px);
+            background: var(--surface-color);
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .entete-search input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .entete-search i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            z-index: 1;
+        }
+
+        .suggestion-liste {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1001;
+        }
+
+        .entete-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+            flex-wrap: nowrap;
+        }
+
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
+            gap: 0.375rem;
+            padding: 0.625rem 1rem;
             border: none;
-            border-radius: var(--border-radius);
+            border-radius: var(--border-radius, 8px);
             font-size: 0.875rem;
             font-weight: 600;
             text-decoration: none;
             cursor: pointer;
             transition: var(--transition);
             white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            min-height: 44px;
+            box-sizing: border-box;
         }
 
         .btn-primary {
@@ -113,9 +216,11 @@
         }
 
         .btn-secondary {
-            background: var(--surface-color);
+            position: relative;
+            background-color: transparent;
+            background: transparent;
+            left: 5px;
             color: var(--text-primary);
-            border: 2px solid var(--border-color);
         }
 
         .btn-secondary:hover {
@@ -125,7 +230,271 @@
         }
 
         .btn-success {
-            background: linear-gradient(135deg, var(--success-color), var(--secondary-color));
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Responsive Design */
+
+        /* Tablettes grandes (1024px et moins) */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+
+            .entete-content {
+                gap: 0.75rem;
+            }
+
+            .entete-search {
+                max-width: 400px;
+            }
+
+            .entete-actions {
+                gap: 0.375rem;
+            }
+
+            .btn {
+                padding: 0.5rem 0.875rem;
+                font-size: 0.8rem;
+            }
+
+            /* Cacher certains textes des boutons */
+            .btn span:not(.emoji) {
+                display: none;
+            }
+        }
+
+        /* Tablettes (768px et moins) */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+
+            .entete-content {
+                padding: 0.75rem 0;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+            }
+
+            .entete-logo {
+                order: 1;
+                flex: 0 0 auto;
+            }
+
+            .entete-search {
+                order: 3;
+                flex: 1 1 100%;
+                max-width: 100%;
+                margin-top: 0.5rem;
+            }
+
+            .entete-actions {
+                order: 2;
+                gap: 0.25rem;
+                flex-wrap: wrap;
+            }
+
+            .btn {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+                min-width: auto;
+            }
+
+            .btn-menu {
+                display: flex;
+            }
+
+            .entete-actions .btn:nth-child(n+5) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.25rem;
+            }
+
+            .entete-content {
+                padding: 0.5rem 0;
+                gap: 0.25rem;
+            }
+
+            .entete-logo {
+                gap: 0.5rem;
+            }
+
+            .entete-logo strong {
+                font-size: 1.25rem;
+            }
+
+            .entete-search input {
+                height: 44px;
+                font-size: 0.9rem;
+                padding: 0 0.75rem 0 2.5rem;
+            }
+
+            .entete-search i {
+                left: 0.75rem;
+                font-size: 1rem;
+            }
+
+            .entete-actions {
+                gap: 0.125rem;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .entete-actions::-webkit-scrollbar {
+                display: none;
+            }
+
+            .btn {
+                padding: 0.375rem 0.5rem;
+                font-size: 0.7rem;
+                gap: 0.25rem;
+                flex-shrink: 0;
+            }
+
+            .btn-menu {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+
+            /* Ne garder que les boutons essentiels */
+            .entete-actions .btn:not(.btn-menu):nth-child(n+4) {
+                display: none;
+            }
+        }
+
+        /* Très petits écrans (360px et moins) */
+        @media (max-width: 360px) {
+            .entete-logo strong {
+                font-size: 1.1rem;
+            }
+
+            .entete-search input {
+                height: 40px;
+                font-size: 0.85rem;
+            }
+
+            .btn {
+                padding: 0.25rem 0.375rem;
+                font-size: 0.65rem;
+                min-height: 36px;
+            }
+
+            .btn-menu {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+
+            /* Ne garder que 2-3 boutons essentiels */
+            .entete-actions .btn:not(.btn-menu):nth-child(n+3) {
+                display: none;
+            }
+        }
+
+        /* Menu mobile (quand activé) */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--surface-color);
+            border-top: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            z-index: 999;
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .mobile-menu-content {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .mobile-menu-content .btn {
+            width: 100%;
+            justify-content: flex-start;
+            padding: 0.875rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Optimisations tactiles */
+        @media (hover: none) and (pointer: coarse) {
+            .btn:hover {
+                transform: none;
+            }
+
+            .btn:active {
+                transform: scale(0.95);
+            }
+
+            .entete-search input:focus {
+                transform: none;
+            }
+        }
+
+        /* Mode paysage mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .entete-content {
+                padding: 0.5rem 0;
+            }
+
+            .entete-search {
+                margin-top: 0;
+            }
+
+            .mobile-menu {
+                max-height: calc(100vh - 60px);
+            }
+        }
+
+        /* Support pour les écrans haute densité */
+        @media (-webkit-min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi) {
+            .entete {
+                border-bottom-width: 0.5px;
+            }
+
+            .btn-secondary {
+                border-width: 1px;
+            }
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
             color: white;
             box-shadow: var(--shadow);
         }
@@ -136,7 +505,7 @@
         }
 
         .btn-warning {
-            background: linear-gradient(135deg, var(--warning-color), var(--accent-color));
+            background: linear-gradient(135deg, var(--accent-color), #fbbf24);
             color: white;
             box-shadow: var(--shadow);
         }
@@ -146,121 +515,209 @@
             box-shadow: var(--shadow-lg);
         }
 
-        .btn-danger {
-            background: linear-gradient(135deg, var(--danger-color), #ef4444);
+        .btn-menu {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
             color: white;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-danger:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Voir Profils button */
-        #voirProfils {
-            position: fixed;
-            top: 90px;
-            right: 1rem;
-            background: linear-gradient(135deg, var(--accent-color), #fbbf24);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius-lg);
-            padding: 0.75rem 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            z-index: 100;
-            transition: var(--transition);
-        }
-
-        #voirProfils:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-lg);
-        }
-
-        #menuOptions {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--surface-color);
-            border-top: 1px solid var(--border-color);
-            padding: 1rem;
-            display: flex;
-            justify-content: space-around;
-            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
-            z-index: 999;
-        }
-
-        #menuOptions button {
-            background: none;
-            border: none;
-            font-size: 1rem;
-            color: var(--text-secondary);
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        #menuOptions button:hover {
-            color: var(--primary-color);
-            background: rgba(37, 99, 235, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* Cards */
-        .card {
-            background: var(--surface-color);
-            border-radius: var(--border-radius-lg);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .card h4 {
-            color: var(--text-primary);
             font-size: 1.25rem;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-menu:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        @media (max-width: 768px) {
+            .btn {
+                padding: 0.625rem 1.25rem;
+                font-size: 0.8rem;
+            }
+
+            .btn-menu {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+
+        .tous {
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.3rem;
             font-weight: 600;
-            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
         }
 
-        .card p {
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
+        .fournitures {
+            padding: 30px;
+            width: 90%;
+            max-width: 100%;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            margin: 20px;
+            box-shadow: var(--shadow);
         }
 
-        .card strong {
-            color: var(--primary-color);
+        ul {
+            list-style: none;
+        }
+
+        li {
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            margin-bottom: 8px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 98, 0, 0.1), transparent);
+            transition: var(--transition);
+        }
+
+        li:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateX(10px);
+            border-left-color: var(--primary-color);
+            box-shadow: var(--shadow);
+        }
+
+        li:hover::before {
+            left: 100%;
+        }
+
+        .sous-menu {
+            display: none;
+            margin-left: 20px;
+            padding-top: 15px;
+        }
+
+        li.active .sous-menu {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .separe {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        /* Formulaire */
+        .avise {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            margin: 40px auto;
+            border-radius: 20px;
+            max-width: 600px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .star {
+            font-size: 3rem;
+            color: #e0e0e0;
+            cursor: pointer;
+            transition: var(--transition);
+            margin: 0 5px;
+            display: inline-block;
+        }
+
+        .star:hover,
+        .star.active {
+            color: #ffc107;
+            transform: scale(1.2);
+            text-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
+        }
+
+        #avi {
+            width: 100%;
+            max-width: 500px;
+            height: 120px;
+            border-radius: var(--border-radius);
+            border: 2px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+            resize: none;
+        }
+
+        #avi:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(255, 98, 0, 0.1);
+        }
+
+        .soumettre {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 15px 30px;
+            border-radius: var(--border-radius);
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            margin-top: 20px;
+        }
+
+        .soumettre:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
         .form-container {
             background: var(--surface-color);
             border-radius: var(--border-radius-lg);
-            padding: 2rem;
             box-shadow: var(--shadow-lg);
-            max-width: 500px;
+            padding: 2rem;
             margin: 2rem auto;
+            max-width: 600px;
             border: 1px solid var(--border-color);
         }
 
         .form-title {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 700;
             color: var(--text-primary);
             text-align: center;
@@ -280,27 +737,44 @@
         }
 
         .form-input,
-        .form-textarea {
+        .form-select {
             width: 100%;
-            padding: 0.75rem 1rem;
+            height: 48px;
+            padding: 0 1rem;
             border: 2px solid var(--border-color);
             border-radius: var(--border-radius);
-            font-size: 1rem;
-            transition: var(--transition);
             background: var(--surface-color);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
             color: var(--text-primary);
         }
 
         .form-input:focus,
-        .form-textarea:focus {
+        .form-select:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
 
         .form-textarea {
+            width: 100%;
             min-height: 100px;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            background: var(--surface-color);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
             resize: vertical;
+            color: var(--text-primary);
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
 
         .form-actions {
@@ -313,14 +787,488 @@
             flex: 1;
         }
 
-        /* Chat */
-        .chat-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
+        @media (max-width: 768px) {
+            .form-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+
+        #confirmer,
+        #photoB {
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-light));
+            color: white;
+            padding: 15px 30px;
+            border-radius: var(--border-radius);
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        #confirmer:hover,
+        #photoB:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+        }
+
+        #photoB {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        /* Grid responsive pour les annonces */
+        .annonces-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .annonce-card {
+            background: var(--surface-color);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+            max-width: 100%;
+        }
+
+        .annonce-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .annonce-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            flex-shrink: 0;
+        }
+
+        .annonce-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .annonce-title {
+            font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        /* Prix responsive */
+        .annonce-price {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Détails en grid responsive */
+        .annonce-details {
+            display: grid;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .annonce-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.4;
+        }
+
+        .annonce-detail strong {
+            color: var(--text-primary);
+            font-weight: 600;
+            min-width: 60px;
+            flex-shrink: 0;
+        }
+
+        /* Description responsive */
+        .annonce-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            flex-grow: 1;
+        }
+
+        /* Actions responsive */
+        .annonce-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: auto;
+        }
+
+        .annonce-actions .btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            min-height: 44px;
+            /* Taille minimum tactile */
+        }
+
+        /* Responsive Breakpoints */
+
+        /* Tablettes (768px et moins) */
+        @media (max-width: 768px) {
+            .annonces-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1.25rem;
+                padding: 1.5rem 0.75rem;
+            }
+
+            .annonce-content {
+                padding: 1.25rem;
+            }
+
+            .annonce-image {
+                height: 180px;
+            }
+        }
+
+        /* Mobiles (480px et moins) */
+        @media (max-width: 480px) {
+            .annonces-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 1rem 0.5rem;
+            }
+
+            .annonce-card {
+                margin: 0 auto;
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .annonce-content {
+                padding: 1rem;
+            }
+
+            .annonce-image {
+                height: 160px;
+            }
+
+            .annonce-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .annonce-price {
+                font-size: 1.25rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .annonce-details {
+                margin-bottom: 1rem;
+            }
+
+            .annonce-detail {
+                font-size: 0.8rem;
+            }
+
+            .annonce-detail strong {
+                min-width: 50px;
+                font-size: 0.8rem;
+            }
+
+            .annonce-description {
+                font-size: 0.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .annonce-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .annonce-actions .btn {
+                width: 100%;
+                padding: 0.875rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Très petits écrans (360px et moins) */
+        @media (max-width: 360px) {
+            .annonces-grid {
+                padding: 0.75rem 0.25rem;
+            }
+
+            .annonce-card {
+                max-width: 100%;
+            }
+
+            .annonce-content {
+                padding: 0.875rem;
+            }
+
+            .annonce-image {
+                height: 140px;
+            }
+
+            .annonce-title {
+                font-size: 1rem;
+            }
+
+            .annonce-price {
+                font-size: 1.15rem;
+            }
+
+            .annonce-detail,
+            .annonce-description {
+                font-size: 0.75rem;
+            }
+
+            .annonce-detail strong {
+                min-width: 45px;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Améliorations pour l'accessibilité tactile */
+        @media (hover: none) and (pointer: coarse) {
+            .annonce-card:hover {
+                transform: none;
+            }
+
+            .annonce-card:active {
+                transform: scale(0.98);
+            }
+
+            .annonce-actions .btn {
+                min-height: 48px;
+                /* Taille recommandée pour le tactile */
+            }
+        }
+
+        /* Mode sombre responsive */
+        @media (prefers-color-scheme: dark) {
+            .annonce-image {
+                background: linear-gradient(135deg, #374151, #1f2937);
+            }
+        }
+
+        /* Optimisation pour les écrans haute densité */
+        @media (-webkit-min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi) {
+            .annonce-card {
+                border-width: 0.5px;
+            }
+        }
+
+        .competences {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 30px auto;
             max-width: 600px;
+            box-shadow: var(--shadow);
+        }
+
+        #connexion {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            margin: 50px auto;
+            border-radius: 20px;
+            max-width: 500px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        #connexion input {
+            margin-bottom: 20px;
+            height: 50px;
+            border-radius: var(--border-radius);
+            border: 2px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0 15px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        #connexion input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(255, 98, 0, 0.1);
+        }
+
+        #connexion button {
+            width: 100%;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        #connexion button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        footer {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-20px) rotate(360deg);
+            }
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .lien {
+            position: relative;
+            z-index: 1;
+        }
+
+        .lien a {
+            color: #fff;
+            font-size: 1.5rem;
+            margin: 0 1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .lien a:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        .listes {
+            color: white;
+            background: linear-gradient(135deg, #333, #555);
+            width: 96%;
+            height: 50px;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+        }
+
+        .suggestion-liste {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            z-index: 1000;
+            width: 80%;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            margin-top: 5px;
+        }
+
+        .suggestion-liste li {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .suggestion-liste li:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: none;
+        }
+
+        .chat-container {
+            position: relative;
+            top: 60%;
+            left: 100%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            max-width: 800px;
             height: 80vh;
             background: var(--surface-color);
             border-radius: var(--border-radius-lg);
@@ -415,6 +1363,217 @@
             margin-bottom: 1rem;
         }
 
+        /* Animation d'apparition des cartes */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .avis-card {
+            animation: slideInUp 0.6s ease forwards;
+            opacity: 0;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* En-tête de l'avis */
+        .avis-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(230, 230, 250, 0.5);
+        }
+
+        .avis-rating-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stars-container {
+            font-size: 1.4em;
+            line-height: 1;
+        }
+
+        .stars-full {
+            color: #ffd700;
+            text-shadow: 0 1px 2px rgba(255, 215, 0, 0.3);
+        }
+
+        .stars-empty {
+            color: #ddd;
+        }
+
+        .rating-text {
+            font-weight: 700;
+            color: #4a5568;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.1em;
+        }
+
+        .avis-date {
+            color: #718096;
+            font-size: 0.9em;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .avis-author {
+            color: #4a5568;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .avis-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .comment-icon {
+            font-size: 1.2em;
+            opacity: 0.7;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .avis-comment {
+            margin: 0;
+            line-height: 1.6;
+            color: #2d3748;
+            font-size: 1em;
+            position: relative;
+        }
+
+        .avis-title {
+            margin: 0 0 12px 0;
+            color: #2b6cb0;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .avis-footer {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(230, 230, 250, 0.3);
+        }
+
+        .avis-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .btn-helpful,
+        .btn-share {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border: 1px solid #e2e8f0;
+            background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-helpful:hover,
+        .btn-share:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: #cbd5e0;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+        }
+
+        .btn-helpful.active {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border-color: #38a169;
+            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+        }
+
+        .icon {
+            font-size: 1.1em;
+        }
+
+        @media screen and (max-width: 480px) {
+            .avis-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .avis-actions {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .btn-helpful,
+            .btn-share {
+                font-size: 0.8em;
+                padding: 6px 12px;
+            }
+
+            .avis-content {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .comment-icon {
+                align-self: flex-start;
+            }
+        }
+
+        .avis-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(230, 230, 250, 0.4);
+        }
+
+        .loading-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            color: #718096;
+            font-style: italic;
+        }
+
+        .loading-indicator::before {
+            content: "⏳";
+            margin-right: 8px;
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
         .chat-input {
             flex: 1;
             height: 48px;
@@ -428,7 +1587,7 @@
         .chat-input:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
 
         .chat-actions {
@@ -440,120 +1599,7 @@
             flex: 1;
         }
 
-        /* Profil */
-        .profile-container {
-            background: var(--surface-color);
-            border-radius: var(--border-radius-lg);
-            padding: 2rem;
-            box-shadow: var(--shadow-lg);
-            max-width: 600px;
-            margin: 2rem auto;
-            border: 1px solid var(--border-color);
-        }
-
-        .profile-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .profile-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .photo-upload {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .photo-preview {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin: 1rem auto;
-            display: block;
-            box-shadow: var(--shadow);
-            border: 4px solid var(--primary-color);
-        }
-
-        .profile-card {
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-lg);
-            padding: 1.5rem;
-            margin: 1rem 0;
-            box-shadow: var(--shadow);
-        }
-
-        .profile-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid var(--primary-color);
-        }
-
-        .profile-details h4 {
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .profile-details p {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-
-        .contact-btn {
-            background: linear-gradient(135deg, var(--success-color), var(--secondary-color));
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            margin-top: 1rem;
-        }
-
-        .contact-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            .main-container {
-                padding: 0 0.5rem;
-            }
-
-            #contenuPrincipal {
-                margin-top: 70px;
-                padding: 1rem 0;
-            }
-
-            header h1 {
-                font-size: 1.5rem;
-            }
-
-            .form-container,
-            .profile-container {
-                margin: 1rem;
-                padding: 1.5rem;
-            }
-
             .chat-container {
                 width: 95%;
                 height: 90vh;
@@ -578,1136 +1624,2587 @@
             .chat-actions {
                 flex-direction: column;
             }
+        }
 
-            .form-actions {
+        #envoyer,
+        #conclure,
+        #fermerChat {
+            width: 100%;
+            height: 50px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-radius: var(--border-radius);
+            border: none;
+            padding: 12px 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        #envoyer {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+
+        #envoyer:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        #conclure {
+            background: linear-gradient(135deg, #ffc107, #ffca2c);
+            color: #333;
+        }
+
+        #conclure:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
+        }
+
+        #fermerChat {
+            background: linear-gradient(135deg, #dc3545, #e74c3c);
+            color: white;
+        }
+
+        #fermerChat:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+        }
+
+        #messageInput {
+            margin-bottom: 25px;
+            height: 45px;
+            width: 90%;
+            font-size: 1.1rem;
+            border-radius: 25px;
+            border: 2px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        #messageInput:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(255, 98, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .entete {
                 flex-direction: column;
+                gap: 20px;
+                padding: 20px;
             }
 
-            #menuOptions {
-                padding: 0.75rem;
+            .entete input {
+                width: 100%;
+                max-width: none;
             }
 
-            #menuOptions button {
-                font-size: 0.875rem;
-                padding: 0.5rem;
+            .avise,
+            #formulaire,
+            #connexion {
+                width: 95%;
+                margin: 20px auto;
+                padding: 30px 20px;
             }
 
-            .card {
-                padding: 1rem;
+            #chat {
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                right: 20px;
+                max-width: none;
+                width: calc(100% - 40px);
             }
 
-            #bonus {
-                top: 80px;
-                right: 0.5rem;
-                padding: 0.5rem 0.75rem;
-                font-size: 0.875rem;
+            .entete strong {
+                font-size: 1.8rem;
+            }
+
+            .trois {
+                font-size: 1.5rem;
+                width: 45px;
+                height: 45px;
             }
         }
 
-        @media (max-width: 480px) {
-            .profile-info {
-                flex-direction: column;
-                text-align: center;
+        .entete {
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
             }
 
-            .profile-avatar {
-                width: 100px;
-                height: 100px;
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .loading {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        #conteneuravis {
+            height: 60%;
+            width: 50%;
+            border-radius: 20px;
+            border: 2px solid lavender;
+            padding: 20px;
+            margin: 20px auto;
+            color: black;
+            font-weight: 600;
+            background-color: white;
+            background: white;
+        }
+
+        .conteneuravis {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            color: var(--text-color);
+            box-shadow: var(--shadow);
+        }
+
+        .content-section {
+            padding: 2rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .suggestion-liste {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .suggestion-liste li {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .suggestion-liste li:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .suggestion-liste li:last-child {
+            border-bottom: none;
+        }
+
+        .star {
+            font-size: 2rem;
+            color: #e5e7eb;
+            cursor: pointer;
+            transition: var(--transition);
+            margin: 0 0.25rem;
+        }
+
+        .star:hover,
+        .star.active {
+            color: #fbbf24;
+            transform: scale(1.1);
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--text-primary), #374151);
+            color: white;
+            padding: 3rem 0;
+            margin-top: auto;
+        }
+
+        .lien {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .lien a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .lien a:hover {
+            color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .lien {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+        }
+
+        .advanced {
+            display: flex;
+            margin: 30px;
+            position: relative;
+        }
+
+        .croix {
+            background: transparent;
+            background-color: transparent;
+            height: 40px;
+            width: 40px;
+            border-radius: 25px;
+            justify-content: center;
+            font-size: 40px;
+            align-items: center;
+            position: relative;
+            left: 17%;
+            top: 0;
+            border: none;
+        }
+
+        .croix:hover {
+            background-color: lavender;
+        }
+
+        #btnSeConnecter {
+            font-size: 10px;
+        }
+
+        @media (max-width: 600px) {
+
+            .container,
+            .form-container,
+            .avise,
+            .fournitures {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                margin: 0 !important;
+                padding: 8px !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+            }
+
+            .entete-content {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: stretch;
+                padding: 0.5rem 0 !important;
+            }
+
+            /* Haut : boutons actions */
+            .entete-actions {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                gap: 0.7rem !important;
+                padding-bottom: 0.7rem !important;
+                margin-bottom: 0.7rem !important;
+                width: 100vw !important;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .entete-actions::-webkit-scrollbar {
+                display: none;
+            }
+
+            .entete-actions .btn {
+                flex-shrink: 0 !important;
+                min-width: 140px !important;
+                font-size: 1.1em !important;
+                padding: 0.9em 1.2em !important;
+                margin-right: 0.7rem !important;
+                border-radius: 18px !important;
+            }
+
+            /* Bas : menu boutons */
+            .menu {
+                flex-direction: row !important;
+                gap: 1.2rem !important;
+                padding: 1.2rem 0.5rem !important;
+                position: fixed !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                width: 100vw !important;
+                z-index: 9999 !important;
+                box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08) !important;
+            }
+
+            .menu .btn {
+                flex: 1 1 0 !important;
+                min-width: 90px !important;
+                font-size: 1.15em !important;
+                padding: 1em 0.5em !important;
+                margin: 0 0.3em !important;
+                border-radius: 18px !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07) !important;
+            }
+
+            .menu button {
+                font-size: 1.15em !important;
+                padding: 1em 0.5em !important;
+                border-radius: 18px !important;
+            }
+
+            .annonces-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+                padding: 0.5rem !important;
+                margin: 0 !important;
+            }
+
+            .annonce-card {
+                margin: 0 auto !important;
+                border-radius: 10px !important;
+                box-shadow: var(--shadow-sm) !important;
+                max-width: 100vw !important;
+            }
+
+            .annonce-image {
+                height: 140px !important;
+                object-fit: cover !important;
+                border-radius: 10px 10px 0 0 !important;
+                width: 100% !important;
+                max-width: 100vw !important;
+            }
+
+            .chat-container {
+                width: 100vw !important;
+                left: 0 !important;
+                transform: none !important;
+                border-radius: 0 !important;
+                max-width: 100vw !important;
+                height: 100vh !important;
+                top: 0 !important;
+            }
+
+            .chat-messages {
+                padding: 0.5rem !important;
+                font-size: 0.95rem !important;
+            }
+
+            .chat-header,
+            .chat-input-container {
+                padding: 0.5rem !important;
+            }
+
+            .form-actions {
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+            }
+
+            .entete-search input {
+                font-size: 1rem !important;
+                height: 40px !important;
+                padding-left: 2.5rem !important;
+            }
+
+            .suggestion-liste {
+                width: 100vw !important;
+                left: 0 !important;
+                border-radius: 0 0 10px 10px !important;
+            }
+
+            #conteneuravis {
+                width: 100vw !important;
+                margin: 0 !important;
+                border-radius: 0 !important;
+                padding: 10px !important;
+            }
+
+            body,
+            html {
+                overflow-x: hidden !important;
+            }
+        }
+
+        #temps {
+            border: none;
+            font-size: 1.7rem;
+            margin: 0 0.2rem;
+            vertical-align: middle;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        #chat {
+            position: relative;
+            top: 150px;
+            left: 100px;
+        }
+
+        #mess {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .chat-container {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                max-width: 100vw !important;
+                max-height: 100vh !important;
+                border-radius: 0 !important;
+                padding: 0 !important;
+                z-index: 9999 !important;
+                box-shadow: none !important;
+                transform: none !important;
+            }
+
+            .chat-header {
+                padding: 0.75rem 0.5rem !important;
+                font-size: 1rem !important;
+            }
+
+            .chat-messages {
+                padding: 0.5rem 0.25rem !important;
+                font-size: 1rem !important;
+            }
+
+            .message {
+                max-width: 98% !important;
+                font-size: 1rem !important;
+                padding: 0.6rem 0.7rem !important;
+            }
+
+            .chat-input-container {
+                padding: 0.5rem 0.25rem !important;
             }
 
             .chat-input-group {
-                flex-direction: column;
+                flex-direction: column !important;
+                gap: 0.5rem !important;
             }
 
             .chat-input {
-                width: 100%;
+                width: 100% !important;
+                min-width: 0 !important;
+                font-size: 1rem !important;
+                height: 42px !important;
+            }
+
+            .chat-actions {
+                flex-direction: column !important;
+                gap: 0.5rem !important;
+            }
+
+            .chat-actions .btn,
+            .chat-input-group .btn {
+                width: 100% !important;
+                min-width: 0 !important;
+                font-size: 1rem !important;
+                padding: 0.8rem 0.5rem !important;
+                margin: 0 !important;
+                box-sizing: border-box !important;
+            }
+
+            .btn {
+                width: 100% !important;
+                min-width: 0 !important;
+                font-size: 1rem !important;
+                padding: 0.8rem 0.5rem !important;
+                margin-bottom: 0.5rem !important;
+                box-sizing: border-box !important;
+            }
+
+            /* Boutons principaux scrollables horizontalement sauf le bouton jour/nuit */
+            .entete-actions {
+                display: flex !important;
+                flex-direction: row !important;
+                overflow-x: auto !important;
+                gap: 0.5rem !important;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                padding-bottom: 0.5rem;
+                margin-bottom: 0.5rem;
+                width: 100vw !important;
+            }
+
+            .entete-actions::-webkit-scrollbar {
+                display: none;
+            }
+
+            .entete-actions .btn {
+                width: auto !important;
+                min-width: 120px !important;
+                flex-shrink: 0 !important;
+                margin-bottom: 0 !important;
+            }
+
+            /* Le bouton jour/nuit (indicateur) est placé juste à côté du logo sur mobile */
+            .entete-logo {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                gap: 0.7rem !important;
+            }
+
+            #temps {
+                position: static !important;
+                margin-left: 0 !important;
+                margin-right: 0.2rem !important;
+                font-size: 1.7rem !important;
+                flex-shrink: 0 !important;
+                order: 2 !important;
             }
         }
 
-        /* Utilitaires */
-        .hidden {
-            display: none !important;
+        /* Menu mobile moderne du bas */
+        .menu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+            padding: 0.75rem;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 999;
         }
 
-        .text-center {
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.75rem;
+            transition: var(--transition);
+            min-width: 60px;
+            border-radius: var(--border-radius);
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .menu-item i {
+            font-size: 1.25rem;
+        }
+
+        #avis,
+        #mess,
+        #accueilBtn {
+            border: none;
+            background-color: transparent;
+            background: transparent;
+            font-size: 17px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
+        }
+
+        .menu {
+            box-shadow: #1f2937;
+        }
+
+        #temps {
+            background: transparent;
+            border: none;
+            font-size: 1.7rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            left: 0px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        #avis:hover,
+        #mess:hover,
+        #accueilBtn:hover,
+        #avis.active,
+        #mess.active,
+        #accueilBtn.active {
+            color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        #vendre,
+        #connexionn,
+        #question {
+            margin-bottom: 20px;
+            margin: 20px;
+            width: 220px;
+            max-width: 90vw;
+            display: block;
+            font-size: 0.98rem;
+            padding: 0.7rem 1.2rem;
+            border-radius: 14px;
+            box-sizing: border-box;
+        }
+
+        #vendre,
+        #connexionn,
+        #question {
+            width: 150px !important;
+            max-width: 150px !important;
+            min-width: 100px !important;
+            margin: 7px auto !important;
+            font-size: 0.95rem !important;
+            padding: 0.5em 0.3em !important;
+            border-radius: 12px !important;
+            box-sizing: border-box !important;
+            display: block !important;
+        }
+
+        #chat {
+            position: relative;
+            left: 50%;
+            top: 200px;
+        }
+
+        /* Ajustement pour l'espace du menu mobile */
+        body {
+            padding-bottom: 5rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-bottom: 5rem;
+            }
+        }
+
+        .pa {
             text-align: center;
         }
 
-        .mb-2 {
-            margin-bottom: 0.5rem;
+        #payer {
+            background: linear-gradient(135deg, var(--accent-color), #fbbf24);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            min-width: 60px;
         }
 
-        .mb-4 {
-            margin-bottom: 1rem;
+        #payer:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
-        .mt-4 {
-            margin-top: 1rem;
+        .av {
+            text-align: center;
+            justify-content: baseline;
+            align-items: center;
+            background-color: lavender;
+            width: 100%;
+            height: 70px;
+            padding: 20px;
+            color: blue;
+            font-size: 25px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+                Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            border-radius: 15px;
         }
-        #voirProfils{
-        position:fixed;
-        top:150px;
+
+        #temps {
+            position: fixed;
+            left: 0px;
+
+        }
+
+        #question {
+            padding: 15px;
+            width: 120px;
         }
     </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
 
-<body>
-    <header>
-        <h1><i class="fas fa-briefcase"></i> Petits Jobs Express</h1>
-    </header>
+<body id="bod" data-aos="fade-down-right">
 
-    <div class="main-container">
-        <div id="contenuPrincipal">
-            <button id="voirProfils" style="display: none;" class="btn btn-warning">
-                <i class="fas fa-users"></i> Voir Profils
-            </button>
-
-            <!-- Connexion -->
-            <div class="form-container" id="connexion" style="display: block;">
-                <h3 class="form-title"><i class="fas fa-sign-in-alt"></i> Connexion</h3>
-                <div class="form-group">
-                    <label class="form-label" for="nom">Nom complet</label>
-                    <input class="form-input" type="text" id="nom" placeholder="Entrez votre nom" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="numero">Numéro de téléphone</label>
-                    <input class="form-input" type="number" id="numero" placeholder="Ton numéro" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="motdepasse">Mot de passe</label>
-                    <input class="form-input" id="motdepasse" placeholder="Mot de passe" type="password" />
-                </div>
-                <div class="form-actions">
-                    <button class="btn btn-primary" id="btnCreerCompte">
-                        <i class="fas fa-user-plus"></i> Créer un Compte
-                    </button>
-                    <button class="btn btn-success" id="btnSeConnecter">
-                        <i class="fas fa-sign-in-alt"></i> Se connecter
-                    </button>
-                </div>
-            </div>
-
-            <!-- Menu de navigation -->
-            <div id="menuOptions" style="display: none;">
-                <button id="btnAcceuil">
-                    <i class="fas fa-home"></i>
-                    <span>Accueil</span>
-                </button>
-                <button id="btnPosterJob">
-                    <i class="fas fa-plus"></i>
-                    <span>Poster un job</span>
-                </button>
-                <button id="btnConversations">
-                    <i class="fas fa-comments"></i>
-                    <span>Messagerie</span>
-                </button>
-                <button id="profil">
-                    <i class="fas fa-user"></i>
-                    <span>Profil</span>
-                </button>
-            </div>
-
-            <!-- Profil -->
-            <div class="profile-container" id="moi" style="display: none;">
-                <div class="profile-header">
-                    <h2 class="profile-title"><i class="fas fa-user-circle"></i> Votre profil</h2>
-                </div>
-
-                <div class="photo-upload">
-                    <img src="" alt="votre photo" id="photos" class="photo-preview" style="display: none;">
-                    <button class="btn btn-primary" id="photo">
-                        <i class="fas fa-camera"></i> Ajouter une photo
-                    </button>
-                    <input style="display: none;" type="file" accept="image/*" capture="environnement" id="camera">
-                </div>
-
-                <form id="form">
-                    <div class="form-group">
-                        <label class="form-label">Prénom</label>
-                        <input class="form-input" type="text" name="prenom" placeholder="Entrez votre prénom" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Ville</label>
-                        <input class="form-input" type="text" name="ville" required placeholder="Entrez votre ville">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Expérience</label>
-                        <input class="form-input" type="text" name="statut" placeholder="Votre expérience">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Compétences</label>
-                        <textarea class="form-textarea" name="competences" required
-                            placeholder="Quelles sont vos compétences ?"></textarea>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-success">
-                            <i class="fas fa-save"></i> Créer
+    <div id="ladiv">
+        <div class="entete" id="entete">
+            <div class="container-fluid px-2 py-2">
+                <div class="row align-items-center justify-content-between entete-content flex-wrap">
+                    <div class="col-6 col-md-3 d-flex align-items-center entete-logo">
+                        <button class="btn btn-menu me-2 d-flex justify-content-center align-items-center" id="trois"
+                            style="font-size:1.7rem;min-width:44px;min-height:44px;padding:0 10px;line-height:1;">
+                            ☰
                         </button>
-                        <button type="button" class="btn btn-secondary" id="modifier">
-                            <i class="fas fa-edit"></i> Modifier
-                        </button>
+                        <strong class="fs-5 ms-1 ms-md-2">MBOA Librairie</strong>
                     </div>
-                </form>
-            </div>
-
-            <!-- Section des profils -->
-            <section class="offre">
-                <div id="profils"></div>
-            </section>
-
-            <!-- Formulaire de job -->
-            <div class="form-container" id="formulaire" style="display: none;">
-                <h3 class="form-title"><i class="fas fa-plus-circle"></i> Poster un job</h3>
-                <div class="form-group">
-                    <label class="form-label" for="titre">Titre du job</label>
-                    <input class="form-input" id="titre" placeholder="Titre du job" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="prix">Prix (FCFA)</label>
-                    <input class="form-input" id="prix" placeholder="Prix" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="description">Description</label>
-                    <textarea class="form-textarea" id="description" placeholder="Description du job"></textarea>
-                </div>
-                <div class="form-actions">
-                    <button class="btn btn-primary" id="posterBtn">
-                        <i class="fas fa-paper-plane"></i> Poster
-                    </button>
-                    <button class="btn btn-secondary" id="btnAnnuler">
-                        <i class="fas fa-times"></i> Annuler
-                    </button>
-                </div>
-            </div>
-
-            <div id="container"></div>
-
-            <div class="chat-container" id="chat" style="display: none;">
-                <div class="chat-header">
-                    <span class="chat-title"><i class="fas fa-comments"></i> Chat du job</span>
-                    <button class="chat-close" onclick="fermerChat()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-
-                <div class="chat-messages" id="messages"></div>
-
-                <div class="chat-input-container">
-                    <div class="chat-input-group">
-                        <input class="chat-input" id="messageInput" placeholder="Écris un message..." />
-                        <button class="btn btn-primary" id="envoyer">
-                            <i class="fas fa-paper-plane"></i> Envoyer
-                        </button>
+                    <div class="col-12 col-md-5 mt-2 mt-md-0 entete-search">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="search" id="searchBar" class="form-control"
+                                placeholder="Rechercher un produit..." autocomplete="off" />
+                        </div>
+                        <ul id="suggestions" class="suggestion-liste position-absolute w-100"
+                            style="display:none;z-index:1000;"></ul>
                     </div>
-
-                    <div class="chat-actions">
-                        <button class="btn btn-warning" id="conclure">
-                            <i class="fas fa-check"></i> Conclure
-                        </button>
-                        <button class="btn btn-danger" id="fermerChat">
-                            <i class="fas fa-times"></i> Fermer
-                        </button>
+                    <div
+                        class="col-6 col-md-4 d-flex justify-content-end align-items-center entete-actions mt-2 mt-md-0">
+                        <button class="btn btn-primary me-2 mb-1 mb-md-0" id="vendre"><i class="fas fa-plus"></i> Vendre</button>
+                        <button class="btn btn-success me-2 mb-1 mb-md-0" id="connexionn"><i
+                        class="fas fa-sign-in-alt"></i> Connexion</button>
+                        <a href="https://wa.me/237657300644" class="btn btn-secondary" id="question">❓ Question</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import {
-            getFirestore, collection, addDoc, doc, getDoc, getDocs,
-            onSnapshot, query, orderBy, updateDoc, setDoc, limit
-        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-        import {
-            getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
-            onAuthStateChanged
-        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        <style>
+            .btn-menu {
+                background: linear-gradient(135deg, #f7fafc 60%, #e9eef5 100%);
+                border: 1.5px solid #c3c8d1;
+                border-radius: 50%;
+                font-size: 1.25rem;
+                width: 36px;
+                height: 36px;
+                min-width: 36px;
+                min-height: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+                color: #2d3446;
+                transition: background 0.18s, box-shadow 0.18s, color 0.18s, border 0.18s;
+                outline: none;
+                margin-right: 8px;
+                cursor: pointer;
+                line-height: 1;
+            }
 
-        // 🔐 Config Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyAigx8KtDCEulSWjpu17fnYsrqK7C9o3R8",
-            authDomain: "petit-jobs-express.firebaseapp.com",
-            projectId: "petit-jobs-express",
-            storageBucket: "petit-jobs-express.appspot.com",
-            messagingSenderId: "446118780236",
-            appId: "1:446118780236:web:08c3a87d56bcd67399c3e9"
-        };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
+            .btn-menu:hover,
+            .btn-menu:active,
+            .btn-menu:focus {
+                background: #e6eaf1;
+                color: #1976d2;
+                border-color: #1976d2;
+                box-shadow: 0 4px 12px rgba(25, 118, 210, 0.10);
+                outline: none;
+            }
 
-        // Variables globales
-        let utilisateurconnecter = false;
-        let utilisateurnom = "";
-        let idJobEnCours = null;
-        let idConversation = "";
-
-        // Accès DOM simplifié
-        const get = id => document.getElementById(id);
-        const container = get('container');
-        const formulaire = get('formulaire');
-        const menuOptions = get('menuOptions');
-        const connexionDiv = get('connexion');
-        const chatDiv = get('chat');
-        const messagesDiv = get('messages');
-        const messageInput = get('messageInput');
-
-        // Connexion automatique à chaque ouverture
-        onAuthStateChanged(auth, async user => {
-            if (user) {
-                try {
-                    const snapshot = await getDoc(doc(db, "users", user.uid));
-                    const data = snapshot.data();
-
-                    // Utiliser le nom s'il existe, sinon utiliser l'email ou un nom par défaut
-                    utilisateurnom = data?.nom || data?.prenom || user.email?.split('@')[0] || "Utilisateur";
-                    utilisateurconnecter = true;
-
-                    connexionDiv.style.display = "none";
-                    menuOptions.style.display = "flex";
-
-                    // Afficher automatiquement les jobs
-                    afficheracceuil();
-                } catch (e) {
-                    console.error("Erreur lors du chargement des infos :", e);
-                    // Même en cas d'erreur, on peut continuer avec un nom par défaut
-                    utilisateurnom = user.email?.split('@')[0] || "Utilisateur";
-                    utilisateurconnecter = true;
-                    connexionDiv.style.display = "none";
-                    menuOptions.style.display = "flex";
-                    afficheracceuil();
+            @media (max-width: 767px) {
+                .entete-logo {
+                    width: 100%;
+                    justify-content: flex-start !important;
+                    align-items: center !important;
                 }
+
+                .btn-menu {
+                    font-size: 1.05rem;
+                    width: 30px;
+                    height: 30px;
+                    min-width: 30px;
+                    min-height: 30px;
+                    margin-right: 6px !important;
+                    margin-left: 0 !important;
+                    border-radius: 22px;
+                    box-shadow: 0 1.5px 6px rgba(0, 0, 0, 0.10);
+                }
+
+                .entete-logo strong {
+                    font-size: 1.05rem;
+                    margin-left: 4px;
+                }
+            }
+
+            .entete {
+                background: var(--primary-bg, #fff);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+
+            .entete-content {
+                width: 100%;
+            }
+
+            .entete-logo strong {
+                font-size: 1.2rem;
+                white-space: nowrap;
+            }
+
+            .entete-search {
+                position: relative;
+            }
+
+            .suggestion-liste {
+                max-height: 200px;
+                overflow-y: auto;
+                background: #fff;
+                border: 1px solid #ddd;
+                border-radius: 0 0 8px 8px;
+                margin-top: 2px;
+                left: 0;
+            }
+
+            @media (max-width: 767px) {
+                .entete-content {
+                    flex-direction: column !important;
+                }
+
+                .entete-logo,
+                .entete-actions {
+                    justify-content: flex-start !important;
+                }
+
+                .entete-search {
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                }
+
+                .entete-actions {
+                    flex-wrap: wrap;
+                }
+
+                .entete-actions .btn {
+                    width: 100%;
+                    margin-bottom: 5px;
+                }
+            }
+            #profils{
+                font-size: 19px;
+                color: #1f293786;
+            }
+            #profils:hover{
+                color: rgba(37, 37, 180, 0.589);
+                background-color:rgba(0, 0, 255, 0.123)
+            }
+        </style>
+        <div class="fournitures" id="fourniture" style="display: none;">
+            <p class="listes">❤️ Mes listes</p>
+            <br>
+            <p class="tous">📋 Tous les rayons</p>
+            <ul>
+                <li onclick="afficherFournituresCategorie('livres')" id="livre">
+                    <p class="separe">📚 Livres</p>
+                    <ul class="sous-menu">
+                        <li>🎓 Terminale</li>
+                        <li>📖 Première</li>
+                        <li>📝 Seconde</li>
+                        <li>✏️ Troisième</li>
+                        <li>📄 Quatrième</li>
+                        <li>📑 Cinquième</li>
+                        <li>📋 Sixième</li>
+                        <li>📊 CM2</li>
+                        <li>📈 CM1</li>
+                        <li>📉 CE2</li>
+                        <li>📌 CE1</li>
+                        <li>📍 CP</li>
+                        <li>🔤 SIL</li>
+                    </ul>
+                </li>
+                <li onclick="afficherFournituresCategorie('produits')" id="produit">
+                    <p class="separe">🛍️ Produits</p>
+                    <ul class="sous-menu">
+                        <li>📔 Cahiers</li>
+                        <li>📐 Boîte académique</li>
+                        <li>🎒 Sacs</li>
+                        <li>🧮 Calculatrice</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div id="connexion" style="display: none;">
+            <div class="advanced">
+                <h3 style="margin-bottom: 30px; color: var(--primary-color); font-size: 2rem;"> <i
+                        class="fas fa-sign-in-alt"></i> Connexion</h3>
+            </div>
+            <div id="formConnexion">
+                <label for="">Entrez votre email*</label>
+                <input type="email" class="nom" id="email" placeholder="brayan@gmail.com" />
+                <label for="">Entrez votre mot de passe*</label>
+                <input type="password" class="nom" id="motdepasse" placeholder="......" />
+                <button id="btnSeConnecter" class="fas fa-sign-in-alt"> <i class="fas fa-sign-in-alt"></i> Seconnecter</button>
+                <button id="afficherInscription" class="btn btn-secondary" type="button"><i
+                        class="fas fa-user-plus"></i> Créer un Compte</button>
+            </div>
+            <div id="formInscription" style="display:none;">
+                <label for="">Entrez votre prenom*</label>
+                <input type="text" class="nom" id="nomIns" placeholder="Brayan" />
+                <label for="">Entrez votre numero</label>
+                <input type="number" class="nom" id="numeroIns" placeholder="675..." />
+                <label for="">Entrez votre email*</label>
+                <input type="email" class="nom" id="emailIns" placeholder="brayan@gmail.com" />
+                <label for="">Entrez votre mot de passe*</label>
+                <input type="password" class="nom" id="motdepasseIns" placeholder="...." />
+                <button id="btnCreerCompte"><i class="fas fa-user-plus"></i> Créer un Compte</button>
+                <button id="afficherConnexion" class="btn btn-secondary" type="button"> <i
+                        class="fas fa-sign-in-alt"></i>Déjà inscrit ? Se connecter</button>
+            </div>
+        </div>
+
+        <div class="chat-container" id="chat" style="display: none;">
+            <div class="chat-header">
+                <span class="chat-title" id="chatTitre">💬 Chat de la vente</span>
+                <button class="chat-close"
+                    onclick="document.getElementById('chat').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">✖</button>
+            </div>
+
+            <div class="chat-messages" id="messages"></div>
+
+            <div class="chat-input-container">
+                <div class="chat-input-group">
+                    <input class="chat-input" id="messageInput" placeholder="💭 Écris un message..." />
+                    <button class="btn btn-primary" onclick="envoyerMessage()">📤 Envoyer</button>
+                </div>
+
+                <div class="chat-actions">
+                    <button class="btn btn-warning" onclick="conclureJob()">✅ Conclure</button>
+                    <button class="btn btn-secondary"
+                        onclick="document.getElementById('chat').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">❌
+                        Fermer</button>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-secondary" id="temps">🌞</button>
+        <div id="conteneuravis" style="display: none;"></div>
+
+        <div class="avise" id="avise" style="display: none;">
+            <div class="advanced">
+                <h4 style="margin-bottom: 30px; color: var(--primary-color); font-size: 1.8rem;">⭐ Donnez votre avis
+                </h4>
+                <button class="croix"
+                    onclick="document.getElementById('avise').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">×</button>
+            </div>
+            <form id="formule">
+                <div id="stars" style="margin-bottom: 25px;">
+                    <span class="star" onclick="rate(1)">★</span>
+                    <span class="star" onclick="rate(2)">★</span>
+                    <span class="star" onclick="rate(3)">★</span>
+                    <span class="star" onclick="rate(4)">★</span>
+                    <span class="star" onclick="rate(5)">★</span>
+                </div>
+                <textarea id="avi" placeholder="💭 Votre commentaire..."></textarea>
+                <button class="soumettre" id="soumettre" type="submit">🚀 Soumettre</button>
+            </form>
+        </div>
+
+
+
+        <div class="form-container" id="formulaire" data-aos="fade-up" style="display: none;">
+            <div class="advanced">
+                <h3 class="form-title"><i class="fas fa-plus"></i> Vendre une fourniture</h3><button class="croix"
+                    onclick="document.getElementById('formulaire').style.display='none'; document.getElementById('conteneurProfils').style.display='block';">×</button>
+            </div>
+            <form id="form">
+                <div class="form-group">
+                    <label class="form-label" for="item">🏷️ Que vendez-vous ?</label>
+                    <select class="form-select" id="item">
+                        <option value="Livres">📚 Livres</option>
+                        <option value="Bords">📝 Bords</option>
+                        <option value="Cahiers">📔 Cahiers</option>
+                        <option value="Calculatrice">🧮 Calculatrice</option>
+                        <option value="Sacs">🎒 Sacs</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="categorie">📂 Catégorie :</label>
+                    <select class="form-select" id="categorie" required>
+                        <option value="livres">📚 Livres</option>
+                        <option value="produits">🛍️ Produits</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="price">💰 Prix (en FCFA) :</label>
+                    <input class="form-input" type="number" id="price" min="0" required placeholder="Ex: 5000" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="classe">🎓 Classe :</label>
+                    <select class="form-select" id="classe" required>
+                        <option value="terminale">🎓 Terminale</option>
+                        <option value="premiere">📖 Première</option>
+                        <option value="seconde">📝 Seconde</option>
+                        <option value="troisieme">✏️ Troisième</option>
+                        <option value="quatrieme">📄 Quatrième</option>
+                        <option value="cinquieme">📑 Cinquième</option>
+                        <option value="sixieme">📋 Sixième</option>
+                        <option value="cm2">📊 CM2</option>
+                        <option value="cm1">📈 CM1</option>
+                        <option value="ce2">📉 CE2</option>
+                        <option value="ce1">📌 CE1</option>
+                        <option value="cp">📍 CP</option>
+                        <option value="sil">🔤 SIL</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="location">📍 Lieu (quartier) :</label>
+                    <select class="form-select" id="location">
+                        <option value="Douala">🏙️ Douala</option>
+                        <option value="Yaounde">🏛️ Yaoundé</option>
+                        <option value="Bafoussam">🏔️ Bafoussam</option>
+                        <option value="Limbe">🌊 Limbe</option>
+                        <option value="Kribi">🏖️ Kribi</option>
+                        <option value="Garoua">🌆 Garoua</option>
+                        <option value="Melong">🏘️ Melong</option>
+                        <option value="Nkongsamba">🏞️ Nkongsamba</option>
+                        <option value="Autre">🌍 Autre</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="description">📝 Description :</label>
+                    <input class="form-input" type="text" id="description" required
+                        placeholder="Décrivez votre article..." />
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="photoB">📸 Ajouter une photo</button>
+                    <button class="btn btn-primary" id="confirmer" type="submit"><i class="fas fa-plus"></i>
+                        Publier</button>
+                </div>
+
+                <input type="file" accept="image/*" id="camer" style="display: none;" />
+
+                <div id="maphoto">
+                    <img src="" alt="Aperçu" id="photoPreview"
+                        style="display: none; max-width: 100%; border-radius: 12px; box-shadow: var(--shadow); margin-top: 15px;" />
+                </div>
+            </form>
+        </div>
+
+        <div class="profile" id="conteneurProfils" style="display: none;"></div>
+    </div>
+    <div class="menu">
+        <button class="btn btn-secondary" id="accueilBtn">
+            <i class="fas fa-home"></i> Accueil
+        </button>
+        <button class="btn btn-secondary" id="avis">🌟 Avis</button>
+        <button onclick="lireConversations()" class="btn btn-secondary" id="mess" aria-label="Voir mes conversations">
+            <i class="fas fa-comments"></i> Messages
+        </button>
+        <button onclick="lireConversations()" class="btn btn-secondary" id="profils">
+            <i class="fas fa-comments"></i> Profil
+        </button>
+        <button class="btn btn-success" id="payer" style="display:none;">Payer 200 FCFA</button>
+    </div>
+    <script src="https://api-checkout.cinetpay.com/v2/checkout.js"></script>
+    <script>
+        let actionsRestantes = parseInt(localStorage.getItem('actionsRestantes') || '3');
+        let paiementEffectue = localStorage.getItem('paiementEffectue') === 'true';
+        const btnVendre = document.getElementById('vendre');
+        const btnAcheter = document.getElementById('acheter');
+        const btnPayer = document.getElementById('payer');
+
+        function updateBoutonsEtat() {
+            if (!paiementEffectue && actionsRestantes <= 0) {
+                if (btnVendre) btnVendre.disabled = true;
+                if (btnAcheter) btnAcheter.disabled = true;
+                if (btnPayer) btnPayer.style.display = 'block';
             } else {
-                // Utilisateur déconnecté
-                utilisateurconnecter = false;
-                utilisateurnom = "";
-                connexionDiv.style.display = "block";
-                menuOptions.style.display = "none";
+                if (btnVendre) btnVendre.disabled = false;
+                if (btnAcheter) btnAcheter.disabled = false;
+                if (btnPayer) btnPayer.style.display = 'none';
             }
-        });
-
-        // 📸 Gestion du bouton photo
-        const moi = document.getElementById("moi");
-        const form = document.getElementById("form");
-        const conteneurProfils = document.getElementById("profils");
-        const cameraInput = document.getElementById("camera");
-        const photoPreview = document.getElementById("photos");
-
-        // 📸 Affiche les options de photo
-        document.getElementById("photo").addEventListener("click", () => {
-            cameraInput.style.display = "block";
-            photoPreview.style.display = "block";
-        });
-
-        // 🎞️ Affiche l'image sélectionnée
-        cameraInput.addEventListener("change", function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const imageUrl = URL.createObjectURL(file);
-                photoPreview.src = imageUrl;
-                photoPreview.style.display = "block";
-            }
-        });
-
-        // Création/Mise à jour de profil
-        form.addEventListener("submit", async function (e) {
-            e.preventDefault();
-            const user = auth.currentUser;
-            if (!user) return Swal.fire('Attention', 'Connecte-toi d\'abord', 'warning');
-
-            const [prenom, ville, statut, competences] = [...form.querySelectorAll("input[type='text'], textarea")].map(input => input.value);
-            let photoURL = "";
-            const file = cameraInput.files[0];
-            if (file) {
-                photoURL = URL.createObjectURL(file);
-            }
-
-            await setDoc(doc(db, "users", user.uid), {
-                prenom, ville, statut, competences, photoURL
-            }, { merge: true });
-
-            Swal.fire('Succès', 'Profil mis à jour !', 'success');
-            moi.style.display = "none";
-        });
-
-        // Fonction de nettoyage des données
-        function sanitizeInput(input) {
-            return input
-                .replace(/[<>]/g, '') // Supprimer les balises HTML
-                .replace(/javascript:/gi, '') // Supprimer les protocoles dangereux
-                .trim();
         }
 
-        // Fonction de validation des entrées
-        function validateInput(input, type) {
+        function showPaiementMessage() {
+            Swal.fire('Il faut payer 200 FCFA pour continuer.');
+        }
+
+        function handleActionClick(e) {
+            if (!paiementEffectue) {
+                actionsRestantes--;
+                localStorage.setItem('actionsRestantes', actionsRestantes);
+                if (actionsRestantes <= 0) {
+                    showPaiementMessage();
+                    updateBoutonsEtat();
+                    e.preventDefault();
+                    return false;
+                }
+            } else {
+                showPaiementMessage();
+            }
+            return true;
+        }
+
+        if (btnVendre) {
+            btnVendre.addEventListener('click', function (e) {
+                if (!handleActionClick(e)) return;
+                // ... ici code vendre ...
+            });
+        }
+        if (btnAcheter) {
+            btnAcheter.addEventListener('click', function (e) {
+                if (!handleActionClick(e)) return;
+                // ... ici ton code acheter ...
+            });
+        }
+        if (btnPayer) {
+            btnPayer.addEventListener('click', function () {
+                // Ici tu mets ton code de paiement réel
+                // Si paiement réussi :
+                paiementEffectue = true;
+                localStorage.setItem('paiementEffectue', 'true');
+                actionsRestantes = 9999;
+                localStorage.setItem('actionsRestantes', actionsRestantes);
+                updateBoutonsEtat();
+                Swal.fire('Paiement réussi ! Vous pouvez continuer à vendre ou acheter.');
+            });
+        }
+        updateBoutonsEtat();
+    </script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, doc, onSnapshot, query, where, orderBy, setDoc, getDoc, updateDoc, increment, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+        // Configuration Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCwYVursGqdwA47BgpjxFx-UuPOooorqcU",
+            authDomain: "mboa-librerie.firebaseapp.com",
+            projectId: "mboa-librerie",
+            storageBucket: "mboa-librerie.appspot.com",
+            messagingSenderId: "323486943031",
+            appId: "1:323486943031:web:a536c81bfc61517eddfcb2",
+            measurementId: "G-X514RE9V3G"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+        window.db = db;
+        const storage = getStorage(app);
+        const auth = getAuth(app);
+        window.auth = auth;
+
+        const form = document.getElementById("form");
+        const camer = document.getElementById("camer");
+        const photoB = document.getElementById("photoB");
+        const photoPreview = document.getElementById("photoPreview");
+        const conteneurProfils = document.getElementById("conteneurProfils");
+        const formulaire = document.getElementById("formulaire");
+        const confirmerBtn = document.getElementById("confirmer");
+
+
+        // Variables globales pour annonces 
+        let allAnnonces = [];
+        let imageFile = null;
+        let utilisateurNom = localStorage.getItem('utilisateurNom') || null;
+        if (!utilisateurNom) {
+            utilisateurNom = prompt("Entrez votre nom pour le chat :") || "Utilisateur";
+            localStorage.setItem('utilisateurNom', utilisateurNom);
+        }
+        let annonceActuelle = null;
+
+        let idAnnonceEnCours = null;
+        let idConversation = null;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const emailAuto = localStorage.getItem('autoLoginEmail');
+            const passwordAuto = localStorage.getItem('autoLoginPassword');
+            if (emailAuto && passwordAuto) {
+                signInWithEmailAndPassword(auth, emailAuto, passwordAuto)
+                    .then(() => {
+                        document.getElementById("conteneurProfils").style.display = "block";
+                        document.getElementById("fourniture").style.display = "none";
+                        document.getElementById("conteneuravis").style.display = "none";
+                        document.getElementById("avise").style.display = "none";
+                        document.getElementById("chat").style.display = "none";
+                        document.getElementById("connexion").style.display = "none";
+                        document.getElementById("formulaire").style.display = "none";
+                    })
+                    .catch(() => {
+                        localStorage.removeItem('autoLoginEmail');
+                        localStorage.removeItem('autoLoginPassword');
+                    });
+            } else if (auth.currentUser){
+                document.getElementById("conteneurProfils").style.display = "block";
+                document.getElementById("fourniture").style.display = "none";
+                document.getElementById("conteneuravis").style.display = "none";
+                document.getElementById("avise").style.display = "none";
+                document.getElementById("chat").style.display = "none";
+                document.getElementById("connexion").style.display = "none";
+                document.getElementById("formulaire").style.display = "none";
+            }
+        });
+
+        const btnCreerCompte = document.getElementById("btnCreerCompte");
+        const btnSeConnecter = document.getElementById("btnSeConnecter");
+        const afficherInscription = document.getElementById("afficherInscription");
+        const afficherConnexion = document.getElementById("afficherConnexion");
+        const formConnexion = document.getElementById("formConnexion");
+        const formInscription = document.getElementById("formInscription");
+
+        afficherInscription.addEventListener("click", () => {
+            formConnexion.style.display = "none";
+            formInscription.style.display = "block";
+        });
+        afficherConnexion.addEventListener("click", () => {
+            formConnexion.style.display = "block";
+            formInscription.style.display = "none";
+        });
+        const btnDeconnexion = document.createElement("button");
+        btnDeconnexion.textContent = "Déconnexion";
+        btnDeconnexion.className = "fourniture";
+        btnDeconnexion.style.display = "none";
+        document.getElementById("entete").appendChild(btnDeconnexion);
+        const userDisplay = document.createElement("span");
+        userDisplay.style.marginLeft = "15px";
+        document.getElementById("entete").appendChild(userDisplay);
+
+        function majEtatConnexion(user) {
+            if (user) {
+                btnDeconnexion.style.display = "inline-block";
+            } else {
+                btnDeconnexion.style.display = "none";
+            }
+        }
+
+        // Fonction qui vérifie si tous les éléments sont prêts
+        function waitForElements() {
+            return new Promise((resolve) => {
+                const checkElements = () => {
+                    const container = document.getElementById("conteneurProfils");
+                    const auth = window.auth;
+                    const db = window.db;
+                    if (container && auth && db) {
+                        resolve();
+                    } else {
+                        setTimeout(checkElements, 100);
+                    }
+                };
+                checkElements();
+            });
+        }
+
+        //lireConversations
+        async function lireConversations() {
+            document.getElementById("conteneuravis").style.display = "none";
+            document.getElementById("conteneurProfils").style.display = "none";
+            document.getElementById("fourniture").style.display = "none";
+            document.getElementById("conteneuravis").style.display = "none";
+            document.getElementById("avise").style.display = "none";
+            document.getElementById("chat").style.display = "none";
+            document.getElementById("connexion").style.display = "none";
+            document.getElementById("formulaire").style.display = "none";
+            await waitForElements();
+            //Sélecteurs et masquage des sections
+            const container = document.getElementById("conteneurProfils");
+            if (!container) return Swal.fire("Erreur: Interface non disponible");
+            ["fourniture","avise", "chat", "connexion", "formulaire"].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = "none";
+            });
+            container.style.display = "block";
+            container.innerHTML = `<h3 class='section-title'>💬 Mes Conversations</h3><div id="conversations-list"></div>`;
+            const convList = document.getElementById("conversations-list");
+
+            //Authentification 
+            const currentUser = window.auth && window.auth.currentUser;
+            if (!currentUser) {
+                convList.innerHTML = `<div style='text-align:center;color:red;margin-top:2rem;'>❌ Connecte-toi d'abord</div>`;
+                return;
+            }
+            const email = currentUser.email;
+            let total = 0;
+            let annoncesSnap;
+            try {
+                annoncesSnap = await getDocs(collection(window.db, "annonces"));
+            } catch (error) {
+                container.innerHTML += `<div style='text-align:center;color:red;margin-top:2rem;'>❌ Erreur lors de la connexion à la base de données</div>`;
+                return;
+            }
+
+            //Vendeur
+            for (const docu of annoncesSnap.docs) {
+                const annonce = { id: docu.id, ...docu.data() };
+                if (annonce.auteur === email) {
+                    const convsSnap = await getDocs(collection(window.db, "annonces", annonce.id, "conversations"));
+                    if (convsSnap.empty) continue;
+                    for (const convDoc of convsSnap.docs) {
+                        const convId = convDoc.id;
+                        // Récupère le dernier message
+                        const messagesRef = collection(window.db, "annonces", annonce.id, "conversations", convId, "messages");
+                        const lastMsgSnap = await getDocs(query(messagesRef, orderBy("timestamp", "desc"), limit(1)));
+                        let lastMsg = null;
+                        lastMsgSnap.forEach(doc => lastMsg = doc.data());
+                        let preview = "";
+                        if (lastMsg) {
+                            const date = new Date(lastMsg.timestamp).toLocaleString();
+                            preview = `<div style='color:#888;font-size:0.9em;margin-bottom:0.5em;'><b>${lastMsg.auteur === email ? 'Moi' : lastMsg.auteur}:</b> ${lastMsg.text} <span style='float:right;'>${date}</span></div>`;
+                        }
+                        const emails = convId.split("_");
+                        const emailAcheteur = emails.find(e => e !== annonce.auteur);
+                        const card = document.createElement("div");
+                        card.className = "annonce-card";
+                        card.innerHTML = `
+                            <h4><i class="fas fa-tasks"></i> ${annonce.nomProduit || "Produit sans nom"}</h4>
+                            <p><i class="fas fa-coins"></i> Prix: ${annonce.prix || "?"} FCFA</p>
+                            <p><i class="fas fa-info-circle"></i> ${annonce.description || "Pas de description"}</p>
+                            <p><strong><i class="fas fa-user"></i> Acheteur:</strong> ${emailAcheteur}</p>
+                            ${preview}
+                            <button class="btn btn-primary" onclick="window.ouvrirChat('${annonce.id}', '${emailAcheteur}', '${annonce.auteur}')">
+                                <i class="fas fa-comments"></i> Ouvrir chat
+                            </button>
+                        `;
+                        convList.appendChild(card);
+                        total++;
+                    }
+                }
+            }
+
+            //Acheteur
+            for (const docu of annoncesSnap.docs) {
+                const annonce = { id: docu.id, ...docu.data() };
+                if (annonce.auteur !== email) {
+                    const convsSnap = await getDocs(collection(window.db, "annonces", annonce.id, "conversations"));
+                    for (const convDoc of convsSnap.docs) {
+                        if (convDoc.id.includes(email)) {
+                            // Récupère le dernier message
+                            const messagesRef = collection(window.db, "annonces", annonce.id, "conversations", convDoc.id, "messages");
+                            const lastMsgSnap = await getDocs(query(messagesRef, orderBy("timestamp", "desc"), limit(1)));
+                            let lastMsg = null;
+                            lastMsgSnap.forEach(doc => lastMsg = doc.data());
+                            let preview = "";
+                            if (lastMsg) {
+                                const date = new Date(lastMsg.timestamp).toLocaleString();
+                                preview = `<div style='color:#888;font-size:0.9em;margin-bottom:0.5em;'><b>${lastMsg.auteur === email ? 'Moi' : lastMsg.auteur}:</b> ${lastMsg.text} <span style='float:right;'>${date}</span></div>`;
+                            }
+                            const card = document.createElement("div");
+                            card.className = "annonce-card";
+                            card.innerHTML = `
+                                <h4><i class="fas fa-tasks"></i> ${annonce.nomProduit || "Produit sans nom"}</h4>
+                                <p><i class="fas fa-coins"></i> Prix: ${annonce.prix || "?"} FCFA</p>
+                                <p><i class="fas fa-info-circle"></i> ${annonce.description || "Pas de description"}</p>
+                                <p><strong><i class="fas fa-user"></i> Vendeur:</strong> ${annonce.auteur}</p>
+                                ${preview}
+                                <button class="btn btn-primary" onclick="window.ouvrirChat('${annonce.id}', '${email}', '${annonce.auteur}')">
+                                    <i class="fas fa-comments"></i> Ouvrir chat
+                                </button>
+                            `;
+                            convList.appendChild(card);
+                            total++;
+                        }
+                    }
+                }
+            }
+
+            if (total === 0) {
+                convList.innerHTML += `<div class="annonce-card text-center"><i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-light); margin-bottom: 1rem; text-align:center;"></i><p class="pa">Tu n'as aucune conversation.</p></div>`;
+            }
+            document.getElementById("accueilBtn").onclick = function () {
+                document.getElementById("conteneurProfils").style.display = "block";
+                document.getElementById("fourniture").style.display = "none";
+                document.getElementById("conteneuravis").style.display = "none";
+                document.getElementById("avise").style.display = "none";
+                document.getElementById("chat").style.display = "none";
+                document.getElementById("connexion").style.display = "none";
+                document.getElementById("formulaire").style.display = "none";
+                afficherAnnonces(allAnnonces);
+            };
+            document.getElementById("avis").onclick = async function () {
+                const avisZone = document.getElementById("avise");
+                const formulaire = document.getElementById("formulaire");
+                avisZone.style.display = "block";
+                formulaire.style.display = "none";
+                document.getElementById("conteneurProfils").style.display = "none";
+                document.getElementById("fourniture").style.display = "none";
+                document.getElementById("avise").style.display = "block";
+                document.getElementById("chat").style.display = "none";
+                document.getElementById("connexion").style.display = "none";
+                try {
+                    const avisSnap = await getDocs(collection(db, "avis"));
+                    const avisList = avisSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    afficheravis(avisList);
+                } catch (e) {
+                    document.getElementById("conteneuravis").innerHTML = "<p>Erreur de chargement des avis.</p>";
+                    document.getElementById("conteneuravis").style.display = "block";
+                }
+            };
+            document.getElementById("mess").onclick = function () {
+                lireConversations();
+            };
+        }
+        document.getElementById("accueilBtn").addEventListener("click", function () {
+            document.getElementById("conteneurProfils").style.display = "block";
+            document.getElementById("fourniture").style.display = "none";
+            document.getElementById("conteneuravis").style.display = "none";
+            document.getElementById("avise").style.display = "none";
+            document.getElementById("chat").style.display = "none";
+            document.getElementById("connexion").style.display = "none";
+            document.getElementById("formulaire").style.display = "none";
+        });
+        window.lireConversations = lireConversations;
+        // Création de compte 
+        btnCreerCompte.addEventListener("click", async () => {
+            try {
+                document.getElementById("conteneuravis").style.display = "none";
+                document.getElementById("conteneurProfils").style.display = "none";
+                document.getElementById("fourniture").style.display = "none";
+                document.getElementById("avise").style.display = "none";
+                document.getElementById("chat").style.display = "none";
+                document.getElementById("connexion").style.display = "block";
+                const email = document.getElementById("emailIns").value.trim();
+                const password = document.getElementById("motdepasseIns").value;
+                const nom = document.getElementById("nomIns").value.trim();
+                const numero = document.getElementById("numeroIns").value.trim();
+                const emailError = validateInput(email, 'email');
+                if (emailError) {
+                    Swal.fire(emailError);
+                    return;
+                }
+
+                const passwordError = validateInput(password, 'password');
+                if (passwordError) {
+                    Swal.fire(passwordError);
+                    return;
+                }
+
+                if (!nom || nom.length < 3) {
+                    Swal.fire("Le nom doit contenir au moins 3 caractères");
+                    return;
+                }
+
+                if (!numero || numero.length < 9) {
+                    Swal.fire("Le numéro doit contenir au moins 9 chiffres");
+                    return;
+                }
+
+                await createUserWithEmailAndPassword(auth, email, password);
+                await signInWithEmailAndPassword(auth, email, password);
+
+                // Sauvegarder 
+                await setDoc(doc(db, "users", email), {
+                    nom: escapeHTML(nom),
+                    numero: escapeHTML(numero),
+                    email: email,
+                    code:password,
+                    dateCreation: Date.now()
+                });
+
+                // Enregistre pour auto-login
+                localStorage.setItem('autoLoginEmail', email);
+                localStorage.setItem('autoLoginPassword', password);
+
+                Swal.fire("Compte créé et connecté !");
+                document.getElementById("conteneurProfils").style.display = "block";
+                document.getElementById("connexion").style.display = "none";
+
+                if (userDisplay) userDisplay.textContent = nom;
+
+                chargerToutesLesAnnonces();
+            } catch (e) {
+                console.error("Erreur création de compte:", e);
+                let message = "Erreur lors de la création du compte";
+
+                if (e.code === "auth/email-already-in-use") {
+                    message = "Cette adresse email est déjà utilisée";
+                } else if (e.code === "auth/weak-password") {
+                    message = "Le mot de passe est trop faible";
+                } else if (e.code === "auth/invalid-email") {
+                    message = "Adresse email invalide";
+                }
+
+                Swal.fire(message);
+            }
+        });
+
+        // --- Connexion ---
+        btnSeConnecter.addEventListener("click", async () => {
+            try {
+                document.getElementById("conteneuravis").style.display = "none";
+                document.getElementById("conteneurProfils").style.display = "none";
+                document.getElementById("fourniture").style.display = "none";
+                document.getElementById("avise").style.display = "none";
+                document.getElementById("chat").style.display = "none";
+
+                document.getElementById("connexion").style.display = "block";
+
+                const email = document.getElementById("email").value.trim();
+                const password = document.getElementById("motdepasse").value;
+
+                // Validation des entrées
+                const emailError = validateInput(email, 'email');
+                if (emailError) {
+                    Swal.fire(emailError);
+                    return;
+                }
+
+                if (!password || password.length < 6) {
+                    Swal.fire("Le mot de passe doit contenir au moins 6 caractères");
+                    return;
+                }
+
+                await signInWithEmailAndPassword(auth, email, password);
+
+                // Enregistre pour auto-login
+                localStorage.setItem('autoLoginEmail', email);
+                localStorage.setItem('autoLoginPassword', password);
+
+                Swal.fire("Connecté avec succès !");
+                document.getElementById("conteneurProfils").style.display = "block";
+                document.getElementById("connexion").style.display = "none";
+                chargerToutesLesAnnonces();
+            } catch (e) {
+                console.error("Erreur connexion:", e);
+                let message = "Erreur lors de la connexion";
+
+                if (e.code === "auth/user-not-found") {
+                    message = "Aucun compte trouvé avec cette adresse email";
+                } else if (e.code === "auth/wrong-password") {
+                    message = "Mot de passe incorrect";
+                } else if (e.code === "auth/invalid-email") {
+                    message = "Adresse email invalide";
+                } else if (e.code === "auth/too-many-requests") {
+                    message = "Trop de tentatives. Réessayez plus tard";
+                }
+
+                Swal.fire(message);
+            }
+        });
+
+        // Déconnexion 
+        btnDeconnexion.addEventListener("click", async () => {
+            await signOut(auth);
+            localStorage.removeItem('autoLoginEmail');
+            localStorage.removeItem('autoLoginPassword');
+            Swal.fire("Déconnecté !");
+            document.getElementById("conteneurProfils").style.display = "block";
+        });
+
+        // Empêche publication/chat si non connecté
+        function utilisateurConnecte() {
+            return auth.currentUser;
+        }
+
+        // --- Recherche dynamique ---
+        const searchBar = document.getElementById("searchBar");
+        const suggestions = document.getElementById("suggestions");
+
+        // --- Recherche dynamique optimisée (filtrage côté client) ---
+        searchBar.addEventListener("input", function () {
+            document.getElementById("conteneuravis").style.display = "none";
+            document.getElementById("conteneurProfils").style.display = "block";
+            document.getElementById("fourniture").style.display = "none";
+            document.getElementById("avise").style.display = "none";
+            document.getElementById("chat").style.display = "none";
+            document.getElementById("connexion").style.display = "none";
+            const searchTerm = searchBar.value.trim().toLowerCase();
+            suggestions.innerHTML = "";
+            if (!searchTerm) {
+                suggestions.style.display = "none";
+                afficherAnnonces(allAnnonces);
+                return;
+            }
+            let found = false;
+            const filtered = allAnnonces.filter((annonce) =>
+                (annonce.nomProduit && annonce.nomProduit.toLowerCase().includes(searchTerm)) ||
+                (annonce.description && annonce.description.toLowerCase().includes(searchTerm))
+            );
+            filtered.forEach((annonce) => {
+                const li = document.createElement("li");
+                li.textContent = annonce.nomProduit + " - " + annonce.description;
+                li.onclick = () => {
+                    afficherAnnonces([annonce]);
+                    suggestions.style.display = "none";
+                    searchBar.value = li.textContent;
+                };
+                suggestions.appendChild(li);
+                found = true;
+            });
+            suggestions.style.display = found ? "block" : "none";
+            if (!found) {
+                const li = document.createElement("li");
+                li.textContent = "Aucun résultat trouvé";
+                suggestions.appendChild(li);
+            }
+            afficherAnnonces(filtered);
+        });
+        // Autres boutons et interactions
+        const btnConnexion = document.getElementById("connexionn");
+        const btnAvis = document.getElementById("avis");
+        const btnJourNuit = document.getElementById("temps");
+        const conn = document.getElementById("connexion");
+        const fournitureMenu = document.getElementById("fourniture");
+        const avisZone = document.getElementById("avise");
+        const body = document.getElementById("bod");
+
+        btnConnexion.addEventListener("click", () => {
+            conn.style.display = "block";
+            fournitureMenu.style.display = "none";
+            btnVendre.style.display = "none";
+            avisZone.style.display = "none";
+            document.getElementById("question").style.display = "none";
+        });
+
+        btnVendre.addEventListener("click", () => {
+            formulaire.style.display = "block";
+            document.getElementById("conteneurProfils").style.display = "none";
+            document.getElementById("fourniture").style.display = "none";
+            document.getElementById("avise").style.display = "none";
+            document.getElementById("chat").style.display = "none";
+            document.getElementById("connexion").style.display = "none";
+            document.getElementById("conteneuravis").style.display = "none";
+        });
+
+        btnAvis.addEventListener("click", async () => {
+            // Affiche le formulaire d'avis
+            avisZone.style.display = "block";
+            formulaire.style.display = "none";
+            document.getElementById("conteneurProfils").style.display = "none";
+            document.getElementById("fourniture").style.display = "none";
+            document.getElementById("avise").style.display = "block";
+            document.getElementById("chat").style.display = "none";
+            document.getElementById("connexion").style.display = "none";
+
+            // Charger et afficher les avis existants
+            try {
+                const avisSnap = await getDocs(collection(db, "avis"));
+                const avisList = avisSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                afficheravis(avisList);
+            } catch (e) {
+                document.getElementById("conteneuravis").innerHTML = "<p>Erreur de chargement des avis.</p>";
+                document.getElementById("conteneuravis").style.display = "block";
+            }
+        });
+
+        btnJourNuit.addEventListener("click", () => {
+            if (body.style.backgroundColor === "black") {
+                body.style.backgroundColor = "white";
+                btnJourNuit.innerText = "🌞";
+            } else {
+                body.style.backgroundColor = "black";
+                document.getElementById("ladiv").style.color = "white";
+                btnJourNuit.innerText = "🌑";
+            }
+        });
+
+        document.getElementById("livre").addEventListener("click", () => {
+            document.getElementById("produit").style.display = "block";
+        });
+
+        document.getElementById("produit").addEventListener("click", () => {
+            document.getElementById("livre").style.display = "block";
+        });
+
+        document.getElementById("trois").addEventListener("click", () => {
+            fournitureMenu.style.display = "block";
+            formulaire.style.display = "none";
+            document.getElementById("conteneurProfils").style.display = "none";
+            document.getElementById("fourniture").style.display = "block";
+            document.getElementById("avise").style.display = "none";
+            document.getElementById("chat").style.display = "none";
+            document.getElementById("connexion").style.display = "none";
+            document.getElementById("conteneuravis").style.display = "none";
+        });
+
+        // Système d'étoiles pour les avis
+        window.rate = function (n) {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                star.classList.toggle('active', index < n);
+            });
+        };
+        //avis
+        async function afficheravis(avisList) {
+            const container = document.getElementById("conteneuravis");
+            container.innerHTML = "";
+
+            if (!avisList || avisList.length === 0) {
+                container.innerHTML = `
+                <div class="av"><p>Aucun avis trouvé.</p><br></div>`;
+                container.style.display = "block";
+                return;
+            }
+
+            avisList.forEach((avis, index) => {
+                const bloc = document.createElement("div");
+                bloc.className = "conteneuravis avis-card";
+                bloc.style.animationDelay = `${index * 0.1}s`;
+                const fullStars = '★'.repeat(avis.rating);
+                const emptyStars = '☆'.repeat(5 - avis.rating);
+                const stars = `<span class="stars-full">${fullStars}</span><span class="stars-empty">${emptyStars}</span>`;
+                const dateStr = avis.date ? new Date(avis.date).toLocaleDateString('fr-FR', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }) : '';
+
+                bloc.innerHTML = `
+        <div class="avis-header">
+            <div class="avis-rating-section">
+                <div class="stars-container">${stars}</div>
+                <span class="rating-text">${avis.rating}/5</span>
+            </div>
+            ${dateStr ? `<div class="avis-date">${dateStr}</div>` : ''}
+            ${avis.author ? `<div class="avis-author">Par ${avis.author}</div>` : ''}
+        </div>
+        
+        <div class="avis-content">
+            <div class="comment-icon">💬</div>
+            <p class="avis-comment">${avis.comment}</p>
+        </div>
+        
+        ${avis.title ? `<h4 class="avis-title">${avis.title}</h4>` : ''}
+        
+        <div class="avis-footer">
+            <div class="avis-actions">
+                <button class="btn-helpful" id="pouce" onclick="toggleHelpful(${index})">
+                    <span class="icon">👍</span> Utile
+            </div>
+        </div>
+    `;
+
+                container.appendChild(bloc);
+            });
+
+            // Animation du conteneur principal
+            container.style.display = "block";
+            document.getElementById("conteneurProfils").style.display = "none";
+            document.getElementById("chat").style.display = "none";
+            conn.style.display = "none";
+            fournitureMenu.style.display = "none";
+            document.getElementById("question").style.display = "none";
+            container.style.opacity = "0";
+            container.style.transform = "translateY(20px)";
+
+            // Animation d'apparition
+            setTimeout(() => {
+                container.style.transition = "all 0.6s ease";
+                container.style.opacity = "1";
+                container.style.transform = "translateY(0)";
+            }, 100);
+
+            // Fonctions utilitaires
+            function toggleHelpful(index) {
+                const btn = document.querySelector(`.conteneuravis:nth-child(${index + 1}) .btn-helpful`);
+                if (btn) {
+                    btn.classList.toggle('active');
+                    btn.innerHTML = btn.classList.contains('active')
+                        ? '<span class="icon">👍</span> Utile ✓'
+                        : '<span class="icon">👍</span> Utile';
+                }
+            }
+
+            function shareAvis(index) {
+                const avis = avisList[index];
+                if (!avis) return;
+
+                const shareText = `Avis: ${avis.rating}/5 étoiles - "${avis.comment}"`;
+
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Avis client',
+                        text: shareText
+                    }).catch(err => {
+                        console.error('Erreur partage:', err);
+                        fallbackShare(shareText);
+                    });
+                } else {
+                    fallbackShare(shareText);
+                }
+            }
+
+            function fallbackShare(text) {
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        Swal.fire('Avis copié dans le presse-papiers !');
+                    }).catch(() => {
+                        Swal.fire('Erreur lors de la copie');
+                    });
+                } else {
+                    Swal.fire('Partage non supporté sur ce navigateur');
+                }
+            }
+
+            container.style.display = "block";
+        }
+
+        document.getElementById("formule").addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const stars = document.querySelectorAll('#stars .star.active').length;
+            const comment = document.getElementById("avi").value.trim();
+            if (!stars || !comment) {
+                Swal.fire("Merci de donner une note et un commentaire.");
+                return;
+            }
+            try {
+                await addDoc(collection(db, "avis"), {
+                    rating: stars,
+                    comment: comment,
+                    timestamp: Date.now()
+                });
+                document.getElementById("avi").value = "";
+                document.querySelectorAll('#stars .star').forEach(star => star.classList.remove('active'));
+                const avisSnap = await getDocs(collection(db, "avis"));
+                const avisList = avisSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                afficheravis(avisList);
+                Swal.fire("Merci pour votre avis !");
+            } catch (err) {
+                Swal.fire("Erreur lors de l'envoi de l'avis.");
+            }
+        });
+
+        //Fonction de validation des entrées 
+        function validateInput(input, type){
             const value = input.trim();
-
             switch (type) {
-                case 'nom':
-                    if (value.length < 2) return 'Le nom doit contenir au moins 2 caractères';
-                    if (value.length > 50) return 'Le nom ne peut pas dépasser 50 caractères';
-                    if (!/^[a-zA-ZÀ-ÿ\s]+$/.test(value)) return 'Le nom ne peut contenir que des lettres';
-                    break;
-
-                case 'numero':
-                    if (!/^\d{8,15}$/.test(value)) return 'Le numéro doit contenir entre 8 et 15 chiffres';
+                case 'email':
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(value)) return 'Email invalide';
+                    if (value.length > 100) return 'Email trop long';
                     break;
 
                 case 'password':
-                    if (value.length < 6) return 'Le mot de passe doit contenir au moins 6 caractères';
-                    if (value.length > 50) return 'Le mot de passe ne peut pas dépasser 50 caractères';
+                    if (value.length < 6) return 'Mot de passe trop court (min 6 caractères)';
+                    if (value.length > 50) return 'Mot de passe trop long';
+                    break;
+
+                case 'text':
+                    if (value.length < 2) return 'Texte trop court';
+                    if (value.length > 500) return 'Texte trop long';
+                    break;
+
+                case 'price':
+                    if (isNaN(value) || parseFloat(value) <= 0) return 'Prix invalide';
+                    if (parseFloat(value) > 10000) return 'Prix trop élevé pour une fourniture d,occasion';
                     break;
             }
 
             return null;
         }
 
-        // Création de compte 
-        async function creerCompte() {
-            try {
-                const nom = sanitizeInput(get('nom').value);
-                const numero = sanitizeInput(get('numero').value);
-                const mdp = get('motdepasse').value;
-
-                // Validation des champs
-                if (!nom || !numero || !mdp) {
-                    return Swal.fire('Attention', 'Remplis tous les champs', 'warning');
-                }
-
-                const nomError = validateInput(nom, 'nom');
-                if (nomError) return Swal.fire('Attention', nomError, 'warning');
-
-                const numeroError = validateInput(numero, 'numero');
-                if (numeroError) return Swal.fire('Attention', numeroError, 'warning');
-
-                const passwordError = validateInput(mdp, 'password');
-                if (passwordError) return Swal.fire('Attention', passwordError, 'warning');
-
-                const email = numero + "@momo.cm";
-                const cred = await createUserWithEmailAndPassword(auth, email, mdp);
-                // Sauvegarde dans Firestore
-                await setDoc(doc(db, "users", cred.user.uid), {
-                    nom: nom.substring(0, 50),
-                    numero: numero.substring(0, 15),
-                    premiumExpire: null
-                });
-                Swal.fire('Succès', 'Compte créé avec succès !', 'success');
-                // Afficher automatiquement 
-                setTimeout(() => {
-                    afficheracceuil();
-                }, 1000);
-
-            } catch (error) {
-                console.error('Erreur lors de la création du compte:', e);
-                if (error.code === "auth/email-already-in-use") {
-                    Swal.fire('Attention', 'Ce numéro est déjà utilisé. Essaie sur un autre téléphone.', 'warning');
-                } else if (error.code === "auth/weak-password") {
-                    Swal.fire('Attention', 'Le mot de passe est trop faible', 'warning');
-                } else {
-                    Swal.fire('Erreur', 'Erreur lors de la création du compte: ' + e.message, 'error');
-                }
-            }
+        // --- Fonction pour échapper le HTML ---
+        function escapeHTML(str) {
+            if (!str) return "";
+            return str.replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
+        async function afficherAnnonces(annonces) {
+            const container = conteneurProfils;
+            container.innerHTML = "";
 
-        //Connexion
-        async function seConnecter() {
-            const numero = get('numero').value.trim();
-            const mdp = get('motdepasse').value.trim();
-
-            if (!numero || !mdp) return Swal.fire('Attention', 'Remplis tous les champs', 'warning');
-
-            try {
-                const email = numero + "@momo.cm";
-                await signInWithEmailAndPassword(auth, email, mdp);
-                Swal.fire('Succès', 'Connexion réussie !', 'success');
-                // Afficher automatiquement les jobs 
-                setTimeout(() => {
-                    afficheracceuil();
-                }, 1000);
-            } catch (e) {
-                if (e.code === "auth/user-not-found") {
-                    Swal.fire('Attention', 'Aucun compte trouvé avec ce numéro. Créez d\'abord un compte.', 'warning');
-                } else if (e.code === "auth/wrong-password") {
-                    Swal.fire('Attention', 'Mot de passe incorrect', 'warning');
-                } else {
-                    Swal.fire('Erreur', 'Erreur de connexion: ' + e.message, 'error');
-                }
+            if (!annonces || annonces.length === 0) {
+                container.innerHTML = `
+                    <div class="container">
+                        <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                            <h3>Aucune annonce trouvée</h3>
+                            <p>Soyez le premier à publier une annonce !</p>
+                        </div>
+                    </div>`;
+                container.style.display = "block";
+                return;
             }
-        }
 
-        // Afficher les jobs
-        async function afficheracceuil() {
-            moi.style.display = "none";
-            // Vérifier si l'élément existe avant d'essayer de le modifier
-            const profileHeader = document.getElementById("profile-header");
-            if (profileHeader) profileHeader.style.display = "none";
+            const annoncesHTML = annonces.map(async (annonce) => {
+                // Bloque le bouton si plus de 2 achats
+                let achatBloque = false;
+                if (utilisateurConnecte()) {
+                    const stats = await getUserStats(auth.currentUser.email);
+                    if (stats.achats >= 2) {
+                        achatBloque = true;
+                        Swal.fire("Vous avez atteint la limite de vos achats cliquez sur payer pour continuer(200 fcfa) ");
+                        document.getElementById("payer").style.display = "block";
 
-            formulaire.style.display = "none";
-            chatDiv.style.display = "none";
-            container.style.display = "block";
-
-            const voirProfils = document.getElementById("voirProfils");
-            if (voirProfils) voirProfils.style.display = "block";
-
-            // Afficher un indicateur de chargement
-            container.innerHTML = `
-                <div class="text-center" style="padding: 2rem;">
-                    <div style="display: inline-block; width: 40px; height: 40px; border: 4px solid #e5e7eb; border-top: 4px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                    <p style="margin-top: 1rem; color: var(--text-secondary);">Chargement des jobs...</p>
-                </div>
-                <style>
-                    @keyframes spin {
-                        0% { transform: rotate(0deg); }
-                        100% { transform: rotate(360deg); }
                     }
-                </style>
-            `;
+                }
+
+                return `
+                    <div class="annonce-card">
+                        ${annonce.imageUrl ? `<img src="${escapeHTML(annonce.imageUrl)}" alt="${escapeHTML(annonce.nomProduit)}" class="annonce-image" />` : ''}
+                        <div class="annonce-content">
+                            <h3 class="annonce-title">${escapeHTML(annonce.nomProduit) || ""}</h3>
+                            <div class="annonce-price">${escapeHTML(annonce.prix ? annonce.prix + ' FCFA' : '')}</div>
+                            
+                            <div class="annonce-details">
+                                <div class="annonce-detail">
+                                    <strong>Classe:</strong> ${escapeHTML(annonce.classe) || ''}
+                                </div>
+                                <div class="annonce-detail">
+                                    <strong>Lieu:</strong> ${escapeHTML(annonce.lieu) || ''}
+                                </div>
+                                <div class="annonce-detail">
+                                    <strong>Vendeur:</strong> ${escapeHTML(annonce.auteur) || ''}
+                                </div>
+                            </div>
+                            
+                            <p class="annonce-description">${escapeHTML(annonce.description)}</p>
+                            
+                            <div class="annonce-actions">
+                                <button class="btn btn-primary" onclick="postuler('${annonce.id}', '${annonce.auteur}')" ${achatBloque ? 'disabled' : ''}>
+                                    💬 Contacter
+                                </button>
+                                <button class="btn btn-success" id="payer" style="display:none;" onclick="startPayment(${annonce.prix}, async (success) => { if (success) { await incrementUserStat(auth.currentUser.email, 'achats'); alert('Paiement réussi !'); afficherAnnonces(allAnnonces); } })" ${achatBloque ? 'disabled' : ''}>
+                                    💳 Payer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const annoncesContent = await Promise.all(annoncesHTML);
+
+            container.innerHTML = `
+                <div class="container">
+                    <div class="annonces-grid">
+                        ${annoncesContent.join('')}
+                    </div>
+                </div>`;
+            container.style.display = "block";
+        }
+        //FONCTION POUR LE PAYEMENT
+        async function startPayment(amount, callback) {
+            CinetPay.setConfig({
+                apikey: '61737472068756e2b167aa8.58285306',
+                site_id: '105901967',
+                notify_url: '',
+                mode: 'PRODUCTION'
+            });
+            let transaction_id = 'TXN_' + Math.floor(Math.random() * 1000000000);
+            CinetPay.getCheckout({
+                transaction_id: transaction_id,
+                amount: 200,
+                currency: 'XAF',
+                channels: 'ALL',
+                description: 'Paiement fournitures scolaires'
+            });
+            CinetPay.waitResponse(async function (data) {
+                if (data.status === "REFUSED") {
+                    alert("Paiement échoué ❌");
+                    if (callback) callback(false);
+                } else if (data.status === "ACCEPTED") {
+                    alert("Paiement réussi ✅");
+                    if (callback) callback(true);
+                }
+            });
+            CinetPay.onError(function (data) {
+                console.error(data);
+                alert("Erreur lors du paiement ⚠");
+                if (callback) callback(false);
+            });
+        }
+
+        let ventesBloquees = false;
+        let achatsBloques = false;
+
+        async function checkVentesAchats() {
+            if (!utilisateurConnecte()) return;
+            const stats = await getUserStats(auth.currentUser.email);
+            ventesBloquees = stats.ventes >= 2 && !paiementEffectue;
+            achatsBloques = stats.achats >= 2 && !paiementEffectue;
+            if (btnVendre) btnVendre.disabled = ventesBloquees;
+            if (btnPayer) btnPayer.style.display = (ventesBloquees || achatsBloques) ? 'block' : 'none';
+        }
+
+        if (btnVendre) {
+            btnVendre.addEventListener('click', async function (e) {
+                await checkVentesAchats();
+                if (ventesBloquees) {
+                    Swal.fire('Vous avez atteint la limite de ventes. Veuillez payer 200 FCFA pour continuer.');
+                    return;
+                }
+                if (paiementEffectue) {
+                    Swal.fire('Merci, chaque nouvelle vente nécessite un paiement.');
+                }
+            });
+        }
+
+        if (btnPayer) {
+            btnPayer.addEventListener('click', function () {
+                startPayment(200, function (success) {
+                    if (success) {
+                        paiementEffectue = true;
+                        localStorage.setItem('paiementEffectue', 'true');
+                        Swal.fire('Paiement réussi ! Vous pouvez continuer à vendre ou acheter.');
+                        if (btnVendre) btnVendre.disabled = false;
+                        if (btnPayer) btnPayer.style.display = 'none';
+                    } else {
+                        Swal.fire('Paiement échoué.');
+                    }
+                });
+            });
+        }
+
+        onAuthStateChanged(auth, checkVentesAchats);
+        async function chargerToutesLesAnnonces() {
+            try {
+                // Afficher un indicateur de chargement
+                conteneurProfils.innerHTML = `
+                    <div style="text-align: center; padding: 3rem;">
+                        <div style="display: inline-block; width: 40px; height: 40px; border: 4px solid #e5e7eb; border-top: 4px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                        <p style="margin-top: 1rem; color: var(--text-secondary);">Chargement des annonces...</p>
+                    </div>
+                    <style>
+                        @keyframes spin {
+                            0% { transform: rotate(0deg); }
+                            100% { transform: rotate(360deg); }
+                        }
+                    </style>
+                `;
+                conteneurProfils.style.display = "block";
+
+                const querySnapshot = await getDocs(collection(db, "annonces"));
+                const annonces = [];
+                querySnapshot.forEach((doc) => {
+                    annonces.push({ id: doc.id, ...doc.data() });
+                });
+
+                allAnnonces = annonces;
+                afficherAnnonces(allAnnonces);
+            } catch (error) {
+                console.error("Erreur chargement annonces:", error);
+                conteneurProfils.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: var(--danger-color);">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <h3>Erreur de chargement</h3>
+                        <p>Impossible de charger les annonces. Vérifiez votre connexion internet.</p>
+                        <button class="btn btn-primary" onclick="chargerToutesLesAnnonces()">
+                            <i class="fas fa-refresh"></i> Réessayer
+                        </button>
+                    </div>
+                `;
+                conteneurProfils.style.display = "block";
+            }
+        }
+
+        // --- Fonction pour filtrer les annonces par catégorie ---
+        window.afficherFournituresCategorie = async function (categorie) {
+            conteneurProfils.innerHTML = "<p>Chargement...</p>";
+            conteneurProfils.style.display = "block";
+            fournitureMenu.style.display = "none";
+            avisZone.style.display = "block";
+            formulaire.style.display = "none";
+            document.getElementById("fourniture").style.display = "none";
+            document.getElementById("avise").style.display = "block";
+            document.getElementById("chat").style.display = "none";
+            document.getElementById("conteneuravis").style.display = "none";
+            document.getElementById("connexion").style.display = "none";
+            try {
+                const filtered = allAnnonces.filter((data) => data.categorie === categorie);
+                afficherAnnonces(filtered);
+            } catch (error) {
+                conteneurProfils.innerHTML = "<p>Erreur de chargement.</p>";
+            }
+        };
+
+        chargerToutesLesAnnonces();
+
+        // --- Fonction d'upload Base64 (Gratuit et permanent) ---
+        async function uploadImage(file) {
+            // Validation de la taille (1MB max pour Firestore)
+            if (file.size > 1024 * 1024) {
+                throw new Error("L'image doit faire moins de 1MB");
+            }
+
+            // Conversion en Base64
+            return await fileToBase64(file);
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        window.envoyerMessage = async function () {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            if (!message) {
+                Swal.fire("Veuillez entrez un message");
+                return;
+            }
+            if (!utilisateurConnecte()) {
+                Swal.fire("Vous devez être connecté pour envoyer un message.");
+                return;
+            }
+            if (!idAnnonceEnCours || !idConversation) {
+                Swal.fire("Aucune conversation active.");
+                return;
+            }
+            try {
+                const msgRef = collection(db, "annonces", idAnnonceEnCours, "conversations", idConversation, "messages");
+                await addDoc(msgRef, {
+                    auteur: auth.currentUser.email,
+                    text: message,
+                    timestamp: Date.now()
+                });
+                input.value = '';
+            } catch (error) {
+                console.error("Erreur envoi message:", error);
+                Swal.fire("Erreur lors de l'envoi du message.");
+            }
+        }
+        async function getUserStats(email) {
+            const userRef = doc(db, "users", email);
+            const snap = await getDoc(userRef);
+            if (snap.exists()) {
+                return snap.data();
+            } else {
+                return { ventes: 0, achats: 0 };
+            }
+        }
+        async function incrementUserStat(email, champ) {
+            const userRef = doc(db, "users", email);
+            await setDoc(userRef, { ventes: 0, achats: 0 }, { merge: true });
+            await updateDoc(userRef, { [champ]: increment(1) });
+        }
+
+        // --- Bloque le bouton publier si plus de 2 ventes ---
+        async function checkBlockPublier() {
+            if (!utilisateurConnecte())
+                Swal.fire("Vous deverez etre connecter");
+            return;
+            const stats = await getUserStats(auth.currentUser.email);
+            if (stats.ventes >= 2) {
+                confirmerBtn.disabled = true;
+                confirmerBtn.title = "Vous avez atteint la limite de 2 ventes.";
+                Swal.fire("Vous avez atteint la limite de 2 ventes.payer 200fcfa pour continuer")
+                document.getElementById("payer").style.display = "block";
+            } else {
+                confirmerBtn.disabled = false;
+                confirmerBtn.title = "";
+            }
+        }
+        onAuthStateChanged(auth, checkBlockPublier);
+        // Gestion du paiement pour débloquer ventes/achats
+        const payerBtn = document.getElementById("payer");
+        if (payerBtn) {
+            payerBtn.addEventListener("click", function () {
+                startPayment(200, async function (success) {
+                    if (success) {
+                        alert("Paiement validé ! Vous pouvez continuer vos ventes ou achats.");
+                        if (utilisateurConnecte()) {
+                            const email = auth.currentUser.email;
+                            const userRef = doc(db, "users", email);
+                            await setDoc(userRef, { ventes: 0, achats: 0 }, { merge: true });
+                            checkBlockPublier();
+                            chargerToutesLesAnnonces();
+                        }
+                        payerBtn.style.display = "none";
+                    }
+                });
+            });
+        }
+        // Gestion du paiement pour débloquer ventes/achats
+        document.getElementById("payer").addEventListener("click", function () {
+            startPayment(200, function (success) {
+                if (success) {
+                    Swal.fire("Paiement validé ! Vous pouvez continuer vos ventes ou achats.");
+                    // Remet à zéro les compteurs Firestore
+                    if (utilisateurConnecte()) {
+                        const email = auth.currentUser.email;
+                        const userRef = doc(db, "users", email);
+                        setDoc(userRef, { ventes: 0, achats: 0 }, { merge: true });
+                        checkBlockPublier();
+                        chargerToutesLesAnnonces();
+                    }
+                    document.getElementById("payer").style.display = "none";
+                }
+            });
+        });
+
+        // Fonction pour ouvrir le chat privé pour une annonce
+        async function ouvrirChat(idAnnonce, emailAcheteur, emailVendeur) {
+            console.log('ouvrirChat appelé avec:', idAnnonce, emailAcheteur, emailVendeur);
+
+            if (!idAnnonce || !emailAcheteur || !emailVendeur) {
+                Swal.fire("Erreur : paramètres du chat manquants !");
+                return;
+            }
+
+            idAnnonceEnCours = idAnnonce;
+            idConversation = [emailAcheteur, emailVendeur].sort().join("_");
+
+            // Affiche le chat et masque les autres sections
+            conteneurProfils.style.display = "none";
+            fournitureMenu.style.display = "none";
+            document.getElementById("conteneuravis").style.display = "none";
+            avisZone.style.display = "none";
+            formulaire.style.display = "none";
+            document.getElementById("fourniture").style.display = "none";
+            document.getElementById("avise").style.display = "none";
+            document.getElementById("chat").style.display = "block";
+            document.getElementById("connexion").style.display = "none";
+            document.getElementById("conteneurProfils").style.display = "none";
+            document.getElementById("formulaire").style.display = "none";
+            document.getElementById("chat").style.display = "block";
+            document.getElementById("messages").innerHTML = "";
+
+            // Affiche le titre du chat
+            document.getElementById("chatTitre").innerText = `Chat entre ${emailAcheteur} et ${emailVendeur}`;
 
             try {
-                const q = query(collection(db, "jobs"), orderBy("timestamp", "desc"));
-                const snap = await getDocs(q);
+                // Récupère les messages de la conversation
+                const messagesRef = collection(db, "annonces", idAnnonce, "conversations", idConversation, "messages");
+                const q = query(messagesRef, orderBy("timestamp", "asc"));
 
-                if (snap.empty) {
-                    container.innerHTML = `
-                        <h3 class='text-center mb-4'><i class='fas fa-briefcase'></i> Liste des jobs disponibles</h3>
-                        <div class="card text-center">
-                            <i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-light); margin-bottom: 1rem;"></i>
-                            <p>Aucun job disponible pour le moment.</p>
-                            <p>Soyez le premier à poster un job !</p>
-                        </div>`;
+                onSnapshot(q, (snapshot) => {
+                    const messagesDiv = document.getElementById("messages");
+                    messagesDiv.innerHTML = "";
+                    snapshot.forEach(docu => {
+                        const msg = docu.data();
+                        const div = document.createElement("div");
+                        const isCurrentUser = msg.auteur === auth.currentUser.email;
+
+                        div.className = `message ${isCurrentUser ? 'message-sent' : 'message-received'}`;
+                        div.innerHTML = `
+                            <div class="message-author">${isCurrentUser ? 'Moi' : msg.auteur}</div>
+                            <div>${msg.text}</div>
+                        `;
+                        messagesDiv.appendChild(div);
+                    });
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                });
+            } catch (error) {
+                console.error("Erreur ouverture chat:", error);
+                Swal.fire("Erreur lors de l'ouverture du chat.");
+            }
+        }
+        // conclure la transaction
+        async function conclureJob() {
+            if (!idAnnonceEnCours) {
+                Swal.fire("Aucune annonce active.");
+                return;
+            }
+            if (!utilisateurConnecte()) {
+                Swal.fire("Vous devez être connecté pour conclure.");
+                return;
+            }
+            try {
+                const annonceRef = doc(db, "annonces", idAnnonceEnCours);
+                const snap = await getDoc(annonceRef);
+                if (!snap.exists()) {
+                    Swal.fire("Annonce introuvable.");
                     return;
                 }
 
-                // Réinitialiser le contenu avec le titre
-                container.innerHTML = "<h3 class='text-center mb-4'><i class='fas fa-briefcase'></i> Liste des jobs disponibles</h3>";
+                const data = snap.data();
+                let c = data.conclusionUsers || [];
+                if (!c.includes(auth.currentUser.email)) c.push(auth.currentUser.email);
+                await updateDoc(annonceRef, { conclusionUsers: c });
+                if (c.length >= 2) await updateDoc(annonceRef, { conclu: true });
 
-                // Optimisation : Récupérer tous les UIDs uniques d'abord
-                const uids = [...new Set(snap.docs.map(doc => doc.data().posteurUID).filter(Boolean))];
-                const usersMap = new Map();
-
-                // Récupérer tous les utilisateurs en parallèle
-                if (uids.length > 0) {
-                    const userPromises = uids.map(async uid => {
-                        try {
-                            const userDoc = await getDoc(doc(db, "users", uid));
-                            if (userDoc.exists()) {
-                                usersMap.set(uid, userDoc.data().nom || "Inconnu");
-                            }
-                        } catch (error) {
-                            console.warn('Erreur lors du chargement de l\'utilisateur:', uid, error);
-                            usersMap.set(uid, "Inconnu");
-                        }
-                    });
-                    await Promise.all(userPromises);
-                }
-
-                for (const docu of snap.docs) {
-                    const job = docu.data();
-                    if (job.conclu) continue;
-
-                    const nomPosteur = job.posteurUID ? (usersMap.get(job.posteurUID) || "Inconnu") : "Inconnu";
-
-                    const div = document.createElement("div");
-                    div.className = "card";
-                    div.innerHTML = `
-                        <h4><i class="fas fa-tasks"></i> ${job.titre}</h4>
-                        <p><strong><i class="fas fa-coins"></i> Prix:</strong> ${job.prix} FCFA</p>
-                        <p><strong><i class="fas fa-user"></i> Posté par:</strong> ${nomPosteur}</p>
-                        <p><i class="fas fa-info-circle"></i> ${job.description}</p>
-                        <button class="btn btn-primary" data-id="${docu.id}">
-                            <i class="fas fa-handshake"></i> Postuler
-                        </button>
-                    `;
-                    container.appendChild(div);
-                    div.querySelector("button").addEventListener("click", () => postuler(docu.id));
-                }
+                Swal.fire("Conclusion enregistrée");
+                document.getElementById("chat").style.display = "none";
+                document.getElementById("conteneurProfils").style.display = "block";
             } catch (error) {
-                console.error("Erreur lors du chargement des jobs:", error);
-                container.innerHTML = `
-                    <h3 class='text-center mb-4'><i class='fas fa-briefcase'></i> Liste des jobs disponibles</h3>
-                    <div class="card text-center">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--danger-color); margin-bottom: 1rem;"></i>
-                        <p>Erreur lors du chargement des jobs.</p>
-                        <button class="btn btn-primary" onclick="afficheracceuil()">
-                            <i class="fas fa-refresh"></i> Réessayer
-                        </button>
-                    </div>`;
+                console.error("Erreur conclusion:", error);
+                Swal.fire("Erreur lors de la conclusion.");
             }
         }
 
-        // Formulaire de job
-        function afficherformulaire() {
-            moi.style.display = "none";
-            const profileHeader = document.getElementById("profile-header");
-            if (profileHeader) profileHeader.style.display = "none";
+        //  pour postuler 
+        window.postuler = async function (idAnnonce, emailVendeur) {
+            document.getElementById("chat").style.display = "block";
+            console.log('postuler appelé avec:', idAnnonce, emailVendeur);
 
-            formulaire.style.display = "block";
-            container.style.display = "none";
-            chatDiv.style.display = "none";
-        }
-
-        // Envoi d'un job
-        async function envoyer() {
-            try {
-                const profileHeader = document.getElementById("profile-header");
-                if (profileHeader) profileHeader.style.display = "none";
-
-                const titre = sanitizeInput(get('titre').value);
-                const prix = sanitizeInput(get('prix').value);
-                const description = sanitizeInput(get('description').value);
-
-                if (!titre || !prix || !description) {
-                    return Swal.fire('Attention', 'Remplis tous les champs', 'warning');
-                }
-
-                if (titre.length < 3) {
-                    return Swal.fire('Attention', 'Le titre doit contenir au moins 3 caractères', 'warning');
-                }
-
-                if (isNaN(prix) || parseInt(prix) <= 0) {
-                    return Swal.fire('Attention', 'Le prix doit être un nombre positif', 'warning');
-                }
-
-                if (description.length < 10) {
-                    return Swal.fire('Attention', 'La description doit contenir au moins 10 caractères', 'warning');
-                }
-
-                const user = auth.currentUser;
-                if (!user) return Swal.fire('Attention', 'Connecte-toi', 'warning');
-
-                // Obtenir la géolocalisation avec gestion d'erreur
-                let coords;
-                try {
-                    coords = await new Promise((res, rej) => {
-                        navigator.geolocation.getCurrentPosition(res, rej, {
-                            timeout: 10000,
-                            enableHighAccuracy: false
-                        });
-                    });
-                } catch (geoError) {
-                    console.warn('Géolocalisation non disponible:', geoError);
-                    coords = { coords: { latitude: 0, longitude: 0 } };
-                }
-
-                await addDoc(collection(db, "jobs"), {
-                    titre: titre.substring(0, 100), 
-                    prix: parseInt(prix),
-                    description: description.substring(0, 500), 
-                    posteur: utilisateurnom,
-                    posteurUID: user.uid,
-                    latitude: coords.coords.latitude,
-                    longitude: coords.coords.longitude,
-                    postulantsUid: [],
-                    conclu: false,
-                    timestamp: Date.now()
-                });
-
-                Swal.fire('Succès', 'Job posté avec succès !', 'success');
-                afficheracceuil();
-            } catch (error) {
-                console.error('Erreur lors de la création du job:', error);
-                Swal.fire('Erreur', 'Erreur lors de la création du job. Veuillez réessayer.', 'error');
+            if (!idAnnonce) {
+                Swal.fire("Erreur : id de l'annonce manquant !");
+                return;
             }
-        }
-
-        //  Postuler
-        async function postuler(idJob) {
-            const profileHeader = document.getElementById("profile-header");
-            if (profileHeader) profileHeader.style.display = "none";
+            if (!emailVendeur) {
+                Swal.fire("Erreur : email du vendeur manquant !");
+                return;
+            }
 
             const user = auth.currentUser;
-            if (!user) return Swal.fire('Attention', 'Connecte-toi d\'abord', 'warning');
-
-            const uid = user.uid;
-
-            const userDoc = await getDoc(doc(db, "users", uid));
-            if (!userDoc.exists()) return Swal.fire('Erreur', 'Utilisateur introuvable', 'error');
-
-            const jobRef = doc(db, "jobs", idJob);
-            const jobSnap = await getDoc(jobRef);
-            if (!jobSnap.exists()) return Swal.fire('Erreur', 'Job introuvable', 'error');
-
-            const job = jobSnap.data();
-            let postulants = job.postulants || [];
-
-            if (!postulants.includes(uid)) {
-                postulants.push(uid);
-                await updateDoc(jobRef, { postulants: postulants });
+            if (!user) {
+                Swal.fire("Connecte-toi d'abord");
+                return;
             }
 
-            //  Création automatique d'une conversation avec message
-            const convId = [uid, job.posteurUID].sort().join("_");
-            const msgRef = collection(db, "jobs", idJob, "conversations", convId, "messages");
+            const emailAcheteur = user.email;
 
-            const messagesSnap = await getDocs(msgRef);
-            if (messagesSnap.empty) {
-                await addDoc(msgRef, {
-                    auteur: uid,
-                    text: "Bonjour, je suis intéressé par ce job.",
-                    timestamp: Date.now()
-                });
+            try {
+                // Crée la conversation si elle n'existe pas
+                const convId = [emailAcheteur, emailVendeur].sort().join("_");
+                const msgRef = collection(db, "annonces", idAnnonce, "conversations", convId, "messages");
+                const messagesSnap = await getDocs(msgRef);
+
+                if (messagesSnap.empty) {
+                    await addDoc(msgRef, {
+                        auteur: emailAcheteur,
+                        text: "Bonjour, je suis intéressé par cette annonce.",
+                        timestamp: Date.now()
+                    });
+                }
+
+                ouvrirChat(idAnnonce, emailAcheteur, emailVendeur);
+            } catch (error) {
+                console.error("Erreur postuler:", error);
+                Swal.fire("Erreur lors de la création du chat.");
             }
-
-            ouvrirChat(idJob, uid, job.posteurUID);
-        }
-
-        // Ouvrir le chat
-        async function ouvrirChat(idJob, uid1, uid2) {
-            console.log("ouvrir chat appeler avec ", { idJob, uid1, uid2 });
-            idJobEnCours = idJob;
-            idConversation = [uid1, uid2].sort().join("_");
-
-            moi.style.display = "none";
-            const profileHeader = document.getElementById("profile-header");
-            if (profileHeader) profileHeader.style.display = "none";
-
-            container.style.display = "none";
-            formulaire.style.display = "none";
-            chatDiv.style.display = "block";
-            messagesDiv.innerHTML = "";
-
-            const messagesRef = collection(db, "jobs", idJob, "conversations", idConversation, "messages");
-            const q = query(messagesRef, orderBy("timestamp", "asc"));
-
-            onSnapshot(q, async (snapshot) => {
-                messagesDiv.innerHTML = "";
-
-                // Récupérer en parallèle tous les messages + noms auteurs
-                const messagesWithAuthors = await Promise.all(snapshot.docs.map(async docu => {
-                    const msg = docu.data();
-                    const auteurDoc = await getDoc(doc(db, "users", msg.auteur));
-                    const auteurNom = auteurDoc.exists() ? auteurDoc.data().nom : "Inconnu";
-                    return { ...msg, auteurNom };
-                }));
-
-                messagesWithAuthors.forEach(msg => {
-                    const div = document.createElement("div");
-                    const isCurrentUser = msg.auteur === auth.currentUser.uid;
-
-                    div.className = `message ${isCurrentUser ? 'message-sent' : 'message-received'}`;
-                    div.innerHTML = `
-            <div class="message-author">${msg.auteurNom}</div>
-            ${msg.text}
-          `;
-
-                    messagesDiv.appendChild(div);
-                });
-
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            });
-
-            const autreDoc = await getDoc(doc(db, "users", uid2));
-            const autreNom = autreDoc.exists() ? autreDoc.data().nom : "Inconnu";
-            document.querySelector('.chat-title').innerHTML = `<i class="fas fa-comments"></i> Chat avec ${autreNom}`;
-            document.getElementById("profile-header").style.display = "none";
-        }
-
-        //  Envoyer un message
-        async function envoyerMessage() {
-            const texte = messageInput.value.trim();
-            if (!texte) return Swal.fire("Veuillez entrez un texte");
-            const uid = auth.currentUser.uid;
-            let msgRef;
-            if (idJobEnCours) {
-                msgRef = collection(db, "jobs", idJobEnCours, "conversations", idConversation, "messages");
-            } else {
-                msgRef = collection(db, "conversations", idConversation, "messages");
-            }
-            await addDoc(msgRef, {
-                auteur: uid,
-                text: texte,
-                timestamp: Date.now()
-            });
-            if (!idJobEnCours) {
-                const otherUid = idConversation.split('_').find(u => u !== uid);
-                await setDoc(doc(db, "conversations", idConversation), {
-                    participants: [uid, otherUid],
-                    lastUpdate: Date.now()
-                }, { merge: true });
-            }
-            messageInput.value = "";
-            document.getElementById("profile-header").style.display = "none";
-        }
-
-        //  Conclure
-        async function conclureJob() {
-            const jobRef = doc(db, "jobs", idJobEnCours);
-            const snap = await getDoc(jobRef);
-            if (!snap.exists()) return;
-            const data = snap.data();
-
-            let c = data.conclusionUsers || [];
-            if (!c.includes(utilisateurnom)) c.push(utilisateurnom);
-            await updateDoc(jobRef, { conclusionUsers: c });
-            if (c.length >= 2) await updateDoc(jobRef, { conclu: true });
-
-            Swal.fire('Succès', 'Conclusion enregistrée', 'success');
-            fermerChat();
-            afficheracceuil();
-            document.getElementById("profile-header").style.display = "none";
         }
 
         // Fermer le chat
-        function fermerChat() {
-            chatDiv.style.display = "none";
-            container.style.display = "block";
-            document.getElementById("profile-header").style.display = "none";
-            idConversation = "";
-        }
-
-        //  Afficher le profil utilisateur
-        async function afficherProfil() {
-            const user = auth.currentUser;
-            if (!user) return Swal.fire('Attention', 'Connecte-toi d\'abord', 'warning');
-            const userDoc = await getDoc(doc(db, "users", user.uid));
-            let data = userDoc.exists() ? userDoc.data() : {};
-            moi.style.display = "block";
-            conteneurProfils.innerHTML = "";
-            if (userDoc.exists()) {
-                moi.innerHTML = `
-            <div class="profile-header" id="profile-header">
-                <h2 class="profile-title"><i class="fas fa-user-circle"></i> Votre profil</h2>
-            </div>
-            <div class="profile-info">
-                ${data.photoURL ? `<img src="${data.photoURL}" class="profile-avatar">` : ""}
-                <div class="profile-details">
-                    <h4><i class="fas fa-user"></i> ${data.prenom || data.nom || "Utilisateur"}</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> ${data.ville || "Ville non spécifiée"}</p>
-                    <p><i class="fas fa-clock"></i> Expérience: ${data.statut || "Non spécifiée"}</p>
-                    <p><i class="fas fa-tools"></i> ${data.competences || "Compétences non spécifiées"}</p>
-                </div>
-            </div>
-            <button class="btn btn-secondary" id="modifierProfil"><i class="fas fa-edit"></i> Modifier</button>
-        `;
-                document.getElementById("modifierProfil").onclick = () => afficherFormulaireProfil(data);
-            } else {
-                afficherFormulaireProfil();
-            }
-        }
-        function afficherFormulaireProfil(data = {}) {
-            moi.innerHTML = `
-        <form id="form">
-            <div class="form-group">
-                <label class="form-label">Prénom</label>
-                <input class="form-input" type="text" name="prenom" value="${data.prenom || ""}" placeholder="Entrez votre prénom" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Ville</label>
-                <input class="form-input" type="text" name="ville" value="${data.ville || ""}" required placeholder="Entrez votre ville">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Expérience</label>
-                <input class="form-input" type="text" name="statut" value="${data.statut || ""}" placeholder="Votre expérience">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Compétences</label>
-                <textarea class="form-textarea" name="competences" required placeholder="Quelles sont vos compétences ?">${data.competences || ""}</textarea>
-            </div>
-            <div class="form-actions">
-                <button type="submit" class="btn btn-success">
-                    <i class="fas fa-save"></i> Enregistrer
-                </button>
-            </div>
-        </form>
-    `;
-            document.getElementById("form").onsubmit = async function (e) {
-                e.preventDefault();
-                const user = auth.currentUser;
-                if (!user) return Swal.fire('Attention', 'Connecte-toi d\'abord', 'warning');
-                const formData = new FormData(this);
-                const profil = Object.fromEntries(formData.entries());
-                await setDoc(doc(db, "users", user.uid), profil, { merge: true });
-                Swal.fire('Succès', 'Profil enregistré !', 'success');
-                afficherProfil();
-                formulaire.style.display = "none";
-                chatDiv.style.display = "none";
-                container.style.display = "none";           
-            };
-        }
-
-        //  Afficher les profils des utilisateurs
-        async function afficherProfilsUtilisateurs() {
-            moi.style.display = "none";
-            const profileHeader = document.getElementById("profile-header");
-            if (profileHeader) profileHeader.style.display = "none";
-
-            formulaire.style.display = "none";
-            chatDiv.style.display = "none";
-            container.style.display = "block";
-            container.innerHTML = "<h3 class='text-center mb-4'><i class='fas fa-users'></i> Profils des utilisateurs</h3>";
-            const usersSnap = await getDocs(collection(db, "users"));
-            if (usersSnap.empty) {
-                container.innerHTML += `<div class="card text-center"><p>Aucun profil trouvé.</p></div>`;
-                return;
-            }
-            usersSnap.forEach(docu => {
-                const data = docu.data();
-                const uid = docu.id;
-                const isMe = auth.currentUser && auth.currentUser.uid === uid;
-                const div = document.createElement("div");
-                div.className = "profile-card";
-                div.innerHTML = `
-            <div class="profile-info">
-                ${data.photoURL ? `<img src="${data.photoURL}" class="profile-avatar">` : ""}
-                <div class="profile-details">
-                    <h4><i class="fas fa-user"></i> ${data.prenom || data.nom || "Utilisateur"}</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> ${data.ville || "Ville non spécifiée"}</p>
-                    <p><i class="fas fa-clock"></i> Expérience: ${data.statut || "Non spécifiée"}</p>
-                    <p><i class="fas fa-tools"></i> ${data.competences || "Compétences non spécifiées"}</p>
-                </div>
-            </div>
-            ${!isMe ? `<button class="contact-btn" data-uid="${uid}"><i class="fas fa-phone"></i> Contacter</button>` : ""}
-        `;
-                container.appendChild(div);
-                if (!isMe) {
-                    div.querySelector(".contact-btn").addEventListener("click", function () {
-                        window.ouvrirChatPrive(uid);
-                    });
-                }
-            });
-        }
-
-        // Lire les conversations
-        async function lireConversations() {
-            moi.style.display = "none";
-            const profileHeader = document.getElementById("profile-header");
-            if (profileHeader) profileHeader.style.display = "none";
-
-            formulaire.style.display = "none";
-            chatDiv.style.display = "none";
-            container.style.display = "block";
-            container.innerHTML = "<h3 class='text-center mb-4'><i class='fas fa-comments'></i> Mes Conversations</h3>";
-
-            const currentUser = auth.currentUser;
-            if (!currentUser) return Swal.fire('Attention', 'Connecte-toi d\'abord', 'warning');
-
-            const uid = currentUser.uid;
-            const jobsSnap = await getDocs(collection(db, "jobs"));
-            let total = 0;
-
-            for (const doc of jobsSnap.docs) {
-                const job = doc.data();
-                const jobId = doc.id;
-                if (job.conclu) continue;
-
-                const estPosteur = job.posteurUID === uid;
-                const estPostulant = (job.postulants || []).includes(uid);
-
-                if (!estPosteur && !estPostulant) continue;
-
-                const div = document.createElement("div");
-                div.className = "card";
-                div.innerHTML = `
-          <h4><i class="fas fa-tasks"></i> ${job.titre}</h4>
-          <p><i class="fas fa-coins"></i> Prix: ${job.prix} FCFA</p>
-          <p><i class="fas fa-info-circle"></i> ${job.description}</p>
-        `;
-
-                if (estPosteur && Array.isArray(job.postulants)) {
-                    for (const postulantUID of job.postulants) {
-                        let postulantNom = "Utilisateur";
-                        try {
-                            const postulantDoc = await getDoc(doc(db, "users", postulantUID));
-                            if (postulantDoc.exists()) {
-                                postulantNom = postulantDoc.data().nom || "Utilisateur";
-                            }
-                        } catch (e) { }
-
-                        const btnId = `chat_${jobId}_${postulantUID}`;
-                        const voirProfilBtnId = `voirProfil_${jobId}_${postulantUID}`;
-                        div.innerHTML += `
-              <p><strong><i class="fas fa-user"></i> Postulant:</strong> ${postulantNom}</p>
-              <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-                <button class="btn btn-primary" id="${btnId}">
-                  <i class="fas fa-comments"></i> Ouvrir chat
-                </button>
-                <button class="btn btn-secondary" id="${voirProfilBtnId}">
-                  <i class="fas fa-user"></i> Voir le profil
-                </button>
-              </div>
-            `;
-                        setTimeout(() => {
-                            const btn = document.getElementById(btnId);
-                            if (btn) {
-                                btn.addEventListener("click", () => {
-                                    ouvrirChat(jobId, uid, postulantUID);
-                                });
-                            }
-
-                            const voirProfilBtn = document.getElementById(voirProfilBtnId);
-                            if (voirProfilBtn) {
-                                voirProfilBtn.addEventListener("click", async () => {
-                                    try {
-                                        const userDoc = await getDoc(doc(db, "users", postulantUID));
-                                        if (userDoc.exists()) {
-                                            const data = userDoc.data();
-                                            Swal.fire('👤 Profil de ' + (data.prenom || data.nom || "Utilisateur"), '\n\n🏙️ Ville: ' + (data.ville || "Non spécifiée") + '\n⏰ Expérience: ' + (data.statut || "Non spécifiée") + '\n🛠️ Compétences: ' + (data.competences || "Non spécifiées"), 'info');
-                                        } else {
-                                            Swal.fire('Erreur', 'Profil non trouvé', 'error');
-                                        }
-                                    } catch (error) {
-                                        Swal.fire('Erreur', 'Erreur lors du chargement du profil', 'error');
-                                    }
-                                });
-                            }
-                        }, 0);
-                    }
-                }
-
-                if (estPostulant && !estPosteur) {
-                    let posteurNom = "Utilisateur";
-                    try {
-                        const posteurDoc = await getDoc(doc(db, "users", job.posteurUID));
-                        if (posteurDoc.exists()) {
-                            posteurNom = posteurDoc.data().nom || "Utilisateur";
-                        }
-                    } catch (e) { }
-
-                    const btnId = `chat_${jobId}_${job.posteurUID}`;
-                    div.innerHTML += `
-            <p><strong><i class="fas fa-user"></i> Posteur:</strong> ${posteurNom}</p>
-            <button class="btn btn-primary" id="${btnId}">
-              <i class="fas fa-comments"></i> Ouvrir chat
-            </button>
-          `;
-
-                    setTimeout(() => {
-                        const btn = document.getElementById(btnId);
-                        if (btn) {
-                            btn.addEventListener("click", () => {
-                                ouvrirChat(jobId, uid, job.posteurUID);
-                            });
-                        }
-                    }, 0);
-                }
-
-                container.appendChild(div);
-                total++;
-            }
-
-            if (total === 0) {
-                container.innerHTML += `
-          <div class="card text-center">
-            <i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-light); margin-bottom: 1rem;"></i>
-            <p>Tu n'as aucune conversation.</p>
-          </div>`;
-            }
-
-            const convSnap = await getDocs(collection(db, "conversations"));
-            for (const convDoc of convSnap.docs) {
-                const convId = convDoc.id;
-                if (convId.includes(currentUser.uid)) {
-                    const otherUid = convId.split("_").find(uid => uid !== currentUser.uid);
-                    // Récupère le dernier message
-                    const messagesRef = collection(db, "conversations", convId, "messages");
-                    const lastMsgSnap = await getDocs(query(messagesRef, orderBy("timestamp", "desc"), limit(1)));
-                    let lastMsg = null;
-                    lastMsgSnap.forEach(doc => lastMsg = doc.data());
-                    let preview = "";
-                    if (lastMsg) {
-                        const date = new Date(lastMsg.timestamp).toLocaleString();
-                        preview = `<div style="color: #888; font-size: 0.9em; margin-bottom: 0.5em;">
-                            <b>${lastMsg.auteur === currentUser.uid ? 'Moi' : 'Lui/Elle'}:</b> ${lastMsg.text} <span style="float:right;">${date}</span>
-                        </div>`;
-                    }
-                    const div = document.createElement("div");
-                    div.className = "card";
-                    div.innerHTML = `
-                        <h4><i class="fas fa-user"></i> Conversation privée</h4>
-                        ${preview}
-                        <button class="btn btn-primary" onclick="window.ouvrirChatPriveGeneral('${currentUser.uid}', '${otherUid}')">
-                            <i class="fas fa-comments"></i> Ouvrir chat
-                        </button>
-                    `;
-                    container.appendChild(div);
-                }
-            }
-        }
-
-        // Liaison des boutons
-        window.addEventListener("DOMContentLoaded", () => {
-            if (get("btnCreerCompte")) get("btnCreerCompte").addEventListener("click", creerCompte);
-            if (get("btnSeConnecter")) get("btnSeConnecter").addEventListener("click", seConnecter);
-
-            if (get("posterBtn")) get("posterBtn").addEventListener("click", envoyer);
-            if (get("btnAcceuil")) get("btnAcceuil").addEventListener("click", afficheracceuil);
-            if (get("btnPosterJob")) get("btnPosterJob").addEventListener("click", afficherformulaire);
-            if (get("btnConversations")) get("btnConversations").addEventListener("click", lireConversations);
-            if (get("envoyer")) get("envoyer").addEventListener("click", envoyerMessage);
-            if (get("conclure")) get("conclure").addEventListener("click", conclureJob);
-            if (get("fermerChat")) get("fermerChat").addEventListener("click", fermerChat);
-            if (get("btnAnnuler")) get("btnAnnuler").addEventListener("click", afficheracceuil);
-            if (get("voirProfils")) get("voirProfils").addEventListener("click", afficherProfilsUtilisateurs);
-            if (get("profil")) get("profil").addEventListener("click", afficherProfil);
+        document.getElementById("fermerChat").addEventListener("click", function () {
+            document.getElementById("conteneurProfils").style.display = "block";
+            document.getElementById("chat").style.display = "none";
+            document.getElementById("conteneuravis").style.display = "none";
+            conn.style.display = "none";
+            fournitureMenu.style.display = "none";
+            btnVendre.style.display = "none";
+            avisZone.style.display = "none";
+            document.getElementById("question").style.display = "none";
         });
 
-        // Rendre les fonctions globales pour les boutons 
-        window.postuler = postuler;
-        window.ouvrirChat = ouvrirChat;
-        window.envoyerMessage = envoyerMessage;
-        window.fermerChat = fermerChat;
-        window.conclureJob = conclureJob;
-        window.afficherProfil = afficherProfil;
-        window.afficherProfilsUtilisateurs = afficherProfilsUtilisateurs;
+        (function () {
+            'use strict';
 
-        async function ouvrirChatPriveGeneral(uid1, uid2) {
-            console.log('ouvrirChatPriveGeneral appelé avec', uid1, uid2);
-            idJobEnCours = null;
-            idConversation = [uid1, uid2].sort().join("_");
-            moi.style.display = "none";
-            const profileHeader = document.getElementById("profile-header");
-            if (profileHeader) profileHeader.style.display = "none";
+            function waitForElements() {
+                return new Promise((resolve) => {
+                    const checkElements = () => {
+                        const container = document.getElementById("conteneurProfils");
+                        const auth = window.auth;
+                        const db = window.db;
 
-            container.style.display = "none";
-            formulaire.style.display = "none";
-            chatDiv.style.display = "block";
-            messagesDiv.innerHTML = "";
-            const messagesRef = collection(db, "conversations", idConversation, "messages");
-            const q = query(messagesRef, orderBy("timestamp", "asc"));
-            onSnapshot(q, async (snapshot) => {
-                messagesDiv.innerHTML = "";
-                const messagesWithAuthors = await Promise.all(snapshot.docs.map(async docu => {
-                    const msg = docu.data();
-                    const auteurDoc = await getDoc(doc(db, "users", msg.auteur));
-                    const auteurNom = auteurDoc.exists() ? (auteurDoc.data().prenom || auteurDoc.data().nom) : "Inconnu";
-                    return { ...msg, auteurNom };
-                }));
-                messagesWithAuthors.forEach(msg => {
-                    const div = document.createElement("div");
-                    const isCurrentUser = msg.auteur === uid1;
-                    div.className = `message ${isCurrentUser ? 'message-sent' : 'message-received'}`;
-                    div.innerHTML = `<div class=\"message-author\">${msg.auteurNom}</div>${msg.text}`;
-                    messagesDiv.appendChild(div);
+                        if (container && auth && db) {
+                            resolve();
+                        } else {
+                            setTimeout(checkElements, 100);
+                        }
+                    };
+                    checkElements();
                 });
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            });
-            const autreDoc = await getDoc(doc(db, "users", uid2));
-            const autreNom = autreDoc.exists() ? (autreDoc.data().prenom || autreDoc.data().nom) : "Inconnu";
-            document.querySelector('.chat-title').innerHTML = `<i class=\"fas fa-comments\"></i> Chat avec ${autreNom}`;
-        }
-        window.ouvrirChatPriveGeneral = ouvrirChatPriveGeneral;
+            }
 
-        async function ouvrirChatPrive(otherUid) {
-            const uid1 = auth.currentUser.uid;
-            const uid2 = otherUid;
-            await window.ouvrirChatPriveGeneral(uid1, uid2);
-        }
-        window.ouvrirChatPrive = ouvrirChatPrive;
+            async function lireConversations() {
+                document.getElementById("conteneurProfils").style.display = "none";
+                document.getElementById("chat").style.display = "none";
+                conn.style.display = "none";
+                fournitureMenu.style.display = "none";
+                document.getElementById("conteneuravis").style.display = "none";
+                btnVendre.style.display = "none";
+                avisZone.style.display = "none";
+                document.getElementById("question").style.display = "none";
+                await waitForElements();
+                const container = document.getElementById("conteneurProfils");
+                if (!container) return alert("Erreur: Interface non disponible");
+                ["fourniture", "avise", "chat", "connexion", "formulaire"].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = "none";
+                });
+                container.style.display = "block";
+                container.innerHTML = `<h3 class='section-title'>💬 Mes Conversations</h3>`;
+                const currentUser = window.auth && window.auth.currentUser;
+                if (!currentUser) {
+                    container.innerHTML += `<div style='text-align:center;color:red;margin-top:2rem;'>❌ Connecte-toi d'abord</div>`;
+                    return;
+                }
+                const email = currentUser.email;
+                let total = 0;
+
+                let annoncesSnap;
+                try {
+                    annoncesSnap = await getDocs(collection(window.db, "annonces"));
+                } catch (error) {
+                    container.innerHTML += `<div style='text-align:center;color:red;margin-top:2rem;'>❌ Erreur lors de la connexion à la base de données</div>`;
+                    return;
+                }
+
+                for (const docu of annoncesSnap.docs) {
+                    const annonce = { id: docu.id, ...docu.data() };
+                    if (annonce.auteur === email) {
+                        const convsSnap = await getDocs(collection(window.db, "annonces", annonce.id, "conversations"));
+                        if (convsSnap.empty) continue;
+                        for (const convDoc of convsSnap.docs) {
+                            const convId = convDoc.id;
+                            const messagesRef = collection(window.db, "annonces", annonce.id, "conversations", convId, "messages");
+                            const lastMsgSnap = await getDocs(query(messagesRef, orderBy("timestamp", "desc"), limit(1)));
+                            let lastMsg = null;
+                            lastMsgSnap.forEach(doc => lastMsg = doc.data());
+                            let preview = "";
+                            if (lastMsg) {
+                                const date = new Date(lastMsg.timestamp).toLocaleString();
+                                preview = `<div style='color:#888;font-size:0.9em;margin-bottom:0.5em;'><b>${lastMsg.auteur === email ? 'Moi' : lastMsg.auteur}:</b> ${lastMsg.text} <span style='float:right;'>${date}</span></div>`;
+                            }
+                            const emails = convId.split("_");
+                            const emailAcheteur = emails.find(e => e !== annonce.auteur);
+                            const card = document.createElement("div");
+                            card.className = "annonce-card";
+                            card.innerHTML = `
+                                <h4><i class="fas fa-tasks"></i> ${annonce.nomProduit || "Produit sans nom"}</h4>
+                                <p><i class="fas fa-coins"></i> Prix: ${annonce.prix || "?"} FCFA</p>
+                                <p><i class="fas fa-info-circle"></i> ${annonce.description || "Pas de description"}</p>
+                                <p><strong><i class="fas fa-user"></i> Acheteur:</strong> ${emailAcheteur}</p>
+                                ${preview}
+                                <button class="btn btn-primary" onclick="window.ouvrirChat('${annonce.id}', '${emailAcheteur}', '${annonce.auteur}')">
+                                    <i class="fas fa-comments"></i> Ouvrir chat
+                                </button>
+                            `;
+                            container.appendChild(card);
+                            total++;
+                        }
+                    }
+                }
+
+                for (const docu of annoncesSnap.docs) {
+                    const annonce = { id: docu.id, ...docu.data() };
+                    if (annonce.auteur !== email) {
+                        const convsSnap = await getDocs(collection(window.db, "annonces", annonce.id, "conversations"));
+                        for (const convDoc of convsSnap.docs) {
+                            if (convDoc.id.includes(email)) {
+                                const messagesRef = collection(window.db, "annonces", annonce.id, "conversations", convDoc.id, "messages");
+                                const lastMsgSnap = await getDocs(query(messagesRef, orderBy("timestamp", "desc"), limit(1)));
+                                let lastMsg = null;
+                                lastMsgSnap.forEach(doc => lastMsg = doc.data());
+                                let preview = "";
+                                if (lastMsg) {
+                                    const date = new Date(lastMsg.timestamp).toLocaleString();
+                                    preview = `<div style='color:#888;font-size:0.9em;margin-bottom:0.5em;'><b>${lastMsg.auteur === email ? 'Moi' : lastMsg.auteur}:</b> ${lastMsg.text} <span style='float:right;'>${date}</span></div>`;
+                                }
+                                const card = document.createElement("div");
+                                card.className = "annonce-card";
+                                card.innerHTML = `
+                                    <h4><i class="fas fa-tasks"></i> ${annonce.nomProduit || "Produit sans nom"}</h4>
+                                    <p><i class="fas fa-coins"></i> Prix: ${annonce.prix || "?"} FCFA</p>
+                                    <p><i class="fas fa-info-circle"></i> ${annonce.description || "Pas de description"}</p>
+                                    <p><strong><i class="fas fa-user"></i> Vendeur:</strong> ${annonce.auteur}</p>
+                                    ${preview}
+                                    <button class="btn btn-primary" onclick="window.ouvrirChat('${annonce.id}', '${email}', '${annonce.auteur}')">
+                                        <i class="fas fa-comments"></i> Ouvrir chat
+                                    </button>
+                                `;
+                                container.appendChild(card);
+                                total++;
+                            }
+                        }
+                    }
+                }
+
+                if (total === 0) {
+                    container.innerHTML += `<div class="annonce-card text-center"><i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-light); margin-bottom: 1rem;"></i><p>Tu n'as aucune conversation.</p></div>`;
+                }
+            }
+
+            window.lireConversations = lireConversations;
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                });
+            }
+        })();
 
         // Gestion globale des erreurs
         window.addEventListener('error', (event) => {
             console.error('Erreur JavaScript:', event.error);
-            Swal.fire('Erreur', 'Une erreur inattendue s\'est produite. Veuillez rafraîchir la page.', 'error');
+            Swal.fire('Une erreur inattendue s\'est produite. Veuillez rafraîchir la page.');
         });
 
+        // Gestion des erreurs de promesses non gérées
         window.addEventListener('unhandledrejection', (event) => {
             console.error('Promesse rejetée:', event.reason);
-            Swal.fire('Erreur', 'Une erreur réseau s\'est produite. Vérifiez votre connexion.', 'error');
+            Swal.fire('Une erreur réseau s\'est produite. Vérifiez votre connexion.');
         });
+
+        // Fonction de nettoyage des données
+        function sanitizeInput(input) {
+            if (!input) return "";
+            return input
+                .replace(/[<>]/g, '')
+                .replace(/javascript:/gi, '')
+                .trim();
+        }
+
+        // Fonction pour afficher les messages d'erreur de manière plus élégante
+        function showError(message, duration = 5000) {
+            const errorDiv = document.createElement('div');
+            errorDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #dc2626;
+                color: white;
+                padding: 1rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                max-width: 300px;
+                word-wrap: break-word;
+            `;
+            errorDiv.textContent = message;
+            document.body.appendChild(errorDiv);
+
+            setTimeout(() => {
+                errorDiv.remove();
+            }, duration);
+        }
+
     </script>
 </body>
+
+</html>
