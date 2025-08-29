@@ -1,43 +1,9 @@
-<!DOCTYPE html>
-<html lang="fr">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Petits Jobs Express</title>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecteur Musique Pro</title>
     <style>
-        :root {
-            --primary-color: #2563eb;
-            --primary-light: #3b82f6;
-            --primary-dark: #1d4ed8;
-            --secondary-color: #10b981;
-            --secondary-light: #34d399;
-            --accent-color: #f59e0b;
-            --success-color: #059669;
-            --danger-color: #dc2626;
-            --warning-color: #d97706;
-            --background-color: #f8fafc;
-            --surface-color: #ffffff;
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --text-light: #9ca3af;
-            --border-color: #e5e7eb;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --border-radius: 8px;
-            --border-radius-lg: 12px;
-            --border-radius-xl: 16px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -45,1668 +11,1347 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
             overflow-x: hidden;
         }
 
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            box-shadow: var(--shadow-lg);
-        }
-
-        header h1 {
-            text-align: center;
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin: 0;
-        }
-
-        /* Container principal */
-        .main-container {
-            max-width: 1200px;
+        .container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 20px;
         }
 
-        #contenuPrincipal {
-            margin-top: 80px;
-            padding: 2rem 0;
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        /* Boutons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 0.875rem;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: var(--transition);
-            white-space: nowrap;
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: white;
-            box-shadow: var(--shadow);
+        .controls-panel {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-secondary {
-            background: var(--surface-color);
-            color: var(--text-primary);
-            border: 2px solid var(--border-color);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, var(--success-color), var(--secondary-color));
-            color: white;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-success:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, var(--warning-color), var(--accent-color));
-            color: white;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-warning:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, var(--danger-color), #ef4444);
-            color: white;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-danger:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Voir Profils button */
-        #voirProfils {
-            position: fixed;
-            top: 90px;
-            right: 1rem;
-            background: linear-gradient(135deg, var(--accent-color), #fbbf24);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius-lg);
-            padding: 0.75rem 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            z-index: 100;
-            transition: var(--transition);
-        }
-
-        #voirProfils:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-lg);
-        }
-
-        #menuOptions {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--surface-color);
-            border-top: 1px solid var(--border-color);
-            padding: 1rem;
+        .file-input-container {
             display: flex;
-            justify-content: space-around;
-            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
-            z-index: 999;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
         }
 
-        #menuOptions button {
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            border: none;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+        }
+
+        .file-input-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255,107,107,0.4);
+        }
+
+        .search-bar {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            box-shadow: 0 0 20px rgba(78,205,196,0.5);
+            transform: scale(1.02);
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: transparent;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(255,255,255,0.2);
+            border-color: #4ecdc4;
+            box-shadow: 0 4px 15px rgba(78,205,196,0.3);
+        }
+
+        .sort-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .sort-select {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .playlist-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.2);
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .playlist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .playlist-header h2 {
+            color: #4ecdc4;
+        }
+
+        .playlist-counter {
+            background: rgba(78,205,196,0.3);
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+
+        .song-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .song-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .song-item.playing {
+            background: linear-gradient(45deg, rgba(78,205,196,0.3), rgba(255,107,107,0.3));
+            border-color: #4ecdc4;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(78,205,196,0.3); }
+            50% { box-shadow: 0 0 30px rgba(78,205,196,0.6); }
+        }
+
+        .song-info {
+            flex: 1;
+            margin-left: 15px;
+            min-width: 0;
+        }
+
+        .song-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .song-duration {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .song-actions {
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .song-item:hover .song-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
             background: none;
             border: none;
-            font-size: 1rem;
-            color: var(--text-secondary);
+            color: white;
             cursor: pointer;
-            padding: 0.5rem;
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        #menuOptions button:hover {
-            color: var(--primary-color);
-            background: rgba(37, 99, 235, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* Cards */
-        .card {
-            background: var(--surface-color);
-            border-radius: var(--border-radius-lg);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            transition: var(--transition);
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .card h4 {
-            color: var(--text-primary);
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
-        }
-
-        .card strong {
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        /* Formulaire */
-        .form-container {
-            background: var(--surface-color);
-            border-radius: var(--border-radius-lg);
-            padding: 2rem;
-            box-shadow: var(--shadow-lg);
-            max-width: 500px;
-            margin: 2rem auto;
-            border: 1px solid var(--border-color);
-        }
-
-        .form-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-input,
-        .form-textarea {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 2px solid var(--border-color);
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            transition: var(--transition);
-            background: var(--surface-color);
-            color: var(--text-primary);
-        }
-
-        .form-input:focus,
-        .form-textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .form-textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .form-actions .btn {
-            flex: 1;
-        }
-
-        /* Chat */
-        .chat-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 600px;
-            height: 80vh;
-            background: var(--surface-color);
-            border-radius: var(--border-radius-lg);
-            box-shadow: var(--shadow-xl);
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
-            border: 1px solid var(--border-color);
-        }
-
-        .chat-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: white;
-            padding: 1.5rem;
-            border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .chat-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
-
-        .chat-close {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            width: 32px;
-            height: 32px;
+            padding: 8px;
             border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: var(--transition);
+            transition: all 0.3s ease;
+            font-size: 18px;
         }
 
-        .chat-close:hover {
-            background: rgba(255, 255, 255, 0.3);
+        .action-btn:hover {
+            background: rgba(255,255,255,0.2);
             transform: scale(1.1);
         }
 
-        .chat-messages {
-            flex: 1;
-            padding: 1.5rem;
-            overflow-y: auto;
-            background: #f8fafc;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+        .favorite {
+            color: #ff6b6b;
         }
 
-        .message {
-            max-width: 70%;
-            padding: 0.75rem 1rem;
-            border-radius: var(--border-radius-lg);
-            font-size: 0.875rem;
-            line-height: 1.4;
-            word-wrap: break-word;
+        .player-section {
+            position: sticky;
+            top: 20px;
         }
 
-        .message-sent {
-            align-self: flex-end;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-            color: white;
-        }
-
-        .message-received {
-            align-self: flex-start;
-            background: var(--surface-color);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-
-        .message-author {
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            opacity: 0.8;
-        }
-
-        .chat-input-container {
-            padding: 1.5rem;
-            border-top: 1px solid var(--border-color);
-            background: var(--surface-color);
-            border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
-        }
-
-        .chat-input-group {
-            display: flex;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .chat-input {
-            flex: 1;
-            height: 48px;
-            padding: 0 1rem;
-            border: 2px solid var(--border-color);
-            border-radius: var(--border-radius-xl);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .chat-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .chat-actions {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        .chat-actions .btn {
-            flex: 1;
-        }
-
-        /* Profil */
-        .profile-container {
-            background: var(--surface-color);
-            border-radius: var(--border-radius-lg);
-            padding: 2rem;
-            box-shadow: var(--shadow-lg);
-            max-width: 600px;
-            margin: 2rem auto;
-            border: 1px solid var(--border-color);
-        }
-
-        .profile-header {
+        .player-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 20px;
         }
 
-        .profile-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .photo-upload {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .photo-preview {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin: 1rem auto;
-            display: block;
-            box-shadow: var(--shadow);
-            border: 4px solid var(--primary-color);
-        }
-
-        .profile-card {
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-lg);
-            padding: 1.5rem;
-            margin: 1rem 0;
-            box-shadow: var(--shadow);
-        }
-
-        .profile-info {
+        .album-art {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 15px;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            justify-content: center;
+            font-size: 4rem;
+            color: rgba(255,255,255,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: rotate 20s linear infinite;
         }
 
-        .profile-avatar {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
+        .album-art.playing {
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .current-song-info {
+            margin-bottom: 25px;
+        }
+
+        .current-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            border-radius: 3px;
+            transition: width 0.1s ease;
+            position: relative;
+        }
+
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .time-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 5px;
+        }
+
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 15px;
             border-radius: 50%;
-            border: 3px solid var(--primary-color);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .profile-details h4 {
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
+        .control-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
         }
 
-        .profile-details p {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
+        .play-btn {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            font-size: 2rem;
+            padding: 20px;
+            box-shadow: 0 6px 20px rgba(78,205,196,0.4);
         }
 
-        .contact-btn {
-            background: linear-gradient(135deg, var(--success-color), var(--secondary-color));
+        .play-btn:hover {
+            box-shadow: 0 8px 25px rgba(78,205,196,0.6);
+        }
+
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .volume-slider {
+            width: 100px;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #4ecdc4;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .equalizer {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .equalizer h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #4ecdc4;
+        }
+
+        .eq-bars {
+            display: flex;
+            justify-content: space-around;
+            align-items: end;
+            height: 60px;
+            gap: 5px;
+        }
+
+        .eq-bar {
+            width: 20px;
+            background: linear-gradient(to top, #4ecdc4, #44a08d);
+            border-radius: 10px 10px 0 0;
+            animation: eq-bounce 1s ease-in-out infinite;
+        }
+
+        .eq-bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+        .eq-bar:nth-child(2) { height: 35px; animation-delay: 0.1s; }
+        .eq-bar:nth-child(3) { height: 45px; animation-delay: 0.2s; }
+        .eq-bar:nth-child(4) { height: 25px; animation-delay: 0.3s; }
+        .eq-bar:nth-child(5) { height: 40px; animation-delay: 0.4s; }
+        .eq-bar:nth-child(6) { height: 30px; animation-delay: 0.5s; }
+
+        @keyframes eq-bounce {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.5); }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            color: white;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
             color: white;
             border: none;
-            border-radius: var(--border-radius);
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 25px;
             cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            margin-top: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
 
-        .contact-btn:hover {
+        .btn:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 8px 25px rgba(78,205,196,0.4);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .main-container {
-                padding: 0 0.5rem;
-            }
-
-            #contenuPrincipal {
-                margin-top: 70px;
-                padding: 1rem 0;
-            }
-
-            header h1 {
-                font-size: 1.5rem;
-            }
-
-            .form-container,
-            .profile-container {
-                margin: 1rem;
-                padding: 1.5rem;
-            }
-
-            .chat-container {
-                width: 95%;
-                height: 90vh;
-            }
-
-            .chat-header {
-                padding: 1rem;
-            }
-
-            .chat-messages {
-                padding: 1rem;
-            }
-
-            .chat-input-container {
-                padding: 1rem;
-            }
-
-            .message {
-                max-width: 85%;
-            }
-
-            .chat-actions {
-                flex-direction: column;
-            }
-
-            .form-actions {
-                flex-direction: column;
-            }
-
-            #menuOptions {
-                padding: 0.75rem;
-            }
-
-            #menuOptions button {
-                font-size: 0.875rem;
-                padding: 0.5rem;
-            }
-
-            .card {
-                padding: 1rem;
-            }
-
-            #bonus {
-                top: 80px;
-                right: 0.5rem;
-                padding: 0.5rem 0.75rem;
-                font-size: 0.875rem;
-            }
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(78,205,196,0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            z-index: 1001;
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
         }
 
-        @media (max-width: 480px) {
-            .profile-info {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .profile-avatar {
-                width: 100px;
-                height: 100px;
-            }
-
-            .chat-input-group {
-                flex-direction: column;
-            }
-
-            .chat-input {
-                width: 100%;
-            }
+        .toast.show {
+            transform: translateX(0);
         }
 
-        /* Utilitaires */
-        .hidden {
-            display: none !important;
+        .drag-over {
+            border: 2px dashed #4ecdc4;
+            background: rgba(78,205,196,0.1);
         }
 
-        .text-center {
-            text-align: center;
+        ::-webkit-scrollbar {
+            width: 8px;
         }
 
-        .mb-2 {
-            margin-bottom: 0.5rem;
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
         }
 
-        .mb-4 {
-            margin-bottom: 1rem;
+        ::-webkit-scrollbar-thumb {
+            background: #4ecdc4;
+            border-radius: 4px;
         }
 
-        .mt-4 {
-            margin-top: 1rem;
+        .playlist-stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
         }
-        #voirProfils{
-        position:fixed;
-        top:150px;}
+
+        .stat {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 10px;
+        }
     </style>
 </head>
-
 <body>
-    <header>
-        <h1><i class="fas fa-briefcase"></i> Petits Jobs Express</h1>
-    </header>
+    <div class="container">
+        <header class="header">
+            <h1>🎵 Lecteur Musique Pro</h1>
+            <p>Votre expérience musicale ultime</p>
+        </header>
 
-    <div class="main-container">
-        <div id="contenuPrincipal">
-            <button id="voirProfils" style="display: none;" class="btn btn-warning">
-                <i class="fas fa-users"></i> Voir Profils
-            </button>
-
-            <!-- Connexion -->
-            <div class="form-container" id="connexion" style="display: block;">
-                <h3 class="form-title"><i class="fas fa-sign-in-alt"></i> Connexion</h3>
-                <div class="form-group">
-                    <label class="form-label" for="nom">Nom complet</label>
-                    <input class="form-input" type="text" id="nom" placeholder="Entrez votre nom" />
+        <div class="controls-panel">
+            <div class="file-input-container">
+                <div class="file-input-wrapper">
+                    <input type="file" id="fileInput" accept="audio/*" multiple>
+                    <label for="fileInput" class="file-input-label">
+                        📁 Ajouter des Musiques
+                    </label>
                 </div>
-                <div class="form-group">
-                    <label class="form-label" for="numero">Numéro de téléphone</label>
-                    <input class="form-input" type="number" id="numero" placeholder="Ton numéro" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="motdepasse">Mot de passe</label>
-                    <input class="form-input" id="motdepasse" placeholder="Mot de passe" type="password" />
-                </div>
-                <div class="form-actions">
-                    <button class="btn btn-primary" id="btnCreerCompte">
-                        <i class="fas fa-user-plus"></i> Créer un Compte
-                    </button>
-                    <button class="btn btn-success" id="btnSeConnecter">
-                        <i class="fas fa-sign-in-alt"></i> Se connecter
-                    </button>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="🔍 Rechercher une chanson...">
                 </div>
             </div>
 
-            <!-- Menu de navigation -->
-            <div id="menuOptions" style="display: none;">
-                <button id="btnAcceuil">
-                    <i class="fas fa-home"></i>
-                    <span>Accueil</span>
-                </button>
-                <button id="btnPosterJob">
-                    <i class="fas fa-plus"></i>
-                    <span>Poster un job</span>
-                </button>
-                <button id="btnConversations">
-                    <i class="fas fa-comments"></i>
-                    <span>Messagerie</span>
-                </button>
-                <button id="profil">
-                    <i class="fas fa-user"></i>
-                    <span>Profil</span>
-                </button>
-            </div>
-
-            <!-- Profil -->
-            <div class="profile-container" id="moi" style="display: none;">
-                <div class="profile-header">
-                    <h2 class="profile-title"><i class="fas fa-user-circle"></i> Votre profil</h2>
-                </div>
-
-                <div class="photo-upload">
-                    <img src="" alt="votre photo" id="photos" class="photo-preview" style="display: none;">
-                    <button class="btn btn-primary" id="photo">
-                        <i class="fas fa-camera"></i> Ajouter une photo
-                    </button>
-                    <input style="display: none;" type="file" accept="image/*" capture="environnement" id="camera">
-                </div>
-
-                <form id="form">
-                    <div class="form-group">
-                        <label class="form-label">Prénom</label>
-                        <input class="form-input" type="text" name="prenom" placeholder="Entrez votre prénom" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Ville</label>
-                        <input class="form-input" type="text" name="ville" required placeholder="Entrez votre ville">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Expérience</label>
-                        <input class="form-input" type="text" name="statut" placeholder="Votre expérience">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Compétences</label>
-                        <textarea class="form-textarea" name="competences" required
-                            placeholder="Quelles sont vos compétences ?"></textarea>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-success">
-                            <i class="fas fa-save"></i> Créer
-                        </button>
-                        <button type="button" class="btn btn-secondary" id="modifier">
-                            <i class="fas fa-edit"></i> Modifier
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Section des profils -->
-            <section class="offre">
-                <div id="profils"></div>
-            </section>
-
-            <!-- Formulaire de job -->
-            <div class="form-container" id="formulaire" style="display: none;">
-                <h3 class="form-title"><i class="fas fa-plus-circle"></i> Poster un job</h3>
-                <div class="form-group">
-                    <label class="form-label" for="titre">Titre du job</label>
-                    <input class="form-input" id="titre" placeholder="Titre du job" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="prix">Prix (FCFA)</label>
-                    <input class="form-input" id="prix" placeholder="Prix" />
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="description">Description</label>
-                    <textarea class="form-textarea" id="description" placeholder="Description du job"></textarea>
-                </div>
-                <div class="form-actions">
-                    <button class="btn btn-primary" id="posterBtn">
-                        <i class="fas fa-paper-plane"></i> Poster
-                    </button>
-                    <button class="btn btn-secondary" id="btnAnnuler">
-                        <i class="fas fa-times"></i> Annuler
-                    </button>
+            <div class="filter-controls">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="favorites">❤️ Favoris</button>
+                <button class="filter-btn" data-filter="recent">🕒 Récents</button>
+                <div class="sort-controls">
+                    <label>Trier par:</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="name">Nom</option>
+                        <option value="duration">Durée</option>
+                        <option value="date">Date d'ajout</option>
+                    </select>
+                    <button id="shuffleBtn" class="filter-btn">🔀 Aléatoire</button>
                 </div>
             </div>
+        </div>
 
-            <div id="container"></div>
-
-            <div class="chat-container" id="chat" style="display: none;">
-                <div class="chat-header">
-                    <span class="chat-title"><i class="fas fa-comments"></i> Chat du job</span>
-                    <button class="chat-close" onclick="fermerChat()">
-                        <i class="fas fa-times"></i>
-                    </button>
+        <div class="main-content">
+            <div class="playlist-section">
+                <div class="playlist-header">
+                    <h2>Ma Playlist</h2>
+                    <div class="playlist-counter">
+                        <span id="songCount">0</span> chansons
+                    </div>
                 </div>
+                <div class="playlist-stats">
+                    <div class="stat">Durée totale: <span id="totalDuration">0:00</span></div>
+                    <div class="stat">Favoris: <span id="favoriteCount">0</span></div>
+                </div>
+                <div id="playlist" class="playlist"></div>
+            </div>
 
-                <div class="chat-messages" id="messages"></div>
-
-                <div class="chat-input-container">
-                    <div class="chat-input-group">
-                        <input class="chat-input" id="messageInput" placeholder="Écris un message..." />
-                        <button class="btn btn-primary" id="envoyer">
-                            <i class="fas fa-paper-plane"></i> Envoyer
-                        </button>
+            <div class="player-section">
+                <div class="player-card">
+                    <div id="albumArt" class="album-art">🎵</div>
+                    <div class="current-song-info">
+                        <div id="currentTitle" class="current-title">Sélectionnez une chanson</div>
+                        <div id="currentArtist" class="current-artist">Artist</div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div id="progressBar" class="progress-bar">
+                            <div id="progress" class="progress"></div>
+                        </div>
+                        <div class="time-info">
+                            <span id="currentTime">0:00</span>
+                            <span id="totalTime">0:00</span>
+                        </div>
                     </div>
 
-                    <div class="chat-actions">
-                        <button class="btn btn-warning" id="conclure">
-                            <i class="fas fa-check"></i> Conclure
-                        </button>
-                        <button class="btn btn-danger" id="fermerChat">
-                            <i class="fas fa-times"></i> Fermer
-                        </button>
+                    <div class="player-controls">
+                        <button id="prevBtn" class="control-btn">⏮️</button>
+                        <button id="playPauseBtn" class="control-btn play-btn">▶️</button>
+                        <button id="nextBtn" class="control-btn">⏭️</button>
+                        <button id="repeatBtn" class="control-btn">🔁</button>
+                    </div>
+
+                    <div class="volume-container">
+                        <span>🔊</span>
+                        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="50">
+                        <span id="volumeValue">50%</span>
+                    </div>
+                </div>
+
+                <div class="equalizer">
+                    <h3>Égaliseur</h3>
+                    <div class="eq-bars">
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
+                        <div class="eq-bar"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import {
-            getFirestore, collection, addDoc, doc, getDoc, getDocs,
-            onSnapshot, query, orderBy, updateDoc, setDoc, limit
-        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-        import {
-            getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
-            onAuthStateChanged
-        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    <!-- Modal pour éditer les chansons -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Éditer la chanson</h2>
+            <div class="form-group">
+                <label>Titre:</label>
+                <input type="text" id="editTitle">
+            </div>
+            <div class="form-group">
+                <label>Artiste:</label>
+                <input type="text" id="editArtist">
+            </div>
+            <button id="saveEdit" class="btn">Sauvegarder</button>
+        </div>
+    </div>
 
-        // 🔐 Config Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyAigx8KtDCEulSWjpu17fnYsrqK7C9o3R8",
-            authDomain: "petit-jobs-express.firebaseapp.com",
-            projectId: "petit-jobs-express",
-            storageBucket: "petit-jobs-express.appspot.com",
-            messagingSenderId: "446118780236",
-            appId: "1:446118780236:web:08c3a87d56bcd67399c3e9"
-        };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
+    <audio id="audioPlayer" preload="metadata"></audio>
 
-        // Variables globales
-        let utilisateurconnecter = false;
-        let utilisateurnom = "";
-        let idJobEnCours = null;
-        let idConversation = "";
-
-        // Accès DOM simplifié
-        const get = id => document.getElementById(id);
-        const container = get('container');
-        const formulaire = get('formulaire');
-        const menuOptions = get('menuOptions');
-        const connexionDiv = get('connexion');
-        const chatDiv = get('chat');
-        const messagesDiv = get('messages');
-        const messageInput = get('messageInput');
-
-        // Connexion automatique à chaque ouverture
-        onAuthStateChanged(auth, async user => {
-            if (user) {
-                try {
-                    const snapshot = await getDoc(doc(db, "users", user.uid));
-                    const data = snapshot.data();
-
-                    // Utiliser le nom s'il existe, sinon utiliser l'email ou un nom par défaut
-                    utilisateurnom = data?.nom || data?.prenom || user.email?.split('@')[0] || "Utilisateur";
-                    utilisateurconnecter = true;
-
-                    connexionDiv.style.display = "none";
-                    menuOptions.style.display = "flex";
-
-                    // Afficher automatiquement les jobs
-                    afficheracceuil();
-                } catch (e) {
-                    console.error("Erreur lors du chargement des infos :", e);
-                    // Même en cas d'erreur, on peut continuer avec un nom par défaut
-                    utilisateurnom = user.email?.split('@')[0] || "Utilisateur";
-                    utilisateurconnecter = true;
-                    connexionDiv.style.display = "none";
-                    menuOptions.style.display = "flex";
-                    afficheracceuil();
-                }
-            } else {
-                // Utilisateur déconnecté
-                utilisateurconnecter = false;
-                utilisateurnom = "";
-                connexionDiv.style.display = "block";
-                menuOptions.style.display = "none";
-            }
-        });
-
-        // 📸 Gestion du bouton photo
-        const moi = document.getElementById("moi");
-        const form = document.getElementById("form");
-        const conteneurProfils = document.getElementById("profils");
-        const cameraInput = document.getElementById("camera");
-        const photoPreview = document.getElementById("photos");
-
-        // 📸 Affiche les options de photo
-        document.getElementById("photo").addEventListener("click", () => {
-            cameraInput.style.display = "block";
-            photoPreview.style.display = "block";
-        });
-
-        // 🎞️ Affiche l'image sélectionnée
-        cameraInput.addEventListener("change", function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const imageUrl = URL.createObjectURL(file);
-                photoPreview.src = imageUrl;
-                photoPreview.style.display = "block";
-            }
-        });
-
-        // Création/Mise à jour de profil
-        form.addEventListener("submit", async function (e) {
-            e.preventDefault();
-            const user = auth.currentUser;
-            if (!user) return Swal.fire('Attention', 'Connecte-toi d\'abord', 'warning');
-
-            const [prenom, ville, statut, competences] = [...form.querySelectorAll("input[type='text'], textarea")].map(input => input.value);
-            let photoURL = "";
-            const file = cameraInput.files[0];
-            if (file) {
-                photoURL = URL.createObjectURL(file);
+    <script>
+        class MusicPlayer {
+            constructor() {
+                this.songs = [];
+                this.currentSongIndex = 0;
+                this.isPlaying = false;
+                this.isShuffled = false;
+                this.isRepeating = false;
+                this.currentFilter = 'all';
+                this.audio = document.getElementById('audioPlayer');
+                this.editingSongIndex = -1;
+                
+                this.initializeElements();
+                this.setupEventListeners();
+                this.loadFromStorage();
+                this.setupDragAndDrop();
+                
+                // Musiques d'exemple avec sons tendances
+                this.addSampleSongs();
             }
 
-            await setDoc(doc(db, "users", user.uid), {
-                prenom, ville, statut, competences, photoURL
-            }, { merge: true });
-
-            Swal.fire('Succès', 'Profil mis à jour !', 'success');
-            moi.style.display = "none";
-        });
-
-        // Fonction de nettoyage des données
-        function sanitizeInput(input) {
-            return input
-                .replace(/[<>]/g, '') // Supprimer les balises HTML
-                .replace(/javascript:/gi, '') // Supprimer les protocoles dangereux
-                .trim();
-        }
-
-        // Fonction de validation des entrées
-        function validateInput(input, type) {
-            const value = input.trim();
-
-            switch (type) {
-                case 'nom':
-                    if (value.length < 2) return 'Le nom doit contenir au moins 2 caractères';
-                    if (value.length > 50) return 'Le nom ne peut pas dépasser 50 caractères';
-                    if (!/^[a-zA-ZÀ-ÿ\s]+$/.test(value)) return 'Le nom ne peut contenir que des lettres';
-                    break;
-
-                case 'numero':
-                    if (!/^\d{8,15}$/.test(value)) return 'Le numéro doit contenir entre 8 et 15 chiffres';
-                    break;
-
-                case 'password':
-                    if (value.length < 6) return 'Le mot de passe doit contenir au moins 6 caractères';
-                    if (value.length > 50) return 'Le mot de passe ne peut pas dépasser 50 caractères';
-                    break;
+            initializeElements() {
+                // Elements DOM
+                this.fileInput = document.getElementById('fileInput');
+                this.playlist = document.getElementById('playlist');
+                this.playPauseBtn = document.getElementById('playPauseBtn');
+                this.prevBtn = document.getElementById('prevBtn');
+                this.nextBtn = document.getElementById('nextBtn');
+                this.repeatBtn = document.getElementById('repeatBtn');
+                this.shuffleBtn = document.getElementById('shuffleBtn');
+                this.progressBar = document.getElementById('progressBar');
+                this.progress = document.getElementById('progress');
+                this.currentTime = document.getElementById('currentTime');
+                this.totalTime = document.getElementById('totalTime');
+                this.currentTitle = document.getElementById('currentTitle');
+                this.currentArtist = document.getElementById('currentArtist');
+                this.volumeSlider = document.getElementById('volumeSlider');
+                this.volumeValue = document.getElementById('volumeValue');
+                this.searchInput = document.getElementById('searchInput');
+                this.sortSelect = document.getElementById('sortSelect');
+                this.songCount = document.getElementById('songCount');
+                this.totalDuration = document.getElementById('totalDuration');
+                this.favoriteCount = document.getElementById('favoriteCount');
+                this.albumArt = document.getElementById('albumArt');
+                this.editModal = document.getElementById('editModal');
             }
 
-            return null;
-        }
-
-        // Création de compte 
-        async function creerCompte() {
-            try {
-                const nom = sanitizeInput(get('nom').value);
-                const numero = sanitizeInput(get('numero').value);
-                const mdp = get('motdepasse').value;
-
-                // Validation des champs
-                if (!nom || !numero || !mdp) {
-                    return Swal.fire('Attention', 'Remplis tous les champs', 'warning');
-                }
-
-                const nomError = validateInput(nom, 'nom');
-                if (nomError) return Swal.fire('Attention', nomError, 'warning');
-
-                const numeroError = validateInput(numero, 'numero');
-                if (numeroError) return Swal.fire('Attention', numeroError, 'warning');
-
-                const passwordError = validateInput(mdp, 'password');
-                if (passwordError) return Swal.fire('Attention', passwordError, 'warning');
-
-                const email = numero + "@momo.cm";
-                const cred = await createUserWithEmailAndPassword(auth, email, mdp);
-                // Sauvegarde dans Firestore
-                await setDoc(doc(db, "users", cred.user.uid), {
-                    nom: nom.substring(0, 50),
-                    numero: numero.substring(0, 15),
-                    premiumExpire: null
+            setupEventListeners() {
+                // File input
+                this.fileInput.addEventListener('change', (e) => this.handleFiles(e.target.files));
+                
+                // Player controls
+                this.playPauseBtn.addEventListener('click', () => this.togglePlayPause());
+                this.prevBtn.addEventListener('click', () => this.previousSong());
+                this.nextBtn.addEventListener('click', () => this.nextSong());
+                this.repeatBtn.addEventListener('click', () => this.toggleRepeat());
+                this.shuffleBtn.addEventListener('click', () => this.toggleShuffle());
+                
+                // Progress bar
+                this.progressBar.addEventListener('click', (e) => this.seek(e));
+                
+                // Volume
+                this.volumeSlider.addEventListener('input', (e) => this.setVolume(e.target.value));
+                
+                // Search and filter
+                this.searchInput.addEventListener('input', (e) => this.searchSongs(e.target.value));
+                this.sortSelect.addEventListener('change', (e) => this.sortSongs(e.target.value));
+                
+                // Filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        if (e.target.dataset.filter) {
+                            this.setFilter(e.target.dataset.filter);
+                        }
+                    });
                 });
-                Swal.fire('Succès', 'Compte créé avec succès !', 'success');
-                // Afficher automatiquement 
-                setTimeout(() => {
-                    afficheracceuil();
-                }, 1000);
-
-            } catch (error) {
-                console.error('Erreur lors de la création du compte:', e);
-                if (error.code === "auth/email-already-in-use") {
-                    Swal.fire('Attention', 'Ce numéro est déjà utilisé. Essaie sur un autre téléphone.', 'warning');
-                } else if (error.code === "auth/weak-password") {
-                    Swal.fire('Attention', 'Le mot de passe est trop faible', 'warning');
-                } else {
-                    Swal.fire('Erreur', 'Erreur lors de la création du compte: ' + e.message, 'error');
-                }
+                
+                // Audio events
+                this.audio.addEventListener('timeupdate', () => this.updateProgress());
+                this.audio.addEventListener('ended', () => this.handleSongEnd());
+                this.audio.addEventListener('loadedmetadata', () => this.updateDuration());
+                
+                // Modal events
+                document.querySelector('.close').addEventListener('click', () => this.closeModal());
+                document.getElementById('saveEdit').addEventListener('click', () => this.saveEdit());
+                
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => this.handleKeyboard(e));
             }
-        }
 
-        //Connexion
-        async function seConnecter() {
-            const numero = get('numero').value.trim();
-            const mdp = get('motdepasse').value.trim();
-
-            if (!numero || !mdp) return Swal.fire('Attention', 'Remplis tous les champs', 'warning');
-
-            try {
-                const email = numero + "@momo.cm";
-                await signInWithEmailAndPassword(auth, email, mdp);
-                Swal.fire('Succès', 'Connexion réussie !', 'success');
-                // Afficher automatiquement les jobs 
-                setTimeout(() => {
-                    afficheracceuil();
-                }, 1000);
-            } catch (e) {
-                if (e.code === "auth/user-not-found") {
-                    Swal.fire('Attention', 'Aucun compte trouvé avec ce numéro. Créez d\'abord un compte.', 'warning');
-                } else if (e.code === "auth/wrong-password") {
-                    Swal.fire('Attention', 'Mot de passe incorrect', 'warning');
-                } else {
-                    Swal.fire('Erreur', 'Erreur de connexion: ' + e.message, 'error');
-                }
-            }
-        }
-
-        // Afficher les jobs
-        async function afficheracceuil() {
-            moi.style.display = "none";
-            // Vérifier si l'élément existe avant d'essayer de le modifier
-            const profileHeader = document.getElementById("profile-header");
-            if (profileHeader) profileHeader.style.display = "none";
-
-            formulaire.style.display = "none";
-            chatDiv.style.display = "none";
-            container.style.display = "block";
-
-            const voirProfils = document.getElementById("voirProfils");
-            if (voirProfils) voirProfils.style.display = "block";
-
-            // Afficher un indicateur de chargement
-            container.innerHTML = `
-                <div class="text-center" style="padding: 2rem;">
-                    <div style="display: inline-block; width: 40px; height: 40px; border: 4px solid #e5e7eb; border-top: 4px solid var(--primary-color); border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                    <p style="margin-top: 1rem; color: var(--text-secondary);">Chargement des jobs...</p>
-                </div>
-                <style>
-                    @keyframes spin {
-                        0% { transform: rotate(0deg); }
-                        100% { transform: rotate(360deg); }
+            addSampleSongs() {
+                const sampleSongs = [
+                    {
+                        title: "Blinding Lights",
+                        artist: "The Weeknd",
+                        duration: "3:20",
+                        url: "data:audio/mp3;base64,", // Placeholder
+                        favorite: false,
+                        dateAdded: new Date()
+                    },
+                    {
+                        title: "As It Was", 
+                        artist: "Harry Styles",
+                        duration: "2:47",
+                        url: "data:audio/mp3;base64,",
+                        favorite: true,
+                        dateAdded: new Date()
+                    },
+                    {
+                        title: "Heat Waves",
+                        artist: "Glass Animals", 
+                        duration: "3:58",
+                        url: "data:audio/mp3;base64,",
+                        favorite: false,
+                        dateAdded: new Date()
                     }
-                </style>
-            `;
+                ];
 
-            try {
-                const q = query(collection(db, "jobs"), orderBy("timestamp", "desc"));
-                const snap = await getDocs(q);
+                // Note: Ces sont des exemples sans fichiers audio réels
+                // Les utilisateurs devront ajouter leurs propres fichiers
+            }
 
-                if (snap.empty) {
-                    container.innerHTML = `
-                        <h3 class='text-center mb-4'><i class='fas fa-briefcase'></i> Liste des jobs disponibles</h3>
-                        <div class="card text-center">
-                            <i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-light); margin-bottom: 1rem;"></i>
-                            <p>Aucun job disponible pour le moment.</p>
-                            <p>Soyez le premier à poster un job !</p>
-                        </div>`;
+            handleFiles(files) {
+                Array.from(files).forEach(file => {
+                    if (file.type.startsWith('audio/')) {
+                        this.addSong(file);
+                    }
+                });
+            }
+
+            addSong(file) {
+                const url = URL.createObjectURL(file);
+                const song = {
+                    title: file.name.replace(/\.[^/.]+$/, ""),
+                    artist: "Artiste Inconnu",
+                    duration: "0:00",
+                    url: url,
+                    file: file,
+                    favorite: false,
+                    dateAdded: new Date(),
+                    id: Date.now() + Math.random()
+                };
+
+                // Get duration
+                const tempAudio = new Audio(url);
+                tempAudio.addEventListener('loadedmetadata', () => {
+                    song.duration = this.formatTime(tempAudio.duration);
+                    this.updateStats();
+                    this.renderPlaylist();
+                });
+
+                this.songs.push(song);
+                this.renderPlaylist();
+                this.updateStats();
+                this.saveToStorage();
+                this.showToast('Chanson ajoutée avec succès!');
+            }
+
+            renderPlaylist() {
+                let filteredSongs = this.getFilteredSongs();
+                
+                this.playlist.innerHTML = '';
+                
+                filteredSongs.forEach((song, index) => {
+                    const songElement = document.createElement('div');
+                    songElement.className = `song-item ${this.currentSongIndex === this.songs.indexOf(song) ? 'playing' : ''}`;
+                    
+                    songElement.innerHTML = `
+                        <div class="song-info">
+                            <div class="song-title">${song.title}</div>
+                            <div class="song-duration">${song.artist} • ${song.duration}</div>
+                        </div>
+                        <div class="song-actions">
+                            <button class="action-btn favorite-btn ${song.favorite ? 'favorite' : ''}" 
+                                    onclick="player.toggleFavorite(${this.songs.indexOf(song)})">
+                                ${song.favorite ? '❤️' : '🤍'}
+                            </button>
+                            <button class="action-btn" onclick="player.editSong(${this.songs.indexOf(song)})">✏️</button>
+                            <button class="action-btn" onclick="player.deleteSong(${this.songs.indexOf(song)})">🗑️</button>
+                            <button class="action-btn" onclick="player.moveSong(${this.songs.indexOf(song)}, 'up')">⬆️</button>
+                            <button class="action-btn" onclick="player.moveSong(${this.songs.indexOf(song)}, 'down')">⬇️</button>
+                        </div>
+                    `;
+                    
+                    songElement.addEventListener('click', (e) => {
+                        if (!e.target.classList.contains('action-btn')) {
+                            this.playSong(this.songs.indexOf(song));
+                        }
+                    });
+                    
+                    this.playlist.appendChild(songElement);
+                });
+            }
+
+            getFilteredSongs() {
+                let filtered = [...this.songs];
+                
+                // Apply filter
+                switch(this.currentFilter) {
+                    case 'favorites':
+                        filtered = filtered.filter(song => song.favorite);
+                        break;
+                    case 'recent':
+                        filtered = filtered.filter(song => {
+                            const daysDiff = (new Date() - song.dateAdded) / (1000 * 60 * 60 * 24);
+                            return daysDiff <= 7;
+                        });
+                        break;
+                }
+                
+                // Apply search
+                const searchTerm = this.searchInput.value.toLowerCase();
+                if (searchTerm) {
+                    filtered = filtered.filter(song => 
+                        song.title.toLowerCase().includes(searchTerm) ||
+                        song.artist.toLowerCase().includes(searchTerm)
+                    );
+                }
+                
+                // Apply sort
+                const sortBy = this.sortSelect.value;
+                filtered.sort((a, b) => {
+                    switch(sortBy) {
+                        case 'name':
+                            return a.title.localeCompare(b.title);
+                        case 'duration':
+                            return this.parseDuration(a.duration) - this.parseDuration(b.duration);
+                        case 'date':
+                            return b.dateAdded - a.dateAdded;
+                        default:
+                            return 0;
+                    }
+                });
+                
+                return filtered;
+            }
+
+            playSong(index) {
+                if (index < 0 || index >= this.songs.length) return;
+                
+                this.currentSongIndex = index;
+                const song = this.songs[index];
+                
+                this.audio.src = song.url;
+                this.audio.load();
+                
+                this.currentTitle.textContent = song.title;
+                this.currentArtist.textContent = song.artist;
+                
+                this.audio.play().then(() => {
+                    this.isPlaying = true;
+                    this.playPauseBtn.textContent = '⏸️';
+                    this.albumArt.classList.add('playing');
+                }).catch(e => {
+                    console.error('Erreur lors de la lecture:', e);
+                    this.showToast('Erreur lors de la lecture du fichier');
+                });
+                
+                this.renderPlaylist();
+                this.saveToStorage();
+            }
+
+            togglePlayPause() {
+                if (!this.songs.length) {
+                    this.showToast('Aucune chanson dans la playlist');
                     return;
                 }
-
-                // Réinitialiser le contenu avec le titre
-                container.innerHTML = "<h3 class='text-center mb-4'><i class='fas fa-briefcase'></i> Liste des jobs disponibles</h3>";
-
-                // Optimisation : Récupérer tous les UIDs uniques d'abord
-                const uids = [...new Set(snap.docs.map(doc => doc.data().posteurUID).filter(Boolean))];
-                const usersMap = new Map();
-
-                // Récupérer tous les utilisateurs en parallèle
-                if (uids.length > 0) {
-                    const userPromises = uids.map(async uid => {
-                        try {
-                            const userDoc = await getDoc(doc(db, "users", uid));
-                            if (userDoc.exists()) {
-                                usersMap.set(uid, userDoc.data().nom || "Inconnu");
-                            }
-                        } catch (error) {
-                            console.warn('Erreur lors du chargement de l\'utilisateur:', uid, error);
-                            usersMap.set(uid, "Inconnu");
-                        }
-                    });
-                    await Promise.all(userPromises);
-                }
-
-                for (const docu of snap.docs) {
-                    const job = docu.data();
-                    if (job.conclu) continue;
-
-                    const nomPosteur = job.posteurUID ? (usersMap.get(job.posteurUID) || "Inconnu") : "Inconnu";
-
-                    const div = document.createElement("div");
-                    div.className = "card";
-                    div.innerHTML = `
-                        <h4><i class="fas fa-tasks"></i> ${job.titre}</h4>
-                        <p><strong><i class="fas fa-coins"></i> Prix:</strong> ${job.prix} FCFA</p>
-                        <p><strong><i class="fas fa-user"></i> Posté par:</strong> ${nomPosteur}</p>
-                        <p><i class="fas fa-info-circle"></i> ${job.description}</p>
-                        <button class="btn btn-primary" data-id="${docu.id}">
-                            <i class="fas fa-handshake"></i> Postuler
-                        </button>
-                    `;
-                    container.appendChild(div);
-                    div.querySelector("button").addEventListener("click", () => postuler(docu.id));
-                }
-            } catch (error) {
-                console.error("Erreur lors du chargement des jobs:", error);
-                container.innerHTML = `
-                    <h3 class='text-center mb-4'><i class='fas fa-briefcase'></i> Liste des jobs disponibles</h3>
-                    <div class="card text-center">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--danger-color); margin-bottom: 1rem;"></i>
-                        <p>Erreur lors du chargement des jobs.</p>
-                        <button class="btn btn-primary" onclick="afficheracceuil()">
-                            <i class="fas fa-refresh"></i> Réessayer
-                        </button>
-                    </div>`;
-            }
-        }
-
-        // Formulaire de job
-        function afficherformulaire() {
-            moi.style.display = "none";
-            const profileHeader = document.getElementById("profile-header");
-            if (profileHeader) profileHeader.style.display = "none";
-
-            formulaire.style.display = "block";
-            container.style.display = "none";
-            chatDiv.style.display = "none";
-        }
-
-        // Envoi d'un job
-        async function envoyer() {
-            try {
-                const profileHeader = document.getElementById("profile-header");
-                if (profileHeader) profileHeader.style.display = "none";
-
-                const titre = sanitizeInput(get('titre').value);
-                const prix = sanitizeInput(get('prix').value);
-                const description = sanitizeInput(get('description').value);
-
-                if (!titre || !prix || !description) {
-                    return Swal.fire('Attention', 'Remplis tous les champs', 'warning');
-                }
-
-                if (titre.length < 3) {
-                    return Swal.fire('Attention', 'Le titre doit contenir au moins 3 caractères', 'warning');
-                }
-
-                if (isNaN(prix) || parseInt(prix) <= 0) {
-                    return Swal.fire('Attention', 'Le prix doit être un nombre positif', 'warning');
-                }
-
-                if (description.length < 10) {
-                    return Swal.fire('Attention', 'La description doit contenir au moins 10 caractères', 'warning');
-                }
-
-                const user = auth.currentUser;
-                if (!user) return Swal.fire('Attention', 'Connecte-toi', 'warning');
-
-                // Obtenir la géolocalisation avec gestion d'erreur
-                let coords;
-                try {
-                    coords = await new Promise((res, rej) => {
-                        navigator.geolocation.getCurrentPosition(res, rej, {
-                            timeout: 10000,
-                            enableHighAccuracy: false
+                
+                if (this.isPlaying) {
+                    this.audio.pause();
+                    this.isPlaying = false;
+                    this.playPauseBtn.textContent = '▶️';
+                    this.albumArt.classList.remove('playing');
+                } else {
+                    if (!this.audio.src && this.songs.length > 0) {
+                        this.playSong(0);
+                    } else {
+                        this.audio.play().then(() => {
+                            this.isPlaying = true;
+                            this.playPauseBtn.textContent = '⏸️';
+                            this.albumArt.classList.add('playing');
                         });
-                    });
-                } catch (geoError) {
-                    console.warn('Géolocalisation non disponible:', geoError);
-                    coords = { coords: { latitude: 0, longitude: 0 } };
-                }
-
-                await addDoc(collection(db, "jobs"), {
-                    titre: titre.substring(0, 100), 
-                    prix: parseInt(prix),
-                    description: description.substring(0, 500), 
-                    posteur: utilisateurnom,
-                    posteurUID: user.uid,
-                    latitude: coords.coords.latitude,
-                    longitude: coords.coords.longitude,
-                    postulantsUid: [],
-                    conclu: false,
-                    timestamp: Date.now()
-                });
-
-                Swal.fire('Succès', 'Job posté avec succès !', 'success');
-                afficheracceuil();
-            } catch (error) {
-                console.error('Erreur lors de la création du job:', error);
-                Swal.fire('Erreur', 'Erreur lors de la création du job. Veuillez réessayer.', 'error');
-            }
-        }
-
-        //  Postuler
-        async function postuler(idJob) {
-            const profileHeader = document.getElementById("profile-header");
-            if (profileHeader) profileHeader.style.display = "none";
-
-            const user = auth.currentUser;
-            if (!user) return Swal.fire('Attention', 'Connecte-toi d\'abord', 'warning');
-
-            const uid = user.uid;
-
-            const userDoc = await getDoc(doc(db, "users", uid));
-            if (!userDoc.exists()) return Swal.fire('Erreur', 'Utilisateur introuvable', 'error');
-
-            const jobRef = doc(db, "jobs", idJob);
-            const jobSnap = await getDoc(jobRef);
-            if (!jobSnap.exists()) return Swal.fire('Erreur', 'Job introuvable', 'error');
-
-            const job = jobSnap.data();
-            let postulants = job.postulants || [];
-
-            if (!postulants.includes(uid)) {
-                postulants.push(uid);
-                await updateDoc(jobRef, { postulants: postulants });
-            }
-
-            //  Création automatique d'une conversation avec message
-            const convId = [uid, job.posteurUID].sort().join("_");
-            const msgRef = collection(db, "jobs", idJob, "conversations", convId, "messages");
-
-            const messagesSnap = await getDocs(msgRef);
-            if (messagesSnap.empty) {
-                await addDoc(msgRef, {
-                    auteur: uid,
-                    text: "Bonjour, je suis intéressé par ce job.",
-                    timestamp: Date.now()
-                });
-            }
-
-            ouvrirChat(idJob, uid, job.posteurUID);
-        }
-
-        // Ouvrir le chat
-        async function ouvrirChat(idJob, uid1, uid2) {
-            console.log("ouvrir chat appeler avec ", { idJob, uid1, uid2 });
-            idJobEnCours = idJob;
-            idConversation = [uid1, uid2].sort().join("_");
-
-            moi.style.display = "none";
-            const profileHeader = document.getElementById("profile-header");
-            if (profileHeader) profileHeader.style.display = "none";
-
-            container.style.display = "none";
-            formulaire.style.display = "none";
-            chatDiv.style.display = "block";
-            messagesDiv.innerHTML = "";
-
-            const messagesRef = collection(db, "jobs", idJob, "conversations", idConversation, "messages");
-            const q = query(messagesRef, orderBy("timestamp", "asc"));
-
-            onSnapshot(q, async (snapshot) => {
-                messagesDiv.innerHTML = "";
-
-                // Récupérer en parallèle tous les messages + noms auteurs
-                const messagesWithAuthors = await Promise.all(snapshot.docs.map(async docu => {
-                    const msg = docu.data();
-                    const auteurDoc = await getDoc(doc(db, "users", msg.auteur));
-                    const auteurNom = auteurDoc.exists() ? auteurDoc.data().nom : "Inconnu";
-                    return { ...msg, auteurNom };
-                }));
-
-                messagesWithAuthors.forEach(msg => {
-                    const div = document.createElement("div");
-                    const isCurrentUser = msg.auteur === auth.currentUser.uid;
-
-                    div.className = `message ${isCurrentUser ? 'message-sent' : 'message-received'}`;
-                    div.innerHTML = `
-            <div class="message-author">${msg.auteurNom}</div>
-            ${msg.text}
-          `;
-
-                    messagesDiv.appendChild(div);
-                });
-
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            });
-
-            const autreDoc = await getDoc(doc(db, "users", uid2));
-            const autreNom = autreDoc.exists() ? autreDoc.data().nom : "Inconnu";
-            document.querySelector('.chat-title').innerHTML = `<i class="fas fa-comments"></i> Chat avec ${autreNom}`;
-            document.getElementById("profile-header").style.display = "none";
-        }
-
-        //  Envoyer un message
-        async function envoyerMessage() {
-            const texte = messageInput.value.trim();
-            if (!texte) return Swal.fire("Veuillez entrez un texte");
-            const uid = auth.currentUser.uid;
-            let msgRef;
-            if (idJobEnCours) {
-                msgRef = collection(db, "jobs", idJobEnCours, "conversations", idConversation, "messages");
-            } else {
-                msgRef = collection(db, "conversations", idConversation, "messages");
-            }
-            await addDoc(msgRef, {
-                auteur: uid,
-                text: texte,
-                timestamp: Date.now()
-            });
-            if (!idJobEnCours) {
-                const otherUid = idConversation.split('_').find(u => u !== uid);
-                await setDoc(doc(db, "conversations", idConversation), {
-                    participants: [uid, otherUid],
-                    lastUpdate: Date.now()
-                }, { merge: true });
-            }
-            messageInput.value = "";
-            document.getElementById("profile-header").style.display = "none";
-        }
-
-        //  Conclure
-        async function conclureJob() {
-            const jobRef = doc(db, "jobs", idJobEnCours);
-            const snap = await getDoc(jobRef);
-            if (!snap.exists()) return;
-            const data = snap.data();
-
-            let c = data.conclusionUsers || [];
-            if (!c.includes(utilisateurnom)) c.push(utilisateurnom);
-            await updateDoc(jobRef, { conclusionUsers: c });
-            if (c.length >= 2) await updateDoc(jobRef, { conclu: true });
-
-            Swal.fire('Succès', 'Conclusion enregistrée', 'success');
-            fermerChat();
-            afficheracceuil();
-            document.getElementById("profile-header").style.display = "none";
-        }
-
-        // Fermer le chat
-        function fermerChat() {
-            chatDiv.style.display = "none";
-            container.style.display = "block";
-            document.getElementById("profile-header").style.display = "none";
-            idConversation = "";
-        }
-
-        //  Afficher le profil utilisateur
-        async function afficherProfil() {
-            const user = auth.currentUser;
-            if (!user) return Swal.fire('Attention', 'Connecte-toi d\'abord', 'warning');
-            const userDoc = await getDoc(doc(db, "users", user.uid));
-            let data = userDoc.exists() ? userDoc.data() : {};
-            moi.style.display = "block";
-            conteneurProfils.innerHTML = "";
-            if (userDoc.exists()) {
-                moi.innerHTML = `
-            <div class="profile-header" id="profile-header">
-                <h2 class="profile-title"><i class="fas fa-user-circle"></i> Votre profil</h2>
-            </div>
-            <div class="profile-info">
-                ${data.photoURL ? `<img src="${data.photoURL}" class="profile-avatar">` : ""}
-                <div class="profile-details">
-                    <h4><i class="fas fa-user"></i> ${data.prenom || data.nom || "Utilisateur"}</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> ${data.ville || "Ville non spécifiée"}</p>
-                    <p><i class="fas fa-clock"></i> Expérience: ${data.statut || "Non spécifiée"}</p>
-                    <p><i class="fas fa-tools"></i> ${data.competences || "Compétences non spécifiées"}</p>
-                </div>
-            </div>
-            <button class="btn btn-secondary" id="modifierProfil"><i class="fas fa-edit"></i> Modifier</button>
-        `;
-                document.getElementById("modifierProfil").onclick = () => afficherFormulaireProfil(data);
-            } else {
-                afficherFormulaireProfil();
-            }
-        }
-        function afficherFormulaireProfil(data = {}) {
-            moi.innerHTML = `
-        <form id="form">
-            <div class="form-group">
-                <label class="form-label">Prénom</label>
-                <input class="form-input" type="text" name="prenom" value="${data.prenom || ""}" placeholder="Entrez votre prénom" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Ville</label>
-                <input class="form-input" type="text" name="ville" value="${data.ville || ""}" required placeholder="Entrez votre ville">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Expérience</label>
-                <input class="form-input" type="text" name="statut" value="${data.statut || ""}" placeholder="Votre expérience">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Compétences</label>
-                <textarea class="form-textarea" name="competences" required placeholder="Quelles sont vos compétences ?">${data.competences || ""}</textarea>
-            </div>
-            <div class="form-actions">
-                <button type="submit" class="btn btn-success">
-                    <i class="fas fa-save"></i> Enregistrer
-                </button>
-            </div>
-        </form>
-    `;
-            document.getElementById("form").onsubmit = async function (e) {
-                e.preventDefault();
-                const user = auth.currentUser;
-                if (!user) return Swal.fire('Attention', 'Connecte-toi d\'abord', 'warning');
-                const formData = new FormData(this);
-                const profil = Object.fromEntries(formData.entries());
-                await setDoc(doc(db, "users", user.uid), profil, { merge: true });
-                Swal.fire('Succès', 'Profil enregistré !', 'success');
-                afficherProfil();
-                formulaire.style.display = "none";
-                chatDiv.style.display = "none";
-                container.style.display = "none";           
-            };
-        }
-
-        //  Afficher les profils des utilisateurs
-        async function afficherProfilsUtilisateurs() {
-            moi.style.display = "none";
-            const profileHeader = document.getElementById("profile-header");
-            if (profileHeader) profileHeader.style.display = "none";
-
-            formulaire.style.display = "none";
-            chatDiv.style.display = "none";
-            container.style.display = "block";
-            container.innerHTML = "<h3 class='text-center mb-4'><i class='fas fa-users'></i> Profils des utilisateurs</h3>";
-            const usersSnap = await getDocs(collection(db, "users"));
-            if (usersSnap.empty) {
-                container.innerHTML += `<div class="card text-center"><p>Aucun profil trouvé.</p></div>`;
-                return;
-            }
-            usersSnap.forEach(docu => {
-                const data = docu.data();
-                const uid = docu.id;
-                const isMe = auth.currentUser && auth.currentUser.uid === uid;
-                const div = document.createElement("div");
-                div.className = "profile-card";
-                div.innerHTML = `
-            <div class="profile-info">
-                ${data.photoURL ? `<img src="${data.photoURL}" class="profile-avatar">` : ""}
-                <div class="profile-details">
-                    <h4><i class="fas fa-user"></i> ${data.prenom || data.nom || "Utilisateur"}</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> ${data.ville || "Ville non spécifiée"}</p>
-                    <p><i class="fas fa-clock"></i> Expérience: ${data.statut || "Non spécifiée"}</p>
-                    <p><i class="fas fa-tools"></i> ${data.competences || "Compétences non spécifiées"}</p>
-                </div>
-            </div>
-            ${!isMe ? `<button class="contact-btn" data-uid="${uid}"><i class="fas fa-phone"></i> Contacter</button>` : ""}
-        `;
-                container.appendChild(div);
-                if (!isMe) {
-                    div.querySelector(".contact-btn").addEventListener("click", function () {
-                        window.ouvrirChatPrive(uid);
-                    });
-                }
-            });
-        }
-
-        // Lire les conversations
-        async function lireConversations() {
-            moi.style.display = "none";
-            const profileHeader = document.getElementById("profile-header");
-            if (profileHeader) profileHeader.style.display = "none";
-
-            formulaire.style.display = "none";
-            chatDiv.style.display = "none";
-            container.style.display = "block";
-            container.innerHTML = "<h3 class='text-center mb-4'><i class='fas fa-comments'></i> Mes Conversations</h3>";
-
-            const currentUser = auth.currentUser;
-            if (!currentUser) return Swal.fire('Attention', 'Connecte-toi d\'abord', 'warning');
-
-            const uid = currentUser.uid;
-            const jobsSnap = await getDocs(collection(db, "jobs"));
-            let total = 0;
-
-            for (const doc of jobsSnap.docs) {
-                const job = doc.data();
-                const jobId = doc.id;
-                if (job.conclu) continue;
-
-                const estPosteur = job.posteurUID === uid;
-                const estPostulant = (job.postulants || []).includes(uid);
-
-                if (!estPosteur && !estPostulant) continue;
-
-                const div = document.createElement("div");
-                div.className = "card";
-                div.innerHTML = `
-          <h4><i class="fas fa-tasks"></i> ${job.titre}</h4>
-          <p><i class="fas fa-coins"></i> Prix: ${job.prix} FCFA</p>
-          <p><i class="fas fa-info-circle"></i> ${job.description}</p>
-        `;
-
-                if (estPosteur && Array.isArray(job.postulants)) {
-                    for (const postulantUID of job.postulants) {
-                        let postulantNom = "Utilisateur";
-                        try {
-                            const postulantDoc = await getDoc(doc(db, "users", postulantUID));
-                            if (postulantDoc.exists()) {
-                                postulantNom = postulantDoc.data().nom || "Utilisateur";
-                            }
-                        } catch (e) { }
-
-                        const btnId = `chat_${jobId}_${postulantUID}`;
-                        const voirProfilBtnId = `voirProfil_${jobId}_${postulantUID}`;
-                        div.innerHTML += `
-              <p><strong><i class="fas fa-user"></i> Postulant:</strong> ${postulantNom}</p>
-              <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-                <button class="btn btn-primary" id="${btnId}">
-                  <i class="fas fa-comments"></i> Ouvrir chat
-                </button>
-                <button class="btn btn-secondary" id="${voirProfilBtnId}">
-                  <i class="fas fa-user"></i> Voir le profil
-                </button>
-              </div>
-            `;
-                        setTimeout(() => {
-                            const btn = document.getElementById(btnId);
-                            if (btn) {
-                                btn.addEventListener("click", () => {
-                                    ouvrirChat(jobId, uid, postulantUID);
-                                });
-                            }
-
-                            const voirProfilBtn = document.getElementById(voirProfilBtnId);
-                            if (voirProfilBtn) {
-                                voirProfilBtn.addEventListener("click", async () => {
-                                    try {
-                                        const userDoc = await getDoc(doc(db, "users", postulantUID));
-                                        if (userDoc.exists()) {
-                                            const data = userDoc.data();
-                                            Swal.fire('👤 Profil de ' + (data.prenom || data.nom || "Utilisateur"), '\n\n🏙️ Ville: ' + (data.ville || "Non spécifiée") + '\n⏰ Expérience: ' + (data.statut || "Non spécifiée") + '\n🛠️ Compétences: ' + (data.competences || "Non spécifiées"), 'info');
-                                        } else {
-                                            Swal.fire('Erreur', 'Profil non trouvé', 'error');
-                                        }
-                                    } catch (error) {
-                                        Swal.fire('Erreur', 'Erreur lors du chargement du profil', 'error');
-                                    }
-                                });
-                            }
-                        }, 0);
                     }
                 }
+            }
 
-                if (estPostulant && !estPosteur) {
-                    let posteurNom = "Utilisateur";
-                    try {
-                        const posteurDoc = await getDoc(doc(db, "users", job.posteurUID));
-                        if (posteurDoc.exists()) {
-                            posteurNom = posteurDoc.data().nom || "Utilisateur";
-                        }
-                    } catch (e) { }
-
-                    const btnId = `chat_${jobId}_${job.posteurUID}`;
-                    div.innerHTML += `
-            <p><strong><i class="fas fa-user"></i> Posteur:</strong> ${posteurNom}</p>
-            <button class="btn btn-primary" id="${btnId}">
-              <i class="fas fa-comments"></i> Ouvrir chat
-            </button>
-          `;
-
-                    setTimeout(() => {
-                        const btn = document.getElementById(btnId);
-                        if (btn) {
-                            btn.addEventListener("click", () => {
-                                ouvrirChat(jobId, uid, job.posteurUID);
-                            });
-                        }
-                    }, 0);
+            nextSong() {
+                if (!this.songs.length) return;
+                
+                let nextIndex;
+                if (this.isShuffled) {
+                    nextIndex = Math.floor(Math.random() * this.songs.length);
+                } else {
+                    nextIndex = (this.currentSongIndex + 1) % this.songs.length;
                 }
-
-                container.appendChild(div);
-                total++;
+                
+                this.playSong(nextIndex);
             }
 
-            if (total === 0) {
-                container.innerHTML += `
-          <div class="card text-center">
-            <i class="fas fa-inbox" style="font-size: 3rem; color: var(--text-light); margin-bottom: 1rem;"></i>
-            <p>Tu n'as aucune conversation.</p>
-          </div>`;
+            previousSong() {
+                if (!this.songs.length) return;
+                
+                let prevIndex;
+                if (this.isShuffled) {
+                    prevIndex = Math.floor(Math.random() * this.songs.length);
+                } else {
+                    prevIndex = this.currentSongIndex === 0 ? this.songs.length - 1 : this.currentSongIndex - 1;
+                }
+                
+                this.playSong(prevIndex);
             }
 
-            const convSnap = await getDocs(collection(db, "conversations"));
-            for (const convDoc of convSnap.docs) {
-                const convId = convDoc.id;
-                if (convId.includes(currentUser.uid)) {
-                    const otherUid = convId.split("_").find(uid => uid !== currentUser.uid);
-                    // Récupère le dernier message
-                    const messagesRef = collection(db, "conversations", convId, "messages");
-                    const lastMsgSnap = await getDocs(query(messagesRef, orderBy("timestamp", "desc"), limit(1)));
-                    let lastMsg = null;
-                    lastMsgSnap.forEach(doc => lastMsg = doc.data());
-                    let preview = "";
-                    if (lastMsg) {
-                        const date = new Date(lastMsg.timestamp).toLocaleString();
-                        preview = `<div style="color: #888; font-size: 0.9em; margin-bottom: 0.5em;">
-                            <b>${lastMsg.auteur === currentUser.uid ? 'Moi' : 'Lui/Elle'}:</b> ${lastMsg.text} <span style="float:right;">${date}</span>
-                        </div>`;
+            toggleRepeat() {
+                this.isRepeating = !this.isRepeating;
+                this.repeatBtn.classList.toggle('active');
+                this.showToast(this.isRepeating ? 'Répétition activée' : 'Répétition désactivée');
+            }
+
+            toggleShuffle() {
+                this.isShuffled = !this.isShuffled;
+                this.shuffleBtn.classList.toggle('active');
+                this.showToast(this.isShuffled ? 'Lecture aléatoire activée' : 'Lecture aléatoire désactivée');
+            }
+
+            handleSongEnd() {
+                if (this.isRepeating) {
+                    this.audio.currentTime = 0;
+                    this.audio.play();
+                } else {
+                    this.nextSong();
+                }
+            }
+
+            updateProgress() {
+                if (this.audio.duration) {
+                    const progress = (this.audio.currentTime / this.audio.duration) * 100;
+                    this.progress.style.width = progress + '%';
+                    this.currentTime.textContent = this.formatTime(this.audio.currentTime);
+                }
+            }
+
+            updateDuration() {
+                this.totalTime.textContent = this.formatTime(this.audio.duration);
+            }
+
+            seek(e) {
+                if (!this.audio.duration) return;
+                
+                const rect = this.progressBar.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const percentage = clickX / rect.width;
+                
+                this.audio.currentTime = this.audio.duration * percentage;
+            }
+
+            setVolume(value) {
+                this.audio.volume = value / 100;
+                this.volumeValue.textContent = value + '%';
+            }
+
+            toggleFavorite(index) {
+                this.songs[index].favorite = !this.songs[index].favorite;
+                this.renderPlaylist();
+                this.updateStats();
+                this.saveToStorage();
+                
+                const status = this.songs[index].favorite ? 'ajoutée aux' : 'supprimée des';
+                this.showToast(`Chanson ${status} favoris`);
+            }
+
+            editSong(index) {
+                this.editingSongIndex = index;
+                const song = this.songs[index];
+                
+                document.getElementById('editTitle').value = song.title;
+                document.getElementById('editArtist').value = song.artist;
+                
+                this.editModal.style.display = 'block';
+            }
+
+            saveEdit() {
+                if (this.editingSongIndex === -1) return;
+                
+                const song = this.songs[this.editingSongIndex];
+                song.title = document.getElementById('editTitle').value;
+                song.artist = document.getElementById('editArtist').value;
+                
+                this.renderPlaylist();
+                this.saveToStorage();
+                this.closeModal();
+                this.showToast('Chanson modifiée avec succès');
+                
+                if (this.currentSongIndex === this.editingSongIndex) {
+                    this.currentTitle.textContent = song.title;
+                    this.currentArtist.textContent = song.artist;
+                }
+            }
+
+            closeModal() {
+                this.editModal.style.display = 'none';
+                this.editingSongIndex = -1;
+            }
+
+            deleteSong(index) {
+                if (confirm('Êtes-vous sûr de vouloir supprimer cette chanson ?')) {
+                    this.songs.splice(index, 1);
+                    
+                    if (this.currentSongIndex >= index) {
+                        this.currentSongIndex = Math.max(0, this.currentSongIndex - 1);
                     }
-                    const div = document.createElement("div");
-                    div.className = "card";
-                    div.innerHTML = `
-                        <h4><i class="fas fa-user"></i> Conversation privée</h4>
-                        ${preview}
-                        <button class="btn btn-primary" onclick="window.ouvrirChatPriveGeneral('${currentUser.uid}', '${otherUid}')">
-                            <i class="fas fa-comments"></i> Ouvrir chat
-                        </button>
-                    `;
-                    container.appendChild(div);
+                    
+                    this.renderPlaylist();
+                    this.updateStats();
+                    this.saveToStorage();
+                    this.showToast('Chanson supprimée');
                 }
+            }
+
+            moveSong(index, direction) {
+                if (direction === 'up' && index > 0) {
+                    [this.songs[index], this.songs[index - 1]] = [this.songs[index - 1], this.songs[index]];
+                    if (this.currentSongIndex === index) this.currentSongIndex--;
+                    else if (this.currentSongIndex === index - 1) this.currentSongIndex++;
+                } else if (direction === 'down' && index < this.songs.length - 1) {
+                    [this.songs[index], this.songs[index + 1]] = [this.songs[index + 1], this.songs[index]];
+                    if (this.currentSongIndex === index) this.currentSongIndex++;
+                    else if (this.currentSongIndex === index + 1) this.currentSongIndex--;
+                }
+                
+                this.renderPlaylist();
+                this.saveToStorage();
+            }
+
+            setFilter(filter) {
+                this.currentFilter = filter;
+                
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.filter === filter) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                this.renderPlaylist();
+            }
+
+            searchSongs(query) {
+                this.renderPlaylist();
+            }
+
+            sortSongs(sortBy) {
+                this.renderPlaylist();
+            }
+
+            updateStats() {
+                this.songCount.textContent = this.songs.length;
+                
+                let totalSeconds = 0;
+                this.songs.forEach(song => {
+                    totalSeconds += this.parseDuration(song.duration);
+                });
+                this.totalDuration.textContent = this.formatTime(totalSeconds);
+                
+                const favorites = this.songs.filter(song => song.favorite).length;
+                this.favoriteCount.textContent = favorites;
+            }
+
+            formatTime(seconds) {
+                if (isNaN(seconds)) return '0:00';
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            parseDuration(duration) {
+                const parts = duration.split(':');
+                return parseInt(parts[0]) * 60 + parseInt(parts[1] || 0);
+            }
+
+            handleKeyboard(e) {
+                switch(e.code) {
+                    case 'Space':
+                        e.preventDefault();
+                        this.togglePlayPause();
+                        break;
+                    case 'ArrowRight':
+                        if (e.ctrlKey) {
+                            e.preventDefault();
+                            this.nextSong();
+                        }
+                        break;
+                    case 'ArrowLeft':
+                        if (e.ctrlKey) {
+                            e.preventDefault();
+                            this.previousSong();
+                        }
+                        break;
+                    case 'ArrowUp':
+                        if (e.ctrlKey) {
+                            e.preventDefault();
+                            const vol = Math.min(100, parseInt(this.volumeSlider.value) + 10);
+                            this.volumeSlider.value = vol;
+                            this.setVolume(vol);
+                        }
+                        break;
+                    case 'ArrowDown':
+                        if (e.ctrlKey) {
+                            e.preventDefault();
+                            const vol = Math.max(0, parseInt(this.volumeSlider.value) - 10);
+                            this.volumeSlider.value = vol;
+                            this.setVolume(vol);
+                        }
+                        break;
+                }
+            }
+
+            setupDragAndDrop() {
+                const container = document.querySelector('.container');
+                
+                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                    container.addEventListener(eventName, (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    });
+                });
+
+                ['dragenter', 'dragover'].forEach(eventName => {
+                    container.addEventListener(eventName, () => {
+                        container.classList.add('drag-over');
+                    });
+                });
+
+                ['dragleave', 'drop'].forEach(eventName => {
+                    container.addEventListener(eventName, () => {
+                        container.classList.remove('drag-over');
+                    });
+                });
+
+                container.addEventListener('drop', (e) => {
+                    const files = e.dataTransfer.files;
+                    this.handleFiles(files);
+                });
+            }
+
+            showToast(message) {
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => toast.classList.add('show'), 100);
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => document.body.removeChild(toast), 300);
+                }, 3000);
+            }
+
+            saveToStorage() {
+                const data = {
+                    songs: this.songs.map(song => ({
+                        title: song.title,
+                        artist: song.artist,
+                        duration: song.duration,
+                        favorite: song.favorite,
+                        dateAdded: song.dateAdded,
+                        id: song.id
+                    })),
+                    currentSongIndex: this.currentSongIndex,
+                    volume: this.volumeSlider.value,
+                    isShuffled: this.isShuffled,
+                    isRepeating: this.isRepeating
+                };
+                
+                // Note: localStorage n'est pas disponible dans les artifacts Claude
+                // Cette fonction est préparée pour un environnement normal
+                try {
+                    if (typeof Storage !== "undefined") {
+                        localStorage.setItem('musicPlayerData', JSON.stringify(data));
+                    }
+                } catch(e) {
+                    console.log('Sauvegarde non disponible dans cet environnement');
+                }
+            }
+
+            loadFromStorage() {
+                try {
+                    if (typeof Storage !== "undefined") {
+                        const data = localStorage.getItem('musicPlayerData');
+                        if (data) {
+                            const parsed = JSON.parse(data);
+                            this.currentSongIndex = parsed.currentSongIndex || 0;
+                            this.volumeSlider.value = parsed.volume || 50;
+                            this.setVolume(this.volumeSlider.value);
+                            this.isShuffled = parsed.isShuffled || false;
+                            this.isRepeating = parsed.isRepeating || false;
+                            
+                            if (this.isShuffled) this.shuffleBtn.classList.add('active');
+                            if (this.isRepeating) this.repeatBtn.classList.add('active');
+                        }
+                    }
+                } catch(e) {
+                    console.log('Chargement non disponible dans cet environnement');
+                }
+            }
+
+            // Export playlist
+            exportPlaylist() {
+                const playlist = {
+                    name: 'Ma Playlist',
+                    songs: this.songs.map(song => ({
+                        title: song.title,
+                        artist: song.artist,
+                        duration: song.duration,
+                        favorite: song.favorite
+                    })),
+                    createdAt: new Date().toISOString()
+                };
+                
+                const dataStr = JSON.stringify(playlist, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(dataBlob);
+                link.download = 'playlist.json';
+                link.click();
+                
+                this.showToast('Playlist exportée!');
+            }
+
+            // Visualizer animation
+            startVisualizer() {
+                const bars = document.querySelectorAll('.eq-bar');
+                
+                if (this.isPlaying) {
+                    bars.forEach((bar, index) => {
+                        const height = Math.random() * 50 + 10;
+                        bar.style.height = height + 'px';
+                    });
+                }
+                
+                requestAnimationFrame(() => this.startVisualizer());
             }
         }
 
-        // Liaison des boutons
-        window.addEventListener("DOMContentLoaded", () => {
-            if (get("btnCreerCompte")) get("btnCreerCompte").addEventListener("click", creerCompte);
-            if (get("btnSeConnecter")) get("btnSeConnecter").addEventListener("click", seConnecter);
-
-            if (get("posterBtn")) get("posterBtn").addEventListener("click", envoyer);
-            if (get("btnAcceuil")) get("btnAcceuil").addEventListener("click", afficheracceuil);
-            if (get("btnPosterJob")) get("btnPosterJob").addEventListener("click", afficherformulaire);
-            if (get("btnConversations")) get("btnConversations").addEventListener("click", lireConversations);
-            if (get("envoyer")) get("envoyer").addEventListener("click", envoyerMessage);
-            if (get("conclure")) get("conclure").addEventListener("click", conclureJob);
-            if (get("fermerChat")) get("fermerChat").addEventListener("click", fermerChat);
-            if (get("btnAnnuler")) get("btnAnnuler").addEventListener("click", afficheracceuil);
-            if (get("voirProfils")) get("voirProfils").addEventListener("click", afficherProfilsUtilisateurs);
-            if (get("profil")) get("profil").addEventListener("click", afficherProfil);
-        });
-
-        // Rendre les fonctions globales pour les boutons 
-        window.postuler = postuler;
-        window.ouvrirChat = ouvrirChat;
-        window.envoyerMessage = envoyerMessage;
-        window.fermerChat = fermerChat;
-        window.conclureJob = conclureJob;
-        window.afficherProfil = afficherProfil;
-        window.afficherProfilsUtilisateurs = afficherProfilsUtilisateurs;
-
-        async function ouvrirChatPriveGeneral(uid1, uid2) {
-            console.log('ouvrirChatPriveGeneral appelé avec', uid1, uid2);
-            idJobEnCours = null;
-            idConversation = [uid1, uid2].sort().join("_");
-            moi.style.display = "none";
-            const profileHeader = document.getElementById("profile-header");
-            if (profileHeader) profileHeader.style.display = "none";
-
-            container.style.display = "none";
-            formulaire.style.display = "none";
-            chatDiv.style.display = "block";
-            messagesDiv.innerHTML = "";
-            const messagesRef = collection(db, "conversations", idConversation, "messages");
-            const q = query(messagesRef, orderBy("timestamp", "asc"));
-            onSnapshot(q, async (snapshot) => {
-                messagesDiv.innerHTML = "";
-                const messagesWithAuthors = await Promise.all(snapshot.docs.map(async docu => {
-                    const msg = docu.data();
-                    const auteurDoc = await getDoc(doc(db, "users", msg.auteur));
-                    const auteurNom = auteurDoc.exists() ? (auteurDoc.data().prenom || auteurDoc.data().nom) : "Inconnu";
-                    return { ...msg, auteurNom };
-                }));
-                messagesWithAuthors.forEach(msg => {
-                    const div = document.createElement("div");
-                    const isCurrentUser = msg.auteur === uid1;
-                    div.className = `message ${isCurrentUser ? 'message-sent' : 'message-received'}`;
-                    div.innerHTML = `<div class=\"message-author\">${msg.auteurNom}</div>${msg.text}`;
-                    messagesDiv.appendChild(div);
-                });
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            });
-            const autreDoc = await getDoc(doc(db, "users", uid2));
-            const autreNom = autreDoc.exists() ? (autreDoc.data().prenom || autreDoc.data().nom) : "Inconnu";
-            document.querySelector('.chat-title').innerHTML = `<i class=\"fas fa-comments\"></i> Chat avec ${autreNom}`;
-        }
-        window.ouvrirChatPriveGeneral = ouvrirChatPriveGeneral;
-
-        async function ouvrirChatPrive(otherUid) {
-            const uid1 = auth.currentUser.uid;
-            const uid2 = otherUid;
-            await window.ouvrirChatPriveGeneral(uid1, uid2);
-        }
-        window.ouvrirChatPrive = ouvrirChatPrive;
-
-        // Gestion globale des erreurs
-        window.addEventListener('error', (event) => {
-            console.error('Erreur JavaScript:', event.error);
-            Swal.fire('Erreur', 'Une erreur inattendue s\'est produite. Veuillez rafraîchir la page.', 'error');
-        });
-
-        window.addEventListener('unhandledrejection', (event) => {
-            console.error('Promesse rejetée:', event.reason);
-            Swal.fire('Erreur', 'Une erreur réseau s\'est produite. Vérifiez votre connexion.', 'error');
+        // Initialize player
+        let player;
+        document.addEventListener('DOMContentLoaded', () => {
+            player = new MusicPlayer();
+            player.startVisualizer();
         });
     </script>
 </body>
